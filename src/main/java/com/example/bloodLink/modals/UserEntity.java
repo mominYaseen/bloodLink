@@ -54,9 +54,10 @@ public class UserEntity {
     @Column(name = "accountCreatedDate")
     private LocalDateTime createdAt;
 
-    @Column(name = "donationDate")
-    private LocalDateTime donatedDate;
+    @Column(name = "eligibleToDonate")
+    private boolean eligibleToDonate;
+    @Column(name = "lastDonationDate")
+    private LocalDateTime LastDonatedDate;
     @Column(name = "nextDonationDate")
-
     private LocalDateTime nextDonationDate;
 }
