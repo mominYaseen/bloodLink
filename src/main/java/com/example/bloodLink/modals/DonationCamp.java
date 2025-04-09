@@ -38,12 +38,46 @@ public class DonationCamp {
     private String contactNumber;
     private String email;
 
+    private boolean isApproved = false;
+
+    public DonationCamp() {
+    }
+
+    public DonationCamp(String campName, String organizerName, String address, String city, String state, String country, double latitude, double longitude, LocalDate campDate, LocalTime startTime, LocalTime endTime, int totalSlots, int slotsBooked, int slotsLeft, LocalDateTime createdAt, String contactNumber, String email, boolean isApproved) {
+        this.campName = campName;
+        this.organizerName = organizerName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.campDate = campDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.totalSlots = totalSlots;
+        this.slotsBooked = slotsBooked;
+        this.slotsLeft = slotsLeft;
+        this.createdAt = createdAt;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.isApproved = isApproved;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters and Setters
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

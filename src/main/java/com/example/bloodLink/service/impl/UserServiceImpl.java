@@ -18,8 +18,10 @@ public class UserServiceImpl implements UserService {
         return userRepo.findUserByEmail(email);
     }
 
+
+
     @Override
-    public boolean checkEligibility( EligibilityFormDTO form) {
+    public boolean checkIfEligible( EligibilityFormDTO form) {
 
 
         if (!form.isFeelingWell() || form.isRecentDonation() ||
