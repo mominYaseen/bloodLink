@@ -1,5 +1,8 @@
 package com.example.bloodLink.modals;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,10 +10,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "adminTable")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property ="id"
+)
 public class SubAdmin implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +44,16 @@ public class SubAdmin implements UserDetails {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+
+    @ManyToOne
+    @JoinColumn(name = "super_admin_id", referencedColumnName = "id",nullable = false)
+    @JsonIgnore
+    private SuperAdmin superAdmin;
+
+    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true , mappedBy = "sub_admin")
+    private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
+
+
     public SubAdmin() {
     }
 
@@ -56,7 +74,21 @@ public class SubAdmin implements UserDetails {
         this.createdAt = LocalDateTime.now();
     }
 
+    public List<DonationCamp> getListOfDonationCampRequested() {
+        return listOfDonationCampRequested;
+    }
 
+    public void setListOfDonationCampRequested(List<DonationCamp> listOfDonationCampRequested) {
+        this.listOfDonationCampRequested = listOfDonationCampRequested;
+    }
+
+    public SuperAdmin getSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(SuperAdmin superAdmin) {
+        this.superAdmin = superAdmin;
+    }
 
     public Long getId() {
         return id;

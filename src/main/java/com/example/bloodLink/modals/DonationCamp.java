@@ -40,6 +40,11 @@ public class DonationCamp {
 
     private boolean isApproved = false;
 
+    @ManyToOne
+    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
+    private SubAdmin subAdmin;
+
+
     public DonationCamp() {
     }
 

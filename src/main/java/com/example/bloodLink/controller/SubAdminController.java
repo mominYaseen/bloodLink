@@ -87,5 +87,12 @@ public class SubAdminController {
         }
     }
 
+    // method for getting all donation camp requests
+
+    @GetMapping("/get-requested-camps")
+    public ResponseEntity<?> getAllRequestedCamps()
+    {
+        return null;
+    }
 
 }
