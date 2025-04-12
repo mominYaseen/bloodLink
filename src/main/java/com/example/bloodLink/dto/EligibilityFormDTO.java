@@ -1,8 +1,6 @@
 package com.example.bloodLink.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 
 
 public class EligibilityFormDTO {

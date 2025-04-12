@@ -1,10 +1,17 @@
 package com.example.bloodLink.modals;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity(name = "adminTable")
-public class Admin {
+public class SubAdmin implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,26 +30,45 @@ public class Admin {
     @Column(name="assignedHospital")
     private String assignedHospital; // Optional: if managing specific blood bank/hospital
 
-//    @Column(name = "role")
-//    private String role = "ADMIN";
+    @Column(name = "role")
+    private String role = "ROLE_ADMIN";
 
-    public Admin() {
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    public SubAdmin() {
     }
 
-    public Admin(String firstName, String lastName, String email, String password, String phoneNumber, String assignedHospital, String role) {
+    public SubAdmin(String firstName, String lastName, String email, String password, String phoneNumber, String assignedHospital, String role, LocalDateTime createdAt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.assignedHospital = assignedHospital;
-//        this.role = role;
+        this.role = role;
+        this.createdAt = createdAt;
     }
+
+    //don't have to send time in the json , with this , it will take the current time from the system
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+
 
     public Long getId() {
         return id;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -71,8 +97,38 @@ public class Admin {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role));
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 
     public void setPassword(String password) {
@@ -95,17 +151,17 @@ public class Admin {
         this.assignedHospital = assignedHospital;
     }
 
-//    public String getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(String role) {
-//        this.role = role;
-//    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {
-        return "Admin{" +
+        return "SubAdmin{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
