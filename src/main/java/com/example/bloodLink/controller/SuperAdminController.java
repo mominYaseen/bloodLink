@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,7 @@ public class SuperAdminController {
         if (admin == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("INCORRECT DATA SEND");
         }else {
+            admin.setCreatedAt(LocalDateTime.now());
             return ResponseEntity.ok(superAdminService.registerSubAdmin(admin));
         }
 
@@ -47,7 +49,7 @@ public class SuperAdminController {
         // and then fetch List<SubAdmin>
 
         //dummy email
-        String email = "admin@gmail.com";
+        String email = "admin@email.com";
         SuperAdmin superAdmin = superAdminService.findByEmail(email);
         if (superAdmin == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SUPER_ADMIN NOT FOUND");

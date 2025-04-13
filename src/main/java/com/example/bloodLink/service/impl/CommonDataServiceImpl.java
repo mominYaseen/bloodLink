@@ -13,6 +13,7 @@ import java.util.List;
 public class CommonDataServiceImpl implements CommonDataService {
 
 
+    // Donation camp related shared services
     @Autowired
     private DonationCampService donationCampService;
 

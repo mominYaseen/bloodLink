@@ -1,6 +1,9 @@
 package com.example.bloodLink.modals;
 
 
+import com.example.bloodLink.dto.SubAdminDTO;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,6 +11,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "donation_camps")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property ="id"
+)
 public class DonationCamp {
 
     @Id
@@ -48,10 +55,9 @@ public class DonationCamp {
     private boolean isActive;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
-//    private SubAdmin subAdmin;
-
+    @ManyToOne
+    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
+    private SubAdmin subAdmin;
 
 
     public DonationCamp() {
@@ -68,6 +74,13 @@ public class DonationCamp {
     }
 
     // Getters and Setters
+    public SubAdminDTO getSubAdmin() {
+        return new SubAdminDTO(subAdmin);
+    }
+
+    public void setSubAdmin(SubAdmin subAdmin) {
+        this.subAdmin = subAdmin;
+    }
 
     public boolean isActive() {
         return isActive;

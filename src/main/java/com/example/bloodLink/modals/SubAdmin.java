@@ -50,8 +50,8 @@ public class SubAdmin implements UserDetails {
     @JsonIgnore
     private SuperAdmin superAdmin;
 //
-//    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true , mappedBy = "sub_admin")
-//    private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true , mappedBy = "subAdmin")
+    private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
 
 
     public SubAdmin() {
@@ -68,19 +68,19 @@ public class SubAdmin implements UserDetails {
         this.createdAt = createdAt;
     }
 
-    //don't have to send time in the json , with this , it will take the current time from the system
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+    // the super admin sends it during the account creation
+//    @PrePersist
+//    protected void onCreate() {
+//        this.createdAt = LocalDateTime.now();
+//    }
+
+    public List<DonationCamp> getListOfDonationCampRequested() {
+        return listOfDonationCampRequested;
     }
 
-//    public List<DonationCamp> getListOfDonationCampRequested() {
-//        return listOfDonationCampRequested;
-//    }
-//
-//    public void setListOfDonationCampRequested(List<DonationCamp> listOfDonationCampRequested) {
-//        this.listOfDonationCampRequested = listOfDonationCampRequested;
-//    }
+    public void setListOfDonationCampRequested(List<DonationCamp> listOfDonationCampRequested) {
+        this.listOfDonationCampRequested = listOfDonationCampRequested;
+    }
 
     public SuperAdmin getSuperAdmin() {
         return superAdmin;

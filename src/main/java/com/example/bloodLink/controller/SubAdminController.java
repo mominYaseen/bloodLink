@@ -28,7 +28,7 @@ public class SubAdminController {
         DUMMY_SUB_ADMIN.setEmail("ayaan.qadri@hospital.com");
         DUMMY_SUB_ADMIN.setPassword("securePass123"); // Note: Passwords should be encrypted in real apps
         DUMMY_SUB_ADMIN.setPhoneNumber("+91-9123456780");
-        DUMMY_SUB_ADMIN.setAssignedHospital("Kashmir Central Blood Bank");
+        DUMMY_SUB_ADMIN.setAssignedHospital("Kashmir Cexcntral Blood Bank");
     }
 
     //    //open blood donation camp
@@ -75,9 +75,9 @@ public class SubAdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("SubAdmin is not assigned to any hospital.");
         }
 
-        // Set organizer name from admin
-//        camp.setOrganizerName(DUMMY_SUB_ADMIN.getAssignedHospital());
-
+//         Set organizer name from admin
+        camp.setOrganizerName(DUMMY_SUB_ADMIN.getAssignedHospital());
+        camp.setSubAdmin(DUMMY_SUB_ADMIN); // get this from the security context
         try {
             DonationCamp savedCamp = adminService.reqDonationCamp(camp);
             return ResponseEntity.ok(savedCamp);
