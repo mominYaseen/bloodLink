@@ -1,8 +1,10 @@
 package com.example.bloodLink.controller;
 
 import com.example.bloodLink.dto.SubAdminDTO;
+import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.SuperAdmin;
+import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ public class SuperAdminController {
     private SuperAdminService superAdminService;
 
 
+    @Autowired
+    private CommonDataService commonDataService;
 
 
     // function for creating subAdmin
@@ -61,12 +65,27 @@ public class SuperAdminController {
 
     }
 
-    // function for accepting blood donation camps
-
-    @PostMapping("/get-requested-camps")
+    // function for seeing  blood donation camps that are not accepted yet
+    @GetMapping("/get-requested-camps")
     public ResponseEntity<?> getAllRequestedCamps()
     {
-        return null;
+        List<DonationCamp> allNonApprovedListOfDonationCamps = commonDataService.getAllNonApprovedListOfDonationCamps();
+        // Edge Case 1: No donation camps found
+        if (allNonApprovedListOfDonationCamps == null || allNonApprovedListOfDonationCamps.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No requested donation camps found.");
+        }
+        return ResponseEntity.ok(allNonApprovedListOfDonationCamps);
+    }
+
+    // function for approving the donation camp
+    @PutMapping("/aprove-camp/{campId}")
+    public ResponseEntity<?> approveDonationCamp(@PathVariable Long campId){
+
+        if (campId == null ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE RECHECK campId");
+        }
+       return ResponseEntity.ok(commonDataService.approveDonationCamp(campId));
+
     }
 
 

@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface DonationCampService {
     List<DonationCamp> findByIsApprovedFalse();
+    DonationCamp approveDonationCamp(Long campId);
 
 }

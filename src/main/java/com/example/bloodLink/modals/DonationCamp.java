@@ -15,6 +15,7 @@ public class DonationCamp {
     private Long id;
 
     private String campName;
+    @Column(unique = true)
     private String organizerName;
 
     private String address; // from frontend using js
@@ -35,14 +36,18 @@ public class DonationCamp {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(unique = true)
     private String contactNumber;
+
+    @Column(unique = true)
+
     private String email;
 
     private boolean isApproved = false;
 
-    @ManyToOne
-    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
-    private SubAdmin subAdmin;
+//    @ManyToOne
+//    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
+//    private SubAdmin subAdmin;
 
 
     public DonationCamp() {
