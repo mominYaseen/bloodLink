@@ -43,43 +43,39 @@ public class DonationCamp {
 
     private String email;
 
-    private boolean isApproved = false;
+    private boolean isApproved ;
+
+    private boolean isActive;
+
 
 //    @ManyToOne
 //    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
 //    private SubAdmin subAdmin;
 
 
+
     public DonationCamp() {
     }
 
-    public DonationCamp(String campName, String organizerName, String address, String city, String state, String country, double latitude, double longitude, LocalDate campDate, LocalTime startTime, LocalTime endTime, int totalSlots, int slotsBooked, int slotsLeft, LocalDateTime createdAt, String contactNumber, String email, boolean isApproved) {
-        this.campName = campName;
-        this.organizerName = organizerName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.campDate = campDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.totalSlots = totalSlots;
-        this.slotsBooked = slotsBooked;
-        this.slotsLeft = slotsLeft;
-        this.createdAt = createdAt;
-        this.contactNumber = contactNumber;
-        this.email = email;
-        this.isApproved = isApproved;
-    }
 
     @PrePersist
     protected void onCreate() {
+        this.slotsBooked = 0;
+        this.slotsLeft=0;
+        this.isActive=false;
+        this.isApproved = false;
         this.createdAt = LocalDateTime.now();
     }
 
     // Getters and Setters
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public boolean isApproved() {
         return isApproved;

@@ -32,4 +32,16 @@ public class CommonDataServiceImpl implements CommonDataService {
     public DonationCamp approveDonationCamp(Long campId) {
         return donationCampService.approveDonationCamp(campId);
     }
+
+    @Override
+    public List<DonationCamp> getAllApprovedListOfDonationCamps() {
+       return donationCampService.findByIsApprovedTrue();
+    }
+
+    @Override
+    public List<DonationCamp> getAllActiveListOfDonationCamps() {
+        return donationCampService.findByIsActiveTrue();
+    }
+
+
 }

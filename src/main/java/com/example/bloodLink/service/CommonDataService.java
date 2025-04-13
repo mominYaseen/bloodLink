@@ -6,9 +6,17 @@ import java.util.List;
 
 public interface CommonDataService {
 
-    //get all donation camps that are not yet approved (for super admin)
+    //contains Donation camp data that is not approved by the admin (for super admin)
     List<DonationCamp> getAllNonApprovedListOfDonationCamps();
 
     // approve/activate donationCamp (for super admin)
     DonationCamp approveDonationCamp(Long campId);
+
+    //contains Donation camp data that is  approved by the admin (for super admin)
+    List<DonationCamp> getAllApprovedListOfDonationCamps();
+
+    //contains Donation camp data that is  currently active (for super admin)
+    List<DonationCamp> getAllActiveListOfDonationCamps();
+
+
 }

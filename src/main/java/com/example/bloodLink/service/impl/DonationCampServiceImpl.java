@@ -15,19 +15,37 @@ public class DonationCampServiceImpl implements DonationCampService {
     @Autowired
     private DonationCampRepo donationCampRepo;
 
+
+    // getting list of donation camp that are not yet approved by the super admin
     @Override
     public List<DonationCamp> findByIsApprovedFalse() {
         return donationCampRepo.findByIsApprovedFalse();
     }
 
+
+    // approving the donation camp (done by super admin)
     @Override
     public DonationCamp approveDonationCamp(Long campId) {
         DonationCamp donationCamp = donationCampRepo.findById(campId)
                 .orElseThrow(()->new RuntimeException("DONATION CAMP NOT FOUND"));
         // approving the donation camp
         donationCamp.setApproved(true);
-
+        donationCamp.setActive(true);
         //persisting the changes in the DB
        return donationCampRepo.save(donationCamp);
+    }
+
+    // getting list of donation camps that are approved by the admin
+    @Override
+    public List<DonationCamp> findByIsApprovedTrue() {
+
+        return donationCampRepo.findByIsApprovedTrue();
+
+    }
+
+    // getting list of donation camps that are currently active (by the admin)
+    @Override
+    public List<DonationCamp> findByIsActiveTrue() {
+        return donationCampRepo.findByIsActiveTrue();
     }
 }

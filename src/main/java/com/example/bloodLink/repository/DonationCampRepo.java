@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DonationCampRepo extends JpaRepository<DonationCamp,Long> {
     List<DonationCamp> findByIsApprovedFalse();
+    List<DonationCamp> findByIsApprovedTrue();
+    List<DonationCamp> findByIsActiveTrue();
 }

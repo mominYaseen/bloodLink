@@ -88,5 +88,27 @@ public class SuperAdminController {
 
     }
 
+    // function for seeing  blood donation camps that are not accepted yet
+    @GetMapping("/approved-donation-camps")
+    public ResponseEntity<?> allApprovedDonationCamps()
+    {
+        List<DonationCamp> approvedListOfDonationCamps = commonDataService.getAllApprovedListOfDonationCamps();
+        // Edge Case 1: No donation camps found
+        if (approvedListOfDonationCamps == null || approvedListOfDonationCamps.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO DONATION CAMP REQUEST ACCEPTED YET");
+        }
+        return ResponseEntity.ok(approvedListOfDonationCamps);
+    }
+
+    // get list of all active donation camps
+    @GetMapping("/active-camps")
+    public ResponseEntity<?> allActiveDonationCamps(){
+        List<DonationCamp> activeListOfDonationCamps = commonDataService.getAllActiveListOfDonationCamps();
+        // Edge Case 1: No donation camps found
+        if (activeListOfDonationCamps == null || activeListOfDonationCamps.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO ACTIVE LIST OF DONATION CAMPS");
+        }
+        return ResponseEntity.ok(activeListOfDonationCamps);
+    }
 
 }

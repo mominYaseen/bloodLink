@@ -7,5 +7,7 @@ import java.util.List;
 public interface DonationCampService {
     List<DonationCamp> findByIsApprovedFalse();
     DonationCamp approveDonationCamp(Long campId);
+    List<DonationCamp> findByIsApprovedTrue();
+    List<DonationCamp> findByIsActiveTrue();
 
 }

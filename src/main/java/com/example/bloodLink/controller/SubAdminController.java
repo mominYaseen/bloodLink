@@ -76,7 +76,7 @@ public class SubAdminController {
         }
 
         // Set organizer name from admin
-        camp.setOrganizerName(DUMMY_SUB_ADMIN.getAssignedHospital());
+//        camp.setOrganizerName(DUMMY_SUB_ADMIN.getAssignedHospital());
 
         try {
             DonationCamp savedCamp = adminService.reqDonationCamp(camp);
