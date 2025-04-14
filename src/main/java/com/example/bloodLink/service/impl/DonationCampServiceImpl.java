@@ -15,6 +15,13 @@ public class DonationCampServiceImpl implements DonationCampService {
     @Autowired
     private DonationCampRepo donationCampRepo;
 
+    // method for requesting donation camp
+    @Override
+    public DonationCamp reqDonationCamp(DonationCamp camp) {
+
+        return donationCampRepo.save(camp);
+    }
+
 
     // getting list of donation camp that are not yet approved by the super admin
     @Override
@@ -48,4 +55,5 @@ public class DonationCampServiceImpl implements DonationCampService {
     public List<DonationCamp> findByIsActiveTrue() {
         return donationCampRepo.findByIsActiveTrue();
     }
+
 }

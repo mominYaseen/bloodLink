@@ -1,23 +1,34 @@
 package com.example.bloodLink.service.impl;
 
 import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.repository.DonationCampRepo;
+import com.example.bloodLink.repository.SubAdminRepo;
+import com.example.bloodLink.service.DonationCampService;
 import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SubAdminServiceImpl implements SubAdminService {
+public class SubAdminServiceImpl implements SubAdminService  {
 
 
     @Autowired
-    private DonationCampRepo donationCampRepo;
+    private DonationCampService donationCampService;
+
+    @Autowired
+    private SubAdminRepo subAdminRepo;
 
     @Override
     public DonationCamp reqDonationCamp(DonationCamp camp) {
 
-        return donationCampRepo.save(camp);
-
-
+        return donationCampService.reqDonationCamp(camp);
     }
+
+    @Override
+    public SubAdmin loadUserByUsername(String email) {
+      return   subAdminRepo.findByEmail(email);
+    }
+
 }

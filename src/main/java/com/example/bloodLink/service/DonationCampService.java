@@ -9,5 +9,6 @@ public interface DonationCampService {
     DonationCamp approveDonationCamp(Long campId);
     List<DonationCamp> findByIsApprovedTrue();
     List<DonationCamp> findByIsActiveTrue();
+    DonationCamp reqDonationCamp(DonationCamp camp);
 
 }

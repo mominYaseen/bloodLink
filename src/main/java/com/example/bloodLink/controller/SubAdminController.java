@@ -17,7 +17,7 @@ public class SubAdminController {
 
 
     @Autowired
-    private SubAdminService adminService;
+    private SubAdminService subAdminService;
 
     private static final SubAdmin DUMMY_SUB_ADMIN = new SubAdmin();
 
@@ -35,6 +35,15 @@ public class SubAdminController {
     // get the user(admin) from the token and put admin.name to DonationCamp.setOrganizerName()
     @PostMapping("/req-donation-camp")
     public ResponseEntity<?> reqDonationCamp(@RequestBody DonationCamp camp) {
+
+
+        // get the subAdmin from the security context
+        // for now , I am getting it directly from the db using the subAdminService
+
+        String email = "musa@hospital.com";// manually setting email till we get it from security context
+        SubAdmin subAdmin = subAdminService.loadUserByUsername(email);
+
+
         // Edge Case 1: Null or incomplete request
         if (camp == null) {
             return ResponseEntity.badRequest().body("Request body cannot be null.");
@@ -71,15 +80,18 @@ public class SubAdminController {
         }
 
         // Edge Case 4: Organizer is not assigned (dummy fallback)
-        if (DUMMY_SUB_ADMIN.getAssignedHospital() == null || DUMMY_SUB_ADMIN.getAssignedHospital().isEmpty()) {
+        if (subAdmin.getAssignedHospital() == null || subAdmin.getAssignedHospital().isEmpty()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("SubAdmin is not assigned to any hospital.");
         }
 
+
+
 //         Set organizer name from admin
-        camp.setOrganizerName(DUMMY_SUB_ADMIN.getAssignedHospital());
-        camp.setSubAdmin(DUMMY_SUB_ADMIN); // get this from the security context
+        camp.setOrganizerName(subAdmin.getAssignedHospital());
+        camp.setSubAdmin(subAdmin); // get this from the security context
+        camp.setEmail(subAdmin.getEmail());
         try {
-            DonationCamp savedCamp = adminService.reqDonationCamp(camp);
+            DonationCamp savedCamp = subAdminService.reqDonationCamp(camp);
             return ResponseEntity.ok(savedCamp);
         } catch (Exception e) {
             // Edge Case 5: Database or service failure

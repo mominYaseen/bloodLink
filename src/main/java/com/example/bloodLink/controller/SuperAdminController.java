@@ -90,7 +90,7 @@ public class SuperAdminController {
 
     }
 
-    // function for seeing  blood donation camps that are not accepted yet
+    // function for seeing  blood donation camps that are approved by the super admin
     @GetMapping("/approved-donation-camps")
     public ResponseEntity<?> allApprovedDonationCamps()
     {
