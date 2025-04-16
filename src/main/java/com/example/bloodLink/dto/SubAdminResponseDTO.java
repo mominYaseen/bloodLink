@@ -82,3 +82,8 @@ public class SubAdminResponseDTO {
         this.createdAt = createdAt;
     }
 }
+/*
+* this dto is used in returning the response , as in the previous response , the password of subAdmin was being shown to the
+* super admin.
+*
+* */
