@@ -1,11 +1,9 @@
 package com.example.bloodLink.dto;
 
 import com.example.bloodLink.enums.GenderEnum;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
 public class UserEntityDTO {
 
     private Long id;

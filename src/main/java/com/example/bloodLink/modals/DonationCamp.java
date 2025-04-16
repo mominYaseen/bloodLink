@@ -1,7 +1,7 @@
 package com.example.bloodLink.modals;
 
 
-import com.example.bloodLink.dto.SubAdminDTO;
+import com.example.bloodLink.dto.SubAdminCreateDTO;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -74,8 +74,8 @@ public class DonationCamp {
     }
 
     // Getters and Setters
-    public SubAdminDTO getSubAdmin() {
-        return new SubAdminDTO(subAdmin);
+    public SubAdminCreateDTO getSubAdmin() {
+        return new SubAdminCreateDTO(subAdmin);
     }
 
     public void setSubAdmin(SubAdmin subAdmin) {

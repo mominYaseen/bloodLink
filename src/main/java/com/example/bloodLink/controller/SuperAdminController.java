@@ -1,6 +1,6 @@
 package com.example.bloodLink.controller;
 
-import com.example.bloodLink.dto.SubAdminDTO;
+import com.example.bloodLink.dto.SubAdminCreateDTO;
 import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.SuperAdmin;
@@ -30,13 +30,25 @@ public class SuperAdminController {
     // function for creating subAdmin
 
     @PostMapping("/register-admin")
-    public ResponseEntity<?> registerSubAdmin(@RequestBody SubAdmin admin){
+    public ResponseEntity<?> registerSubAdmin(@RequestBody SubAdminCreateDTO subAdminCreateDTO){
 
-        if (admin == null){
+
+        if (subAdminCreateDTO == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("INCORRECT DATA SEND");
         }else {
-            admin.setCreatedAt(LocalDateTime.now());
-            return ResponseEntity.ok(superAdminService.registerSubAdmin(admin));
+            SubAdmin subAdmin = new SubAdmin();
+            subAdmin.setFirstName(subAdminCreateDTO.getFirstName());
+            subAdmin.setLastName(subAdminCreateDTO.getLastName());
+            subAdmin.setEmail(subAdminCreateDTO.getEmail());
+            subAdmin.setPhoneNumber(subAdminCreateDTO.getPhoneNumber());
+            subAdmin.setAssignedBloodBankCenter(subAdminCreateDTO.getAssignedBloodBankCenterName());
+            subAdmin.setRole(subAdminCreateDTO.getRole());
+
+            //hash the password
+            subAdmin.setPassword(subAdminCreateDTO.getPassword());
+            subAdmin.setCreatedAt(LocalDateTime.now());
+            subAdmin.setBloodBankCenter(null);
+            return ResponseEntity.ok(superAdminService.registerSubAdmin(subAdmin));
         }
 
 
@@ -55,15 +67,15 @@ public class SuperAdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SUPER_ADMIN NOT FOUND");
 
         }
-        List<SubAdminDTO> subAdminDTOList = superAdmin.getListOfRegisteredAdmins()
+        List<SubAdminCreateDTO> subAdminCreateDTOList = superAdmin.getListOfRegisteredAdmins()
                 .stream()
-                .map(SubAdminDTO::new)
+                .map(SubAdminCreateDTO::new)
                 .toList();
-        if (subAdminDTOList.isEmpty()) {
+        if (subAdminCreateDTOList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO REGISTERED SUB_ADMINS");
         }
 
-        return ResponseEntity.ok(subAdminDTOList);
+        return ResponseEntity.ok(subAdminCreateDTOList);
 
     }
 

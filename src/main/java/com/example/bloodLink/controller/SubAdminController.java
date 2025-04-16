@@ -19,17 +19,7 @@ public class SubAdminController {
     @Autowired
     private SubAdminService subAdminService;
 
-    private static final SubAdmin DUMMY_SUB_ADMIN = new SubAdmin();
 
-    static {
-        DUMMY_SUB_ADMIN.setId(1L);
-        DUMMY_SUB_ADMIN.setFirstName("Ayaan");
-        DUMMY_SUB_ADMIN.setLastName("Qadri");
-        DUMMY_SUB_ADMIN.setEmail("ayaan.qadri@hospital.com");
-        DUMMY_SUB_ADMIN.setPassword("securePass123"); // Note: Passwords should be encrypted in real apps
-        DUMMY_SUB_ADMIN.setPhoneNumber("+91-9123456780");
-        DUMMY_SUB_ADMIN.setAssignedHospital("Kashmir Cexcntral Blood Bank");
-    }
 
     //    //open blood donation camp
     // get the user(admin) from the token and put admin.name to DonationCamp.setOrganizerName()
@@ -79,15 +69,15 @@ public class SubAdminController {
             return ResponseEntity.badRequest().body("Camp date must be in the future.");
         }
 
-        // Edge Case 4: Organizer is not assigned (dummy fallback)
-        if (subAdmin.getAssignedHospital() == null || subAdmin.getAssignedHospital().isEmpty()) {
+//         Edge Case 4: Organizer is not assigned (dummy fallback)
+        if (subAdmin.getAssignedBloodBankCenter() == null || subAdmin.getAssignedBloodBankCenter().isEmpty()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("SubAdmin is not assigned to any hospital.");
         }
 
 
 
 //         Set organizer name from admin
-        camp.setOrganizerName(subAdmin.getAssignedHospital());
+//        camp.setOrganizerName(subAdmin.getAssignedHospital());
         camp.setSubAdmin(subAdmin); // get this from the security context
         camp.setEmail(subAdmin.getEmail());
         try {

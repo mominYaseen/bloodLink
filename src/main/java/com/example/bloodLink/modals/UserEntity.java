@@ -2,15 +2,12 @@ package com.example.bloodLink.modals;
 
 import com.example.bloodLink.enums.GenderEnum;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "userTable")
-@Data
-@NoArgsConstructor
+
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

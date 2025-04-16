@@ -35,8 +35,7 @@ public class SubAdmin implements UserDetails {
     @Column(name = "phoneNumber",nullable = false,unique = true)
     private String phoneNumber;
 
-    @Column(name="assignedHospital")
-    private String assignedHospital; // Optional: if managing specific blood bank/hospital
+
 
     @Column(name = "role")
     private String role = "ROLE_ADMIN";
@@ -54,25 +53,43 @@ public class SubAdmin implements UserDetails {
     private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
 
 
+    @Column(name = "assignedBloodBankCenterName")
+    private String assignedBloodBankCenter;
+
+
+    @JsonIgnore
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},optional = true)
+    @JoinColumn(name = "bloodBankId" , referencedColumnName ="id",nullable = true)
+    private BloodBankCenter bloodBankCenter = null;
+
+
     public SubAdmin() {
     }
 
-    public SubAdmin(String firstName, String lastName, String email, String password, String phoneNumber, String assignedHospital, String role, LocalDateTime createdAt) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.assignedHospital = assignedHospital;
-        this.role = role;
-        this.createdAt = createdAt;
-    }
+
 
     // the super admin sends it during the account creation
 //    @PrePersist
 //    protected void onCreate() {
-//        this.createdAt = LocalDateTime.now();
+//        this.bloodBankCenter=null;
 //    }
+
+
+    public String getAssignedBloodBankCenter() {
+        return assignedBloodBankCenter;
+    }
+
+    public void setAssignedBloodBankCenter(String assignedBloodBankCenter) {
+        this.assignedBloodBankCenter = assignedBloodBankCenter;
+    }
+
+    public BloodBankCenter getBloodBankCenter() {
+        return bloodBankCenter;
+    }
+
+    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        this.bloodBankCenter = bloodBankCenter;
+    }
 
     public List<DonationCamp> getListOfDonationCampRequested() {
         return listOfDonationCampRequested;
@@ -175,13 +192,7 @@ public class SubAdmin implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAssignedHospital() {
-        return assignedHospital;
-    }
 
-    public void setAssignedHospital(String assignedHospital) {
-        this.assignedHospital = assignedHospital;
-    }
 
     public String getRole() {
         return role;
@@ -200,7 +211,6 @@ public class SubAdmin implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", assignedHospital='" + assignedHospital + '\'' +
 //                ", role='" + role + '\'' +
                 '}';
     }
