@@ -1,45 +1,30 @@
 package com.example.bloodLink.dto;
 
-
 import com.example.bloodLink.modals.SubAdmin;
 
 import java.time.LocalDateTime;
 
-public class SubAdminCreateDTO {
+public class SubAdminResponseDTO {
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String assignedBloodBankCenterName;
     private String role;
-    private String password;
-
-
     private LocalDateTime createdAt;
 
-    public SubAdminCreateDTO() {
+    public SubAdminResponseDTO(SubAdmin subAdmin) {
+        this.firstName= subAdmin.getFirstName();
+        this.lastName = subAdmin.getLastName();
+        this.email = subAdmin.getEmail();
+        this.phoneNumber = subAdmin.getPhoneNumber();
+        this.assignedBloodBankCenterName = subAdmin.getPhoneNumber();
+        this.role = subAdmin.getRole();
+        this.createdAt = subAdmin.getCreatedAt();
     }
 
 
-    public SubAdminCreateDTO(SubAdmin admin) {
-        this.firstName = admin.getFirstName();
-        this.lastName = admin.getLastName();
-        this.email = admin.getEmail();
-        this.phoneNumber = admin.getPhoneNumber();
-        this.assignedBloodBankCenterName = admin.getAssignedBloodBankCenter();
-        this.role = admin.getRole();
-//        this.createdAt = admin.getCreatedAt();
-    }
-
-    // Getters and Setters
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // getter and setters
 
     public String getFirstName() {
         return firstName;
@@ -65,7 +50,6 @@ public class SubAdminCreateDTO {
         this.email = email;
     }
 
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -82,14 +66,6 @@ public class SubAdminCreateDTO {
         this.assignedBloodBankCenterName = assignedBloodBankCenterName;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getRole() {
         return role;
     }
@@ -98,12 +74,11 @@ public class SubAdminCreateDTO {
         this.role = role;
     }
 
-//    public LocalDateTime getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public void setCreatedAt(LocalDateTime createdAt) {
-//        this.createdAt = createdAt;
-//    }
-}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+}
