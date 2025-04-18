@@ -19,8 +19,8 @@ public class BloodInventoryLog
     private LocalDateTime actionTime;
 
 //    @ManyToOne
-//    @JoinColumn(name = "bloodBankCenterId")
-//    private BloodBankCenter bloodBankCenter;
+    @JoinColumn(name = "bloodBankCenterId")
+    private BloodBankCenter bloodBankCenter;
 
     @PrePersist
     protected void onCreate() {

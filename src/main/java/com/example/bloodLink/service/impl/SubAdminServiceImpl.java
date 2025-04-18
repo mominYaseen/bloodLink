@@ -27,7 +27,7 @@ public class SubAdminServiceImpl implements SubAdminService  {
     }
 
     @Override
-    public SubAdmin loadUserByUsername(String email) {
+    public SubAdmin findByEmail(String email) {
       return   subAdminRepo.findByEmail(email);
     }
 

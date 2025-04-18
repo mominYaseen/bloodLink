@@ -2,8 +2,10 @@ package com.example.bloodLink.controller;
 
 
 import com.example.bloodLink.dto.DonationCampResponseDTO;
+import com.example.bloodLink.modals.BloodBankCenter;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ public class SubAdminController {
     @Autowired
     private SubAdminService subAdminService;
 
+    @Autowired
+    private CommonDataService commonDataService;
 
 
     //    //open blood donation camp
@@ -32,7 +36,7 @@ public class SubAdminController {
         // for now , I am getting it directly from the db using the subAdminService
 
         String email = "musa@hospital.com";// manually setting email till we get it from security context
-        SubAdmin subAdmin = subAdminService.loadUserByUsername(email);
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
 
 
         // Edge Case 1: Null or incomplete request
@@ -97,5 +101,68 @@ public class SubAdminController {
     {
         return null;
     }
+
+
+
+
+    // METHOD FOR ADDING A BLOOD-BANK CENTER
+    @PostMapping("/add-blood-Bank")
+    public ResponseEntity<?> addBloodBankCenter(@RequestBody BloodBankCenter bloodBankCenter) {
+
+        //  Replace with email from SecurityContext later
+        String email = "musa@hospital.com";
+
+        //  Edge Case 1: Null body
+        if (bloodBankCenter == null) {
+            return ResponseEntity.badRequest().body("Blood bank center details are required.");
+        }
+
+        //  Edge Case 2: SubAdmin not found
+        SubAdmin subAdmin;
+        try {
+            subAdmin = subAdminService.findByEmail(email);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SubAdmin not found with email: " + email);
+        }
+
+        //  Edge Case 3: SubAdmin already has a blood center
+        if (subAdmin.getBloodBankCenter() != null) {
+            return ResponseEntity.badRequest().body("SubAdmin already has a blood bank center assigned.");
+        }
+
+        //  Edge Case 4: Required fields missing
+        if (bloodBankCenter.getName() == null || bloodBankCenter.getName().isBlank()) {
+            return ResponseEntity.badRequest().body("Blood bank name is required.");
+        }
+
+        if (bloodBankCenter.getEmail() == null || bloodBankCenter.getEmail().isBlank()) {
+            return ResponseEntity.badRequest().body("Email is required.");
+        }
+
+        if (bloodBankCenter.getContactNumber() == null || bloodBankCenter.getContactNumber().isBlank()) {
+            return ResponseEntity.badRequest().body("Contact number is required.");
+        }
+
+        //  Set subadmin
+        bloodBankCenter.setSubAdmin(subAdmin);
+        /*
+        *   explicitly setting the subadmin.bloodbankcenter
+        *   as this column(blood_bank_id) in db was null .
+            why? --> because we are letting the super admin to create the sub admin account and once the account
+            is created , then sub admin should register a blood bank center
+            for himself as it is going to save super admin work. that is why initailly blood_bank_id column in sub_admin table
+            in db was set to null.
+        * */
+        subAdmin.setBloodBankCenter(bloodBankCenter);
+        try {
+            BloodBankCenter savedBloodBankCenter = commonDataService.addBloodBankCenterToDb(bloodBankCenter);
+            return ResponseEntity.ok(new BloodBankCenterResponseDTO(savedBloodBankCenter));
+        } catch (Exception e) {
+            //  Edge Case 5: Persistence failure
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save blood bank center: " + e.getMessage());
+        }
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.bloodLink.modals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -26,17 +27,19 @@ public class BloodBankCenter {
     private double latitude;
     private double longitude;
 
+    private LocalDateTime centerEstablishedTime;
+
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime accountCreatedAt;
 
 
     @OneToOne(mappedBy = "bloodBankCenter")
     private SubAdmin subAdmin;
 
 
-//    @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
-//    private List<BloodInventory> bloodInventories = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
+    private List<BloodInventory> bloodInventories = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
 //    private List<BloodInventoryLog> inventoryLogs = new ArrayList<>();
 
@@ -49,6 +52,23 @@ public class BloodBankCenter {
 
 
     // getter and setters
+
+
+    public SubAdmin getSubAdmin() {
+        return subAdmin;
+    }
+
+    public void setSubAdmin(SubAdmin subAdmin) {
+        this.subAdmin = subAdmin;
+    }
+
+    public List<BloodInventory> getBloodInventories() {
+        return bloodInventories;
+    }
+
+    public void setBloodInventories(List<BloodInventory> bloodInventories) {
+        this.bloodInventories = bloodInventories;
+    }
 
     public Long getId() {
         return id;
@@ -130,21 +150,23 @@ public class BloodBankCenter {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getAccountCreatedAt() {
+        return accountCreatedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public LocalDateTime getCenterEstablishedTime() {
+        return centerEstablishedTime;
     }
 
-//    public List<BloodInventory> getBloodInventories() {
-//        return bloodInventories;
-//    }
-//
-//    public void setBloodInventories(List<BloodInventory> bloodInventories) {
-//        this.bloodInventories = bloodInventories;
-//    }
+    public void setCenterEstablishedTime(LocalDateTime centerEstablishedTime) {
+        this.centerEstablishedTime = centerEstablishedTime;
+    }
+
+    public void setAccountCreatedAt(LocalDateTime accountCreatedAt) {
+        this.accountCreatedAt = accountCreatedAt;
+    }
+
+
 //
 //    public List<BloodInventoryLog> getInventoryLogs() {
 //        return inventoryLogs;

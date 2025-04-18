@@ -227,7 +227,7 @@ Response: List of requested camps or "No requested donation camps found."
 |-------------|
 | SUB-ADMIN   |
 |-------------------------------------------------|
-| POST: localhost:8080/admin/req-donation-camp   |
+|1. POST: localhost:8080/admin/req-donation-camp   |
 --------------------------------------------------|
 Request:
 {
@@ -265,3 +265,35 @@ Response:
     "contactNumber": "+91-9876543210",
     "email": "musa@hospital.com"
 }
+
+
+|-------------------------------------------------|
+|2. POST: localhost:8080/admin/add-blood-Bank     |
+--------------------------------------------------|
+    request :-
+        {
+            "name": "City Blood Bank",
+            "address": "123 Main Road, Downtown",
+            "contactNumber": "+911234567890",
+            "email": "info@citybloodbank.org",
+            "city": "Srinagar",
+            "state": "Jammu & Kashmir",
+            "country": "India",
+            "latitude": 34.0836,
+            "longitude": 74.7973,
+            "centerEstablishedTime": "2018-03-15T00:00:00"
+        }
+    response :-
+        {
+            "id": 7,
+            "name": "City Blood Bank",
+            "address": "123 Main Road, Downtown",
+            "contactNumber": "+911234567890",
+            "email": "info@citybloodbank.org",
+            "city": "Srinagar",
+            "state": "Jammu & Kashmir",
+            "country": "India",
+            "subAdminEmail": "musa@hospital.com"
+        }
+
+

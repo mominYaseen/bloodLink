@@ -1,6 +1,8 @@
 package com.example.bloodLink.service.impl;
 
+import com.example.bloodLink.modals.BloodBankCenter;
 import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.service.BloodBankCenterService;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.DonationCampService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,19 @@ import java.util.List;
 public class CommonDataServiceImpl implements CommonDataService {
 
 
-    // Donation camp related shared services
-    @Autowired
+
+    @Autowired  // DONATION CAMP SERVICE
     private DonationCampService donationCampService;
 
+    @Autowired  // BLOOD BANK SERVICE
+    private BloodBankCenterService bloodBankCenterService;
+
+
+
+
+
+
+    // SUPER-ADMIN RELATED SERVICES(FUNCTIONALITIES)
 
     @Override
     public List<DonationCamp> getAllNonApprovedListOfDonationCamps() {
@@ -42,6 +53,24 @@ public class CommonDataServiceImpl implements CommonDataService {
     @Override
     public List<DonationCamp> getAllActiveListOfDonationCamps() {
         return donationCampService.findByIsActiveTrue();
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // SUB-ADMIN RELATED SERVICES(FUNCTIONALITES)
+
+
+    @Override
+    public BloodBankCenter addBloodBankCenterToDb(BloodBankCenter center) {
+        return bloodBankCenterService.addBloodBankCenterToDb(center);
     }
 
 

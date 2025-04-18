@@ -2,6 +2,7 @@ package com.example.bloodLink.modals;
 
 import jakarta.persistence.*;
 
+@Entity
 public class BloodInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,9 +11,9 @@ public class BloodInventory {
     private String bloodGroup;
     private int availableUnits;
 
-//    @ManyToOne
-//    @JoinColumn(name = "hospital_center_id")
-//    private BloodBankCenter bloodBankCenter;
+    @ManyToOne
+    @JoinColumn(name = "hospital_center_id")
+    private BloodBankCenter bloodBankCenter;
 
     //constructor
 
