@@ -1,6 +1,9 @@
 package com.example.bloodLink.modals;
 
+import com.example.bloodLink.dto.SubAdminResponseDTO;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,15 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "bloodBankCenter")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property ="id"
+)
 public class BloodBankCenter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true,nullable = false)
     private String name;
+    @Column(nullable = false)
     private String address;
+    @Column(unique = true,nullable = false)
     private String contactNumber;
+    @Column(unique = true,nullable = false)
     private String email;
 
     private String city;
@@ -54,8 +65,8 @@ public class BloodBankCenter {
     // getter and setters
 
 
-    public SubAdmin getSubAdmin() {
-        return subAdmin;
+    public SubAdminResponseDTO getSubAdmin() {
+        return new SubAdminResponseDTO(subAdmin);
     }
 
     public void setSubAdmin(SubAdmin subAdmin) {

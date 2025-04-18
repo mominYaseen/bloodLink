@@ -1,10 +1,14 @@
 package com.example.bloodLink.service.impl;
 
+import com.example.bloodLink.dto.BloodBankCenterRegistrationRequestDTO;
+import com.example.bloodLink.dto.BloodBankCenterResponseDTO;
 import com.example.bloodLink.modals.BloodBankCenter;
 import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.service.BloodBankCenterService;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.DonationCampService;
+import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,8 @@ public class CommonDataServiceImpl implements CommonDataService {
     private BloodBankCenterService bloodBankCenterService;
 
 
+    @Autowired
+    private SubAdminService subAdminService;
 
 
 
@@ -56,21 +62,20 @@ public class CommonDataServiceImpl implements CommonDataService {
     }
 
 
-
-
-
-
-
-
-
-
-
     // SUB-ADMIN RELATED SERVICES(FUNCTIONALITES)
 
 
+
+
+
     @Override
-    public BloodBankCenter addBloodBankCenterToDb(BloodBankCenter center) {
-        return bloodBankCenterService.addBloodBankCenterToDb(center);
+    public SubAdmin findSubAdminByEmail(String email) {
+        return subAdminService.findByEmail(email);
+    }
+
+    @Override
+    public BloodBankCenter registerBloodCenterToDb(BloodBankCenterRegistrationRequestDTO bloodBankCenterResponseDTO, String email) {
+        return bloodBankCenterService.addBloodBankCenterToDb(bloodBankCenterResponseDTO , email);
     }
 
 

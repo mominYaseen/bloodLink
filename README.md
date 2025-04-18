@@ -270,30 +270,101 @@ Response:
 |-------------------------------------------------|
 |2. POST: localhost:8080/admin/add-blood-Bank     |
 --------------------------------------------------|
-    request :-
+    request :- at the time of registering the bloodBankCenter , the subAdmin can send the below response , where the
+                details like BloodInventory is also send at the same time .
         {
             "name": "City Blood Bank",
-            "address": "123 Main Road, Downtown",
+            "address": "123 Main Street, Downtown",
             "contactNumber": "+911234567890",
-            "email": "info@citybloodbank.org",
+            "email": "contact@citybloodbank.org",
             "city": "Srinagar",
             "state": "Jammu & Kashmir",
             "country": "India",
             "latitude": 34.0836,
             "longitude": 74.7973,
-            "centerEstablishedTime": "2018-03-15T00:00:00"
+            "centerEstablishedTime": "2020-04-01T09:00:00",
+            "bloodInventories": [
+                {
+                "bloodGroup": "A+",
+                "availableUnits": 12,
+                "minimumUnits": 5,
+                "bloodBankCenter":1
+                },
+                {
+                "bloodGroup": "B+",
+                "availableUnits": 10,
+                "minimumUnits": 4,
+                "bloodBankCenter":1
+                },
+                {
+                "bloodGroup": "O+",
+                "availableUnits": 8,
+                "minimumUnits": 3,
+                "bloodBankCenter":1
+                },
+                {
+                "bloodGroup": "AB+",
+                "availableUnits": 6,
+                "minimumUnits": 2,
+                "bloodBankCenter":1
+                }
+            ]
         }
-    response :-
+    response:-
         {
-            "id": 7,
+            "id": 1,
             "name": "City Blood Bank",
-            "address": "123 Main Road, Downtown",
+            "address": "123 Main Street, Downtown",
             "contactNumber": "+911234567890",
-            "email": "info@citybloodbank.org",
+            "email": "contact@citybloodbank.org",
             "city": "Srinagar",
             "state": "Jammu & Kashmir",
             "country": "India",
-            "subAdminEmail": "musa@hospital.com"
+            "latitude": 34.0836,
+            "longitude": 74.7973,
+            "centerEstablishedTime": "2020-04-01T09:00:00",
+            "accountCreatedAt": "2025-04-18T20:44:06.756302",
+            "subAdmin": {
+                    "id": 1,
+                    "firstName": "musa",
+                    "lastName": "yaseen",
+                    "email": "musa@hospital.com",
+                    "phoneNumber": "123456789",
+                    "assignedBloodBankCenterName": "123456789",
+                    "role": "ROLE_SUB_ADMIN",
+                    "createdAt": "2025-04-18T20:44:03.156548"
+                },
+            "bloodInventories": [
+                    {
+                    "id": 1,
+                    "bloodGroup": "A+",
+                    "availableUnits": 12,
+                    "minimumUnits": 5,
+                    "bloodBankCenter": 1
+                    },
+                    {
+                    "id": 2,
+                    "bloodGroup": "B+",
+                    "availableUnits": 10,
+                    "minimumUnits": 4,
+                    "bloodBankCenter": 1
+                    },
+                    {
+                    "id": 3,
+                    "bloodGroup": "O+",
+                    "availableUnits": 8,
+                    "minimumUnits": 3,
+                    "bloodBankCenter": 1
+                    },
+                    {
+                    "id": 4,
+                    "bloodGroup": "AB+",
+                    "availableUnits": 6,
+                    "minimumUnits": 2,
+                    "bloodBankCenter": 1
+                    }
+            ]
         }
+
 
 

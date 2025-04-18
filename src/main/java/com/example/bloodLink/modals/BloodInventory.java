@@ -1,8 +1,14 @@
 package com.example.bloodLink.modals;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property ="id"
+)
 public class BloodInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,6 +16,7 @@ public class BloodInventory {
 
     private String bloodGroup;
     private int availableUnits;
+
 
     private int minimumUnits;
     @ManyToOne
@@ -31,6 +38,10 @@ public class BloodInventory {
 
 
 
+    @PrePersist
+    protected void onCreate() {
+        this.minimumUnits=50;
+    }
 
 
 

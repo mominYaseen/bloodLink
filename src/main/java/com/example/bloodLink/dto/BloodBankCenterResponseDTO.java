@@ -1,9 +1,6 @@
-package com.example.bloodLink.controller;
+package com.example.bloodLink.dto;
 
 import com.example.bloodLink.modals.BloodBankCenter;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 public class BloodBankCenterResponseDTO {
 
