@@ -287,25 +287,25 @@ Response:
                 {
                 "bloodGroup": "A+",
                 "availableUnits": 12,
-                "minimumUnits": 5,
+                
                 "bloodBankCenter":1
                 },
                 {
                 "bloodGroup": "B+",
                 "availableUnits": 10,
-                "minimumUnits": 4,
+                
                 "bloodBankCenter":1
                 },
                 {
                 "bloodGroup": "O+",
                 "availableUnits": 8,
-                "minimumUnits": 3,
+               
                 "bloodBankCenter":1
                 },
                 {
                 "bloodGroup": "AB+",
                 "availableUnits": 6,
-                "minimumUnits": 2,
+                
                 "bloodBankCenter":1
                 }
             ]
