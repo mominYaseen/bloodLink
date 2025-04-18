@@ -11,15 +11,30 @@ public class BloodInventory {
     private String bloodGroup;
     private int availableUnits;
 
+    private int minimumUnits;
     @ManyToOne
-    @JoinColumn(name = "hospital_center_id")
+    @JoinColumn(name = "bloodBankCenterId")
     private BloodBankCenter bloodBankCenter;
 
+
+
+
+
+
+
+
+
     //constructor
-
-
     public BloodInventory() {
     }
+
+
+
+
+
+
+
+
 
     // getter and setters
     public Long getId() {
@@ -42,15 +57,23 @@ public class BloodInventory {
         return availableUnits;
     }
 
+    public int getMinimumUnits() {
+        return minimumUnits;
+    }
+
+    public void setMinimumUnits(int minimumUnits) {
+        this.minimumUnits = minimumUnits;
+    }
+
     public void setAvailableUnits(int availableUnits) {
         this.availableUnits = availableUnits;
     }
 
-//    public BloodBankCenter getBloodBankCenter() {
-//        return bloodBankCenter;
-//    }
-//
-//    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
-//        this.bloodBankCenter = bloodBankCenter;
-//    }
+    public BloodBankCenter getBloodBankCenter() {
+        return bloodBankCenter;
+    }
+
+    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        this.bloodBankCenter = bloodBankCenter;
+    }
 }
