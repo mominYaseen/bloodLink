@@ -5,6 +5,7 @@ import com.example.bloodLink.modals.SubAdmin;
 import java.time.LocalDateTime;
 
 public class SubAdminResponseDTO {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -14,6 +15,7 @@ public class SubAdminResponseDTO {
     private LocalDateTime createdAt;
 
     public SubAdminResponseDTO(SubAdmin subAdmin) {
+        this.id = subAdmin.getId();
         this.firstName= subAdmin.getFirstName();
         this.lastName = subAdmin.getLastName();
         this.email = subAdmin.getEmail();
@@ -25,6 +27,14 @@ public class SubAdminResponseDTO {
 
 
     // getter and setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

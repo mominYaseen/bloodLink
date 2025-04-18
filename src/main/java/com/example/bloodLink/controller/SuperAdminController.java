@@ -1,6 +1,7 @@
 package com.example.bloodLink.controller;
 
 import com.example.bloodLink.dto.SubAdminCreateDTO;
+import com.example.bloodLink.dto.SubAdminResponseDTO;
 import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.SuperAdmin;
@@ -48,7 +49,7 @@ public class SuperAdminController {
             subAdmin.setPassword(subAdminCreateDTO.getPassword());
             subAdmin.setCreatedAt(LocalDateTime.now());
             subAdmin.setBloodBankCenter(null);
-            return ResponseEntity.ok(superAdminService.registerSubAdmin(subAdmin));
+            return ResponseEntity.ok(new SubAdminResponseDTO(superAdminService.registerSubAdmin(subAdmin)));
         }
 
 
@@ -67,15 +68,15 @@ public class SuperAdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SUPER_ADMIN NOT FOUND");
 
         }
-        List<SubAdminCreateDTO> subAdminCreateDTOList = superAdmin.getListOfRegisteredAdmins()
+        List<SubAdminResponseDTO> subAdminResponseDto = superAdmin.getListOfRegisteredAdmins()
                 .stream()
-                .map(SubAdminCreateDTO::new)
+                .map(SubAdminResponseDTO::new)
                 .toList();
-        if (subAdminCreateDTOList.isEmpty()) {
+        if (subAdminResponseDto.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO REGISTERED SUB_ADMINS");
         }
 
-        return ResponseEntity.ok(subAdminCreateDTOList);
+        return ResponseEntity.ok(subAdminResponseDto);
 
     }
 

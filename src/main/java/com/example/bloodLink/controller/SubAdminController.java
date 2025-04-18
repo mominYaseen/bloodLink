@@ -1,6 +1,7 @@
 package com.example.bloodLink.controller;
 
 
+import com.example.bloodLink.dto.DonationCampResponseDTO;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.service.SubAdminService;
@@ -82,7 +83,7 @@ public class SubAdminController {
         camp.setEmail(subAdmin.getEmail());
         try {
             DonationCamp savedCamp = subAdminService.reqDonationCamp(camp);
-            return ResponseEntity.ok(savedCamp);
+            return ResponseEntity.ok(new DonationCampResponseDTO(savedCamp));
         } catch (Exception e) {
             // Edge Case 5: Database or service failure
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to request donation camp. " + e.getMessage());
