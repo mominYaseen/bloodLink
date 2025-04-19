@@ -38,13 +38,16 @@ public class SubAdminController {
 
         String email = "musa@hospital.com";// manually setting email till we get it from security context
         SubAdmin subAdmin = subAdminService.findByEmail(email);
-
+        BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
 
         // Edge Case 1: Null or incomplete request
         if (camp == null) {
             return ResponseEntity.badRequest().body("Request body cannot be null.");
         }
+        if (bloodBankCenter==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("BLOOD BANK NOT FOUND");
 
+        }
         if (camp.getCampName() == null || camp.getCampName().isEmpty()) {
             return ResponseEntity.badRequest().body("Camp name is required.");
         }
@@ -84,8 +87,12 @@ public class SubAdminController {
 
 //         Set organizer name from admin
 //        camp.setOrganizerName(subAdmin.getAssignedHospital());
-        camp.setSubAdmin(subAdmin); // get this from the security context
+//        camp.setSubAdmin(subAdmin); // get this from the security context
         camp.setEmail(subAdmin.getEmail());
+        camp.setOrganizerName(subAdmin.getBloodBankCenter().getName());
+
+        // setting the blood bank center
+        camp.setBloodBankCenter(bloodBankCenter);
         try {
             DonationCamp savedCamp = subAdminService.reqDonationCamp(camp);
             return ResponseEntity.ok(new DonationCampResponseDTO(savedCamp));

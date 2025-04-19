@@ -5,6 +5,7 @@ import com.example.bloodLink.modals.BloodBankCenter;
 import com.example.bloodLink.modals.BloodInventory;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.repository.BloodBankCenterRepo;
+import com.example.bloodLink.repository.SubAdminRepo;
 import com.example.bloodLink.service.BloodBankCenterService;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SubAdminService;
@@ -23,6 +24,8 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
     @Autowired
     private SubAdminService subAdminService;
 
+    @Autowired
+    private SubAdminRepo subAdminRepo;
 
     @Override
     public BloodBankCenter addBloodBankCenterToDb(BloodBankCenterRegistrationRequestDTO dto , String email) {
@@ -47,6 +50,7 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
         center.setCountry(dto.getCountry());
         center.setCenterEstablishedTime(dto.getCenterEstablishedTime());
         center.setSubAdmin(subAdmin);
+        subAdmin.setBloodBankCenter(center);
 
         List<BloodInventory> inventories = dto.getBloodInventories().stream().map(inv -> {
             BloodInventory b = new BloodInventory();
@@ -57,7 +61,8 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
             return b;
         }).toList();
         center.setBloodInventories(inventories);
-
-        return bloodBankCenterRepo.save(center);
+        bloodBankCenterRepo.save(center);
+//        subAdminRepo.save(subAdmin);
+        return center;
     }
 }

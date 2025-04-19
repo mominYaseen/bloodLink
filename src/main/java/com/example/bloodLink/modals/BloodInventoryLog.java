@@ -98,4 +98,7 @@ public class BloodInventoryLog
 //    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
 //        this.bloodBankCenter = bloodBankCenter;
 //    }
+
+
 }
+

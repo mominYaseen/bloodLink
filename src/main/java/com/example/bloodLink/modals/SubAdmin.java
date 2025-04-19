@@ -49,8 +49,8 @@ public class SubAdmin implements UserDetails {
     @JsonIgnore
     private SuperAdmin superAdmin;
 //
-    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true , mappedBy = "subAdmin")
-    private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true , mappedBy = "subAdmin")
+//    private List<DonationCamp> listOfDonationCampRequested = new ArrayList<>();
 
 
     @Column(name = "assignedBloodBankCenterName")
@@ -58,8 +58,8 @@ public class SubAdmin implements UserDetails {
 
 
     @JsonIgnore
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},optional = true)
-    @JoinColumn(name = "bloodBankId" , referencedColumnName ="id",nullable = true)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},optional = true) // because if the sub-admin is deleted , we don't want to delete
+    @JoinColumn(name = "bloodBankId" , referencedColumnName ="id",nullable = true)  //bloodBankCenter associated to it
     private BloodBankCenter bloodBankCenter = null;
 
 
@@ -91,13 +91,13 @@ public class SubAdmin implements UserDetails {
         this.bloodBankCenter = bloodBankCenter;
     }
 
-    public List<DonationCamp> getListOfDonationCampRequested() {
-        return listOfDonationCampRequested;
-    }
-
-    public void setListOfDonationCampRequested(List<DonationCamp> listOfDonationCampRequested) {
-        this.listOfDonationCampRequested = listOfDonationCampRequested;
-    }
+//    public List<DonationCamp> getListOfDonationCampRequested() {
+//        return listOfDonationCampRequested;
+//    }
+//
+//    public void setListOfDonationCampRequested(List<DonationCamp> listOfDonationCampRequested) {
+//        this.listOfDonationCampRequested = listOfDonationCampRequested;
+//    }
 
     public SuperAdmin getSuperAdmin() {
         return superAdmin;

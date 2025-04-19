@@ -48,6 +48,12 @@ public class BloodBankCenter {
     private SubAdmin subAdmin;
 
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "bloodBankCenter",cascade = CascadeType.ALL)
+    private List<DonationCamp> donationCamps = new ArrayList<>();
+
+
+
     @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
     private List<BloodInventory> bloodInventories = new ArrayList<>();
 
@@ -64,6 +70,14 @@ public class BloodBankCenter {
 
     // getter and setters
 
+
+    public List<DonationCamp> getDonationCamps() {
+        return donationCamps;
+    }
+
+    public void setDonationCamps(List<DonationCamp> donationCamps) {
+        this.donationCamps = donationCamps;
+    }
 
     public SubAdminResponseDTO getSubAdmin() {
         return new SubAdminResponseDTO(subAdmin);

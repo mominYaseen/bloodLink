@@ -23,9 +23,9 @@ public class DonationCamp {
     private Long id;
 
     private String campName;
-    @Column(unique = true)
     private String organizerName;
 
+    @Column(unique = true)//unique = true  because if subAdmin wants to register for multiple donation camp , their addresses should be unique.
     private String address; // from frontend using js
     private String city; // from frontend using js
     private String state; // from frontend using js
@@ -44,10 +44,8 @@ public class DonationCamp {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(unique = true)
-    private String contactNumber;
 
-    @Column(unique = true)
+    private String contactNumber;
 
     private String email;
 
@@ -56,9 +54,14 @@ public class DonationCamp {
     private boolean isActive;
 
 
+//    @ManyToOne
+//    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
+//    private SubAdmin subAdmin;
+
+
     @ManyToOne
-    @JoinColumn(name = "sub_admin", referencedColumnName = "id",nullable = false)
-    private SubAdmin subAdmin;
+    @JoinColumn(name = "bloodCenterId",referencedColumnName = "id")
+    private BloodBankCenter bloodBankCenter;
 
 
     public DonationCamp() {
@@ -75,13 +78,13 @@ public class DonationCamp {
     }
 
     // Getters and Setters
-    public SubAdminResponseDTO getSubAdmin() {
-        return new SubAdminResponseDTO(subAdmin);
-    }
-
-    public void setSubAdmin(SubAdmin subAdmin) {
-        this.subAdmin = subAdmin;
-    }
+//    public SubAdminResponseDTO getSubAdmin() {
+//        return new SubAdminResponseDTO(subAdmin);
+//    }
+//
+//    public void setSubAdmin(SubAdmin subAdmin) {
+//        this.subAdmin = subAdmin;
+//    }
 
     public boolean isActive() {
         return isActive;
@@ -106,7 +109,10 @@ public class DonationCamp {
     public void setCampName(String campName) { this.campName = campName; }
 
     public String getOrganizerName() { return organizerName; }
-    public void setOrganizerName(String organizerName) { this.organizerName = organizerName; }
+    public void setOrganizerName(String organizerName) {
+
+        this.organizerName = organizerName;
+    }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
@@ -149,6 +155,14 @@ public class DonationCamp {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public BloodBankCenter getBloodBankCenter() {
+        return bloodBankCenter;
+    }
+
+    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        this.bloodBankCenter = bloodBankCenter;
+    }
 
     public int getSlotsLeft() {
         return slotsLeft;
