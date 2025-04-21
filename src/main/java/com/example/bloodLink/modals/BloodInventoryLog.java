@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+@Entity
 public class BloodInventoryLog
 {
     @Id
@@ -18,7 +19,8 @@ public class BloodInventoryLog
 
     private LocalDateTime actionTime;
 
-//    @ManyToOne
+
+    @ManyToOne
     @JoinColumn(name = "bloodBankCenterId")
     private BloodBankCenter bloodBankCenter;
 
@@ -69,6 +71,14 @@ public class BloodInventoryLog
 
     public String getRemarks() {
         return remarks;
+    }
+
+    public BloodBankCenter getBloodBankCenter() {
+        return bloodBankCenter;
+    }
+
+    public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        this.bloodBankCenter = bloodBankCenter;
     }
 
     public void setRemarks(String remarks) {

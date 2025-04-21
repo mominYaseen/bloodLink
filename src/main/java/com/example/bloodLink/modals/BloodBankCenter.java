@@ -57,8 +57,8 @@ public class BloodBankCenter {
     @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
     private List<BloodInventory> bloodInventories = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
-//    private List<BloodInventoryLog> inventoryLogs = new ArrayList<>();
+    @OneToMany(mappedBy = "bloodBankCenter", cascade = CascadeType.ALL)
+    private List<BloodInventoryLog> inventoryLogs = new ArrayList<>();
 
 
     // constructor
@@ -93,6 +93,14 @@ public class BloodBankCenter {
 
     public void setBloodInventories(List<BloodInventory> bloodInventories) {
         this.bloodInventories = bloodInventories;
+    }
+
+    public List<BloodInventoryLog> getInventoryLogs() {
+        return inventoryLogs;
+    }
+
+    public void setInventoryLogs(List<BloodInventoryLog> inventoryLogs) {
+        this.inventoryLogs = inventoryLogs;
     }
 
     public Long getId() {

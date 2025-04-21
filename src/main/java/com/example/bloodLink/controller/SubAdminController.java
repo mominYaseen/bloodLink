@@ -2,15 +2,19 @@ package com.example.bloodLink.controller;
 
 
 import com.example.bloodLink.dto.BloodBankCenterRegistrationRequestDTO;
+import com.example.bloodLink.dto.BloodInventoryLogDTO;
 import com.example.bloodLink.dto.DonationCampResponseDTO;
 import com.example.bloodLink.modals.BloodBankCenter;
+import com.example.bloodLink.modals.BloodInventoryLog;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.service.BloodInventoryLogService;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -26,6 +30,8 @@ public class SubAdminController {
     @Autowired
     private CommonDataService commonDataService;
 
+    @Autowired
+    private BloodInventoryLogService bloodInventoryLogService;
 
     //    //open blood donation camp
     // get the user(admin) from the token and put admin.name to DonationCamp.setOrganizerName()
@@ -118,6 +124,28 @@ public class SubAdminController {
     public ResponseEntity<?> addBloodCenterToDb(@RequestBody BloodBankCenterRegistrationRequestDTO dto ){
         String email = "musa@hospital.com";
         return ResponseEntity.ok(commonDataService.registerBloodCenterToDb(dto,email));
+    }
+
+
+    //method for bloodInventoryLog
+
+    @PostMapping("/add-log")
+    public BloodInventoryLog bloodInventoryLog(@RequestBody BloodInventoryLogDTO bloodInventoryLogDTO)
+    {
+        String email = "musa@hospital.com";
+        BloodBankCenter bloodBankCenter = subAdminService.findByEmail(email).getBloodBankCenter();
+
+        BloodInventoryLog bloodInventoryLog = new BloodInventoryLog();
+        bloodInventoryLog.setBloodGroup(bloodInventoryLogDTO.getBloodGroup());
+        bloodInventoryLog.setQuantityChanged(bloodInventoryLogDTO.getQuantityChanged());
+        bloodInventoryLog.setRemarks(bloodInventoryLogDTO.getRemarks());
+        bloodInventoryLog.setActionType(bloodInventoryLogDTO.getActionType());
+        bloodInventoryLog.setPerformedBy(email);
+        bloodInventoryLog.setBloodBankCenter(bloodBankCenter);
+
+
+
+        return bloodInventoryLogService.saveBloodLogOfBloodBankCenter(bloodInventoryLog);
     }
 
 
