@@ -18,6 +18,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -130,23 +131,58 @@ public class SubAdminController {
     //method for bloodInventoryLog
 
     @PostMapping("/add-log")
-    public BloodInventoryLog bloodInventoryLog(@RequestBody BloodInventoryLogDTO bloodInventoryLogDTO)
-    {
-        String email = "musa@hospital.com";
-        BloodBankCenter bloodBankCenter = subAdminService.findByEmail(email).getBloodBankCenter();
+    public ResponseEntity<?> bloodInventoryLog(@RequestBody BloodInventoryLogDTO dto) {
 
-        BloodInventoryLog bloodInventoryLog = new BloodInventoryLog();
-        bloodInventoryLog.setBloodGroup(bloodInventoryLogDTO.getBloodGroup());
-        bloodInventoryLog.setQuantityChanged(bloodInventoryLogDTO.getQuantityChanged());
-        bloodInventoryLog.setRemarks(bloodInventoryLogDTO.getRemarks());
-        bloodInventoryLog.setActionType(bloodInventoryLogDTO.getActionType());
-        bloodInventoryLog.setPerformedBy(email);
-        bloodInventoryLog.setBloodBankCenter(bloodBankCenter);
+        String email = "musa@hospital.com"; // To be replaced with SecurityContextHolder
 
+        //  Edge Case 1: SubAdmin not found
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
+        if (subAdmin == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("SubAdmin not found.");
+        }
 
+        //  Edge Case 2: SubAdmin has no BloodBankCenter assigned
+        BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
+        if (bloodBankCenter == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("SubAdmin is not assigned to any BloodBankCenter.");
+        }
 
-        return bloodInventoryLogService.saveBloodLogOfBloodBankCenter(bloodInventoryLog);
+        //  Edge Case 3: Missing or invalid blood group
+        if (dto.getBloodGroup() == null || dto.getBloodGroup().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Blood group is required.");
+        }
+
+        //  Edge Case 4: Quantity is 0
+        if (dto.getQuantityChanged() == 0) {
+            return ResponseEntity.badRequest().body("Quantity changed must be non-zero.");
+        }
+
+        //  Edge Case 5: Invalid action type
+        List<String> validActions = List.of("DONATION", "REQUEST", "MANUAL_ADJUSTMENT");
+        if (dto.getActionType() == null || !validActions.contains(dto.getActionType().toUpperCase())) {
+            return ResponseEntity.badRequest().body("Invalid action type. Must be one of: " + validActions);
+        }
+
+        //  Proceed to create the log
+        BloodInventoryLog log = new BloodInventoryLog();
+        log.setBloodGroup(dto.getBloodGroup());
+        log.setQuantityChanged(dto.getQuantityChanged());
+        log.setActionType(dto.getActionType());
+        log.setPerformedBy(email);
+        log.setRemarks(dto.getRemarks()); // or generate dynamically
+        log.setBloodBankCenter(bloodBankCenter);
+
+//        BloodInventoryLog savedLog = bloodInventoryLogService.saveBloodLogOfBloodBankCenter(log);
+//        return ResponseEntity.ok(savedLog);
+
+        try {
+            BloodInventoryLog savedLog = bloodInventoryLogService.saveBloodLogOfBloodBankCenter(log);
+            return ResponseEntity.ok(savedLog);
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
+
 
 
 }

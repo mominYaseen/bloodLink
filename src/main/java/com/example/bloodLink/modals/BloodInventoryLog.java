@@ -1,5 +1,6 @@
 package com.example.bloodLink.modals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class BloodInventoryLog
 
     @ManyToOne
     @JoinColumn(name = "bloodBankCenterId")
+    @JsonIgnore
     private BloodBankCenter bloodBankCenter;
 
     @PrePersist

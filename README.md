@@ -1,5 +1,13 @@
 |------------------|
 | SUPER-ADMIN API's |
+
+manually registering super admin:-
+-------------------------------------------------------------------------------------------|
+use bloodlink;                                                                             |
+INSERT INTO super_admin_table (first_name, last_name, email, password, phone_number, role) |
+VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPER_ADMIN'); |
+-------------------------------------------------------------------------------------------|
+
 |---------------------------------------------------|
 1.  POST: localhost:8080/super-admin/register-admin |
 ----------------------------------------------------|
@@ -367,4 +375,27 @@ Response:
         }
 
 
+
+|-------------------------------------------------|
+|3. POST: localhost:8080/admin/add-log            |
+--------------------------------------------------|
+    request:
+        {
+            "bloodGroup": "O+",
+            "quantityChanged": -3,
+            "actionType": "REQUEST",
+            "remarks": "Issued 3 units for emergency transfusion"
+        }
+    response:
+        {
+        "id": 7,
+        "bloodGroup": "O+",
+        "quantityChanged": -3,
+        "actionType": "REQUEST",
+        "remarks": "Issued 3 units for emergency transfusion",
+        "performedBy": "musa@hospital.com",
+        "actionTime": "2025-04-22T11:18:20.3144499"
+        }
+
+    
 
