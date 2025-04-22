@@ -2,13 +2,8 @@ package com.example.bloodLink.service.impl;
 
 import com.example.bloodLink.dto.BloodBankCenterRegistrationRequestDTO;
 import com.example.bloodLink.dto.BloodBankCenterResponseDTO;
-import com.example.bloodLink.modals.BloodBankCenter;
-import com.example.bloodLink.modals.DonationCamp;
-import com.example.bloodLink.modals.SubAdmin;
-import com.example.bloodLink.service.BloodBankCenterService;
-import com.example.bloodLink.service.CommonDataService;
-import com.example.bloodLink.service.DonationCampService;
-import com.example.bloodLink.service.SubAdminService;
+import com.example.bloodLink.modals.*;
+import com.example.bloodLink.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +26,11 @@ public class CommonDataServiceImpl implements CommonDataService {
     private SubAdminService subAdminService;
 
 
+    @Autowired
+    private BloodInventoryService bloodInventoryService;
+
+    @Autowired
+    private BloodInventoryLogService bloodInventoryLogService;
 
 
     // SUPER-ADMIN RELATED SERVICES(FUNCTIONALITIES)
@@ -77,6 +77,16 @@ public class CommonDataServiceImpl implements CommonDataService {
     public BloodBankCenter registerBloodCenterToDb(BloodBankCenterRegistrationRequestDTO bloodBankCenterResponseDTO, String email) {
         return bloodBankCenterService.addBloodBankCenterToDb(bloodBankCenterResponseDTO , email);
     }
+
+    @Override
+    public BloodInventoryLog saveBloodLogOfBloodBankCenter(BloodInventoryLog bloodInventoryLog) {
+        return bloodInventoryLogService.saveBloodLogOfBloodBankCenter(bloodInventoryLog);
+    }
+
+//    @Override
+//    public List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter) {
+//        return bloodInventoryService.findAllByBloodBankCenter(bloodBankCenter);
+//    }
 
 
 }

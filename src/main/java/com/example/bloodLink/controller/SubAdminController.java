@@ -1,13 +1,8 @@
 package com.example.bloodLink.controller;
 
 
-import com.example.bloodLink.dto.BloodBankCenterRegistrationRequestDTO;
-import com.example.bloodLink.dto.BloodInventoryLogDTO;
-import com.example.bloodLink.dto.DonationCampResponseDTO;
-import com.example.bloodLink.modals.BloodBankCenter;
-import com.example.bloodLink.modals.BloodInventoryLog;
-import com.example.bloodLink.modals.SubAdmin;
-import com.example.bloodLink.modals.DonationCamp;
+import com.example.bloodLink.dto.*;
+import com.example.bloodLink.modals.*;
 import com.example.bloodLink.service.BloodInventoryLogService;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SubAdminService;
@@ -19,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
@@ -124,7 +120,14 @@ public class SubAdminController {
     @PostMapping("/add-blood-Bank")
     public ResponseEntity<?> addBloodCenterToDb(@RequestBody BloodBankCenterRegistrationRequestDTO dto ){
         String email = "musa@hospital.com";
-        return ResponseEntity.ok(commonDataService.registerBloodCenterToDb(dto,email));
+
+        try{
+            return ResponseEntity.ok(commonDataService.registerBloodCenterToDb(dto,email));
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
+
     }
 
 
@@ -176,12 +179,43 @@ public class SubAdminController {
 //        return ResponseEntity.ok(savedLog);
 
         try {
-            BloodInventoryLog savedLog = bloodInventoryLogService.saveBloodLogOfBloodBankCenter(log);
+            BloodInventoryLog savedLog = commonDataService.saveBloodLogOfBloodBankCenter(log);
             return ResponseEntity.ok(savedLog);
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
+    // check blood inventory of bloodBankCenter
+    @GetMapping("/get-blood-inventory")
+    public ResponseEntity<?> getBloodInventory() {
+        // get from the security context
+        String email = "musa@hospital.com";
+
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
+        if (subAdmin == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SubAdmin not found for email: " + email);
+        }
+
+        BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
+        if (bloodBankCenter == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No blood bank center assigned to this sub-admin.");
+        }
+
+        if (bloodBankCenter.getBloodInventories() == null || bloodBankCenter.getBloodInventories().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No blood inventory records found.");
+        }
+
+        List<BloodInventoryResponseDto> bloodInventoryResponseDtoList = bloodBankCenter.getBloodInventories()
+                .stream()
+                .map(BloodInventoryResponseDto::new)
+                .toList();
+
+        return ResponseEntity.ok(bloodInventoryResponseDtoList);
+    }
+
+
 
 
 

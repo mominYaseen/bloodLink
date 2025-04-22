@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -23,6 +25,7 @@ public class BloodInventory {
     @JoinColumn(name = "bloodBankCenterId")
     private BloodBankCenter bloodBankCenter;
 
+    private LocalDateTime lastUpdated;
 
 
 
@@ -40,7 +43,7 @@ public class BloodInventory {
 
     @PrePersist
     protected void onCreate() {
-        this.minimumUnits=50;
+        this.minimumUnits=15;
     }
 
 
@@ -50,6 +53,14 @@ public class BloodInventory {
     // getter and setters
     public Long getId() {
         return id;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public void setId(Long id) {

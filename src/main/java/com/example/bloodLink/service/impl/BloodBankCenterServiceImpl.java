@@ -12,6 +12,7 @@ import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,6 +58,7 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
             b.setBloodGroup(inv.getBloodGroup());
             b.setAvailableUnits(inv.getAvailableUnits());
             b.setMinimumUnits(inv.getMinimumUnits());
+            b.setLastUpdated(LocalDateTime.now());
             b.setBloodBankCenter(center);
             return b;
         }).toList();

@@ -2,9 +2,7 @@ package com.example.bloodLink.service;
 
 import com.example.bloodLink.dto.BloodBankCenterRegistrationRequestDTO;
 import com.example.bloodLink.dto.BloodBankCenterResponseDTO;
-import com.example.bloodLink.modals.BloodBankCenter;
-import com.example.bloodLink.modals.DonationCamp;
-import com.example.bloodLink.modals.SubAdmin;
+import com.example.bloodLink.modals.*;
 
 import java.util.List;
 
@@ -33,4 +31,7 @@ public interface CommonDataService {
     SubAdmin findSubAdminByEmail(String email);
 
     BloodBankCenter registerBloodCenterToDb(BloodBankCenterRegistrationRequestDTO bloodBankCenterResponseDTO, String email);
+    BloodInventoryLog saveBloodLogOfBloodBankCenter(BloodInventoryLog bloodInventoryLog);
+
+//    List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter);
 }

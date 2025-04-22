@@ -7,6 +7,8 @@ import com.example.bloodLink.service.BloodInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BloodInventoryServiceImpl implements BloodInventoryService {
 
@@ -23,4 +25,10 @@ public class BloodInventoryServiceImpl implements BloodInventoryService {
         return bloodInventoryRepo.findByBloodBankCenterAndBloodGroup(bloodBankCenter,bloodGroup).
                 orElseThrow(()->new RuntimeException("Inventory not found for group " + bloodGroup));
     }
+
+//    @Override
+//    public List<BloodInventory> findAllByBloodBankCenter(BloodBankCenter bloodBankCenter) {
+//        return bloodInventoryRepo.findAllByBloodBankCenter(bloodBankCenter)
+//                .orElseThrow(()->new RuntimeException("NO INVENTORY FOUND"));
+//    }
 }

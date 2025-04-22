@@ -8,6 +8,8 @@ import com.example.bloodLink.service.BloodInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class BLoodInventoryLogServiceImpl implements BloodInventoryLogService {
 
@@ -39,6 +41,7 @@ public class BLoodInventoryLogServiceImpl implements BloodInventoryLogService {
 
         //  Update the available units in inventory
         bloodInventoryRow.setAvailableUnits(availableUnits + quantityChange);
+        bloodInventoryRow.setLastUpdated(LocalDateTime.now()); // updating the last updated time of bloodInventory row
         bloodInventoryService.saveBloodInventory(bloodInventoryRow); // Save the updated inventory
 
         return bloodInventoryLogRepo.save(bloodInventoryLog);

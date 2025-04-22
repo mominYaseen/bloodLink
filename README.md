@@ -383,12 +383,12 @@ Response:
         {
             "bloodGroup": "O+",
             "quantityChanged": -3,
-            "actionType": "REQUEST",
+            "actionType": "REQUEST", given in any case , it is internally converted to uppercase
             "remarks": "Issued 3 units for emergency transfusion"
         }
     response:
         {
-        "id": 7,
+        "id": 1,
         "bloodGroup": "O+",
         "quantityChanged": -3,
         "actionType": "REQUEST",
@@ -397,5 +397,32 @@ Response:
         "actionTime": "2025-04-22T11:18:20.3144499"
         }
 
-    
 
+
+|-------------------------------------------------|
+|4. POST: localhost:8080/admin/get-blood-inventory|
+--------------------------------------------------|
+    request:- nothing
+    response:-
+        [
+            {
+                "bloodGroup": "A+",
+                "availableUnits": 61,
+                "lastUpdated": "2025-04-22T17:38:17.47556"
+            },
+            {
+                "bloodGroup": "B+",
+                "availableUnits": 10,
+                "lastUpdated": "2025-04-22T17:15:24.702722"
+            },
+            {
+                "bloodGroup": "O+",
+                "availableUnits": 8,
+                "lastUpdated": "2025-04-22T17:15:24.702722"
+            },
+            {
+                "bloodGroup": "AB+",
+                "availableUnits": 6,
+                "lastUpdated": "2025-04-22T17:15:24.702722"
+            }
+        ]
