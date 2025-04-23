@@ -1,11 +1,14 @@
 package com.example.bloodLink.controller;
 
+import com.example.bloodLink.dto.DonationCampResponseToUser;
 import com.example.bloodLink.dto.EligibilityFormDTO;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -42,5 +45,46 @@ public class UserController {
         return userService.save(user);
     }
 
+    @GetMapping("/donation-history")
+    public ResponseEntity<?> donationHistory(){
+        // get from security context holder
+        String email = "momin@email.com";
+        List<DonationCampResponseToUser> donationList = userService.donationCampHistory(email)
+                .stream()
+                .map(DonationCampResponseToUser::new)
+                .toList();
+        return  ResponseEntity.ok(donationList);
+
+
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

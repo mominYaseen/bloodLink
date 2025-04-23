@@ -1,6 +1,7 @@
 package com.example.bloodLink.service.impl;
 
 import com.example.bloodLink.dto.EligibilityFormDTO;
+import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.repository.UserRepo;
 import com.example.bloodLink.service.UserService;
@@ -48,6 +49,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getAllUser() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public List<DonationCamp> donationCampHistory(String email) {
+        List<DonationCamp> registeredCamps = getUserByEmail(email).getRegisteredCamps();
+        return registeredCamps;
     }
 
 

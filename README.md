@@ -541,7 +541,7 @@ Response:
 
 
 
-
+------------------------------------------------oooooooooooooooo------------------------------------------
 |-------------|
 | UserEntity  |
 |-------------------------------------------------|
@@ -594,6 +594,24 @@ Response:
 
 
 
+|-------------------------------------------------|
+|2. GET: localhost:8080/user/donation-history     |
+--------------------------------------------------|
+    request:- nothing
+    response:-
+        [
+            {
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "citymall",
+                "city": "citymall",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "campDate": "2025-04-25",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com"
+            },{},{}
+        ]
 
 
 
