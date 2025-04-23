@@ -33,5 +33,12 @@ public interface CommonDataService {
     BloodBankCenter registerBloodCenterToDb(BloodBankCenterRegistrationRequestDTO bloodBankCenterResponseDTO, String email);
     BloodInventoryLog saveBloodLogOfBloodBankCenter(BloodInventoryLog bloodInventoryLog);
 
-//    List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter);
+    List<DonationCamp> findByIsApprovedFalseAndBloodBankCenter(BloodBankCenter bloodBankCenter);
+
+    List<DonationCamp> findByIsActiveTrueAndBloodBankCenter(BloodBankCenter bloodBankCenter);
+    String registerDonorToDonationCamp(String donorEmail, Long campId);
+
+
+
+    //    List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter);
 }

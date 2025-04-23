@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class DonationCampResponseDTO {
+public class DonationCampResponseToSuperAdmin {
 
     private Long id;
     private String campName;
@@ -15,59 +15,69 @@ public class DonationCampResponseDTO {
     private String city;
     private String state;
     private String country;
-    private Double latitude;
-    private Double longitude;
+    private double latitude;
+    private double longitude;
     private LocalDate campDate;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Integer totalSlots;
+    private int totalSlots;
+    private int slotsBooked;
+    private int slotsLeft;
     private LocalDateTime createdAt;
     private String contactNumber;
     private String email;
-    private boolean isApproved;
-    private boolean isActive;
+    private String bloodBankCenterName;
+    private boolean active;
+    private boolean approved;
 
-
-    public DonationCampResponseDTO(DonationCamp donationCamp) {
-        this.id = donationCamp.getId();
-        this.campName = donationCamp.getCampName();
-        this.organizerName = donationCamp.getOrganizerName();
-        this.address = donationCamp.getAddress();
-        this.city = donationCamp.getCity();
-        this.state = donationCamp.getState();
-        this.country = donationCamp.getCountry();
-        this.latitude = donationCamp.getLatitude();
-        this.longitude = donationCamp.getLongitude();
-        this.campDate = donationCamp.getCampDate();
-        this.startTime = donationCamp.getStartTime();
-        this.endTime = donationCamp.getEndTime();
-        this.totalSlots = donationCamp.getTotalSlots();
-        this.createdAt = donationCamp.getCreatedAt();
-        this.contactNumber = donationCamp.getContactNumber();
-        this.email = donationCamp.getEmail();
-        this.isApproved = donationCamp.isApproved();
-        this.isActive = donationCamp.isActive();
+    public DonationCampResponseToSuperAdmin(DonationCamp camp) {
+        this.id = camp.getId();
+        this.campName = camp.getCampName();
+        this.organizerName = camp.getOrganizerName();
+        this.address = camp.getAddress();
+        this.city = camp.getCity();
+        this.state = camp.getState();
+        this.country = camp.getCountry();
+        this.latitude = camp.getLatitude();
+        this.longitude = camp.getLongitude();
+        this.campDate = camp.getCampDate();
+        this.startTime = camp.getStartTime();
+        this.endTime = camp.getEndTime();
+        this.totalSlots = camp.getTotalSlots();
+        this.slotsBooked = camp.getSlotsBooked();
+        this.slotsLeft = camp.getSlotsLeft();
+        this.createdAt = camp.getCreatedAt();
+        this.contactNumber = camp.getContactNumber();
+        this.email = camp.getEmail();
+        this.bloodBankCenterName = camp.getBloodBankCenter() != null ? camp.getBloodBankCenter().getName() : null;
+        this.active = camp.isActive();
+        this.approved = camp.isApproved();
     }
 
 
 
-    // Getters and Setters
 
 
-    public boolean isActive() {
-        return isActive;
+
+
+
+
+
+
+
+
+
+
+
+
+    // Getters and setters
+
+    public int getSlotsLeft() {
+        return slotsLeft;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isApproved() {
-        return isApproved;
-    }
-
-    public void setApproved(boolean approved) {
-        isApproved = approved;
+    public void setSlotsLeft(int slotsLeft) {
+        this.slotsLeft = slotsLeft;
     }
 
     public Long getId() {
@@ -126,19 +136,19 @@ public class DonationCampResponseDTO {
         this.country = country;
     }
 
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -166,12 +176,20 @@ public class DonationCampResponseDTO {
         this.endTime = endTime;
     }
 
-    public Integer getTotalSlots() {
+    public int getTotalSlots() {
         return totalSlots;
     }
 
-    public void setTotalSlots(Integer totalSlots) {
+    public void setTotalSlots(int totalSlots) {
         this.totalSlots = totalSlots;
+    }
+
+    public int getSlotsBooked() {
+        return slotsBooked;
+    }
+
+    public void setSlotsBooked(int slotsBooked) {
+        this.slotsBooked = slotsBooked;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -196,5 +214,29 @@ public class DonationCampResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBloodBankCenterName() {
+        return bloodBankCenterName;
+    }
+
+    public void setBloodBankCenterName(String bloodBankCenterName) {
+        this.bloodBankCenterName = bloodBankCenterName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

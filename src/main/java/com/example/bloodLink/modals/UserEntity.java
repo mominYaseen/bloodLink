@@ -1,10 +1,14 @@
 package com.example.bloodLink.modals;
 
 import com.example.bloodLink.enums.GenderEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "userTable")
 
@@ -54,9 +58,17 @@ public class UserEntity {
     @Column(name = "eligibleToDonate")
     private boolean eligibleToDonate;
     @Column(name = "lastDonationDate")
-    private LocalDateTime LastDonatedDate;
+    private LocalDate LastDonatedDate;
     @Column(name = "nextDonationDate")
-    private LocalDateTime nextDonationDate;
+    private LocalDate nextDonationDate;
+
+    private boolean eligibilityCheckDone;// don't need to send in json
+
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "registeredDonors")
+    private List<DonationCamp> registeredCamps = new ArrayList<>();
+
 
     // constructor
 
@@ -65,9 +77,33 @@ public class UserEntity {
     }
 
 
+    @PrePersist
+    protected  void onCreate(){
+        this.eligibilityCheckDone=true;
+        this.registeredCamps=null;
+        this.createdAt=LocalDateTime.now();
+        this.nextDonationDate=null;
+    }
+
 
     //setters and getters
 
+
+    public List<DonationCamp> getRegisteredCamps() {
+        return registeredCamps;
+    }
+
+    public void setRegisteredCamps(List<DonationCamp> registeredCamps) {
+        this.registeredCamps = registeredCamps;
+    }
+
+    public boolean isEligibilityCheckDone() {
+        return eligibilityCheckDone;
+    }
+
+    public void setEligibilityCheckDone(boolean eligibilityCheckDone) {
+        this.eligibilityCheckDone = eligibilityCheckDone;
+    }
 
     public Long getId() {
         return id;
@@ -205,19 +241,19 @@ public class UserEntity {
         this.eligibleToDonate = eligibleToDonate;
     }
 
-    public LocalDateTime getLastDonatedDate() {
+    public LocalDate getLastDonatedDate() {
         return LastDonatedDate;
     }
 
-    public void setLastDonatedDate(LocalDateTime lastDonatedDate) {
+    public void setLastDonatedDate(LocalDate lastDonatedDate) {
         LastDonatedDate = lastDonatedDate;
     }
 
-    public LocalDateTime getNextDonationDate() {
+    public LocalDate getNextDonationDate() {
         return nextDonationDate;
     }
 
-    public void setNextDonationDate(LocalDateTime nextDonationDate) {
+    public void setNextDonationDate(LocalDate nextDonationDate) {
         this.nextDonationDate = nextDonationDate;
     }
 }

@@ -83,6 +83,21 @@ public class CommonDataServiceImpl implements CommonDataService {
         return bloodInventoryLogService.saveBloodLogOfBloodBankCenter(bloodInventoryLog);
     }
 
+    @Override
+    public List<DonationCamp> findByIsApprovedFalseAndBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        return  donationCampService.findByIsApprovedFalseAndBloodBankCenter(bloodBankCenter);
+    }
+
+    @Override
+    public List<DonationCamp> findByIsActiveTrueAndBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        return donationCampService.findByIsActiveTrueAndBloodBankCenter(bloodBankCenter);
+    }
+
+    @Override
+    public String registerDonorToDonationCamp(String donorEmail, Long campId) {
+        return donationCampService.registerForDonationCamp(donorEmail,campId);
+    }
+
 //    @Override
 //    public List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter) {
 //        return bloodInventoryService.findAllByBloodBankCenter(bloodBankCenter);

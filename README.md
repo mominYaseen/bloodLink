@@ -65,44 +65,36 @@ Response: List of registered-admins or "NO REGISTERED SUB_ADMINS"
 
 
 -------------------------------------------------------| 
-3.  PUT: localhost:8080/super-admin/aprove-camp/{ID}   |
+3.  PUT: localhost:8080/super-admin/approve-camp/{ID}   |
 -------------------------------------------------------|
 Request: Path-variable id = (e.g. id = 1)
 
-Response:
-{
-    "id": 1,
-    "campName": "Downtown Blood Donation Drive",
-    "organizerName": null,
-    "address": "45 Red Cross Avenue",
-    "city": "Baramulla",
-    "state": "Jammu & Kashmir",
-    "country": "India",
-    "latitude": 34.209,
-    "longitude": 74.3481,
-    "campDate": "2025-04-25",
-    "startTime": "10:00:00",
-    "endTime": "16:00:00",
-    "totalSlots": 80,
-    "slotsBooked": 0,
-    "slotsLeft": 0,
-    "createdAt": "2025-04-18T10:43:22.72774",
-    "contactNumber": "+91-9876543210",
-    "email": "musa@hospital.com",
-    "subAdmin": {
-        "id": 1,
-        "firstName": "musa",
-        "lastName": "yaseen",
-        "email": "musa@hospital.com",
-        "phoneNumber": "123456789",
-        "assignedBloodBankCenterName": "123456789",
-        "role": "ROLE_SUB_ADMIN",
-        "createdAt": "2025-04-18T10:43:18.437716"
-    },
-    "active": true,
-    "approved": true
-}
-
+Response: below json , if camp is already approved then response = "400 Bad Request , msg = "DONATION CAMP ALREADY APPROVED"
+        [
+            {
+                "id": 2,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "lal chowk",
+                "city": "Baramulla",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "slotsBooked": 0,
+                "slotsLeft": 0,
+                "createdAt": "2025-04-23T14:51:53.196171",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com",
+                "bloodBankCenterName": "City Blood Bank",
+                "active": false,
+                "approved": false
+            }
+        ]
 
 ----------------------------------------------------  
 4.  GET: localhost:8080/super-admin/active-camps
@@ -426,3 +418,184 @@ Response:
                 "lastUpdated": "2025-04-22T17:15:24.702722"
             }
         ]
+
+|-------------------------------------------------|
+|5. POST: localhost:8080/admin/get-requested-camps|
+--------------------------------------------------|
+    request : none
+    response:
+        [
+            {
+                "id": 1,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "45 Red Cross Avenue",
+                "city": "Baramulla",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "createdAt": "2025-04-23T14:51:37.31501",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com"
+            },
+            {
+                "id": 2,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "lal chowk",
+                "city": "Baramulla",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "createdAt": "2025-04-23T14:51:53.196171",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com"
+            }
+        ]
+
+|-------------------------------------------------|
+|6. POST: localhost:8080/admin/get-requested-camps|
+--------------------------------------------------|
+    request: nothing
+    response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here
+        [
+            {
+                "id": 1,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "citymall",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "createdAt": "2025-04-23T16:46:44.681233",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com",
+                "active": true,
+                "approved": true
+            },
+            {
+                "id": 3,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "lalchowk",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "createdAt": "2025-04-23T16:47:09.934748",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com",
+                "active": true,
+                "approved": true
+            }
+        ]
+
+|--------------------------------------------------------------------------|
+|6. POST: localhost:8080/admin/register-donor-to-camp/{campId}/{donorEmail}|
+---------------------------------------------------------------------------|
+    e.g : localhost:8080/admin/register-donor-to-camp/3/momin@email.com
+    request : none
+    response:
+         1.   DONATION CAMP NOT FOUND (IF campId given is wrong or the camp is not active)
+         2.   DONOR IS NOT ELIGIBLE TO DONATE(when donor  is not eligible to donate)
+         3.   NO SLOTS LEFT IN THIS DONATION CAMP (when slots are not left)
+         4.   Donor successfully registered for the donation camp! (when donor registers successfully)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|-------------|
+| UserEntity  |
+|-------------------------------------------------|
+|1. POST: localhost:8080/user/register            |
+--------------------------------------------------|
+    request:
+            {
+                "firstName": "momin",
+                "lastName": "momin",
+                "email": "momin@email.com",
+                "password": "1234",
+                "phoneNumber": "+1234567890",
+                "gender": "male",
+                "age": 30,
+                "bloodGroup": "O+",
+                "address": "123 Street Name",
+                "city": "Srinagar",
+                "state": "Jammu and Kashmir",
+                "country": "India",
+                "latitude": 34.0858,
+                "longitude": 74.7984,
+                "eligibleToDonate": true,
+                "lastDonationDate": "2025-03-15T10:00:00"
+            }
+
+    response:
+            {
+            "id": 1,
+            "firstName": "momin",
+            "lastName": "momin",
+            "email": "momin@email.com",
+            "password": "1234",
+            "phoneNumber": "+1234567890",
+            "gender": "male",
+            "age": 30,
+            "bloodGroup": "O+",
+            "address": "123 Street Name",
+            "city": "Srinagar",
+            "state": "Jammu and Kashmir",
+            "country": "India",
+            "latitude": 34.0858,
+            "longitude": 74.7984,
+            "createdAt": "2025-04-23T16:47:46.745896",
+            "eligibleToDonate": true,
+            "nextDonationDate": null,
+            "eligibilityCheckDone": true,
+            "lastDonatedDate": null
+            }
+
+
+
+
+
+
+
+
+

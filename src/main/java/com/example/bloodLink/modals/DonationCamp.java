@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "donation_camps")
@@ -64,6 +65,18 @@ public class DonationCamp {
     private BloodBankCenter bloodBankCenter;
 
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "donation_camp_donors",
+            joinColumns = @JoinColumn(name = "camp_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<UserEntity> registeredDonors;
+
+
+
+
     public DonationCamp() {
     }
 
@@ -75,9 +88,12 @@ public class DonationCamp {
         this.isActive=false;
         this.isApproved = false;
         this.createdAt = LocalDateTime.now();
+        this.slotsLeft=this.totalSlots;
     }
 
     // Getters and Setters
+
+
 //    public SubAdminResponseDTO getSubAdmin() {
 //        return new SubAdminResponseDTO(subAdmin);
 //    }
@@ -85,6 +101,15 @@ public class DonationCamp {
 //    public void setSubAdmin(SubAdmin subAdmin) {
 //        this.subAdmin = subAdmin;
 //    }
+
+
+    public List<UserEntity> getRegisteredDonors() {
+        return registeredDonors;
+    }
+
+    public void setRegisteredDonors(List<UserEntity> registeredDonors) {
+        this.registeredDonors = registeredDonors;
+    }
 
     public boolean isActive() {
         return isActive;

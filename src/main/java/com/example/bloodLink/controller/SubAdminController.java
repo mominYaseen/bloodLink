@@ -108,12 +108,55 @@ public class SubAdminController {
     // method for getting all donation camp requests
 
     @GetMapping("/get-requested-camps")
-    public ResponseEntity<?> getAllRequestedCamps()
-    {
-        return null;
+    public ResponseEntity<?> getAllRequestedCamps() {
+
+
+        String email = "musa@hospital.com";
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
+        BloodBankCenter center = subAdmin.getBloodBankCenter();
+
+        if (center == null) {
+                return ResponseEntity.badRequest().body("No blood bank center linked to this SubAdmin.");
+        }
+        try{
+            List<DonationCampResponseDTO> requestedDonationList = commonDataService.findByIsApprovedFalseAndBloodBankCenter(center)
+                    .stream()
+                    .map(DonationCampResponseDTO::new)
+                    .toList();
+
+            return ResponseEntity.ok(requestedDonationList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to fetch requested camps: " + e.getMessage());
+        }
     }
 
 
+    // method for getting all donation camp requests
+
+    @GetMapping("/get-active-camps")
+    public ResponseEntity<?> getAllActiveCamps() {
+
+
+        String email = "musa@hospital.com";
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
+        BloodBankCenter center = subAdmin.getBloodBankCenter();
+
+        if (center == null) {
+            return ResponseEntity.badRequest().body("No blood bank center linked to this SubAdmin.");
+        }
+        try{
+            List<DonationCampResponseDTO> requestedDonationList = commonDataService.findByIsActiveTrueAndBloodBankCenter(center)
+                    .stream()
+                    .map(DonationCampResponseDTO::new)
+                    .toList();
+
+            return ResponseEntity.ok(requestedDonationList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to fetch requested camps: " + e.getMessage());
+        }
+    }
 
 
     // METHOD FOR ADDING A BLOOD-BANK CENTER
@@ -215,7 +258,17 @@ public class SubAdminController {
         return ResponseEntity.ok(bloodInventoryResponseDtoList);
     }
 
+    @PostMapping("/register-donor-to-camp/{campId}/{donorEmail}")
+    public ResponseEntity<?> registerDonorToCamp(@PathVariable Long campId , @PathVariable String donorEmail){
 
+        try{
+            return ResponseEntity.ok(commonDataService.registerDonorToDonationCamp(donorEmail,campId));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
+
+    }
 
 
 

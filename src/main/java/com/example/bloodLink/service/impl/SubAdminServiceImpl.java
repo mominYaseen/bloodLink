@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubAdminServiceImpl implements SubAdminService  {
 
@@ -30,5 +32,11 @@ public class SubAdminServiceImpl implements SubAdminService  {
     public SubAdmin findByEmail(String email) {
       return   subAdminRepo.findByEmail(email);
     }
+
+//    @Override
+//    public List<?> registerForDonationCamp(String email,DonationCamp donationCamp) {
+//
+//        return null;
+//    }
 
 }

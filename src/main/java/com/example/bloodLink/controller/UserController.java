@@ -21,7 +21,9 @@ public class UserController {
 
         if (userService.checkIfEligible(form)){
             // get the email from jwt token and get curr user using the email and set
-            // UserEntity.setEligibleToDonate()---> true or else false
+            // UserEntity.setEligibleToDonate()---> true
+            // UserEntity.setEligibilityCheckDone()---> true
+
             return ResponseEntity.ok("user eligible to donate");
         }else {
              return ResponseEntity.ok("user not-eligible to donate");
@@ -34,6 +36,11 @@ public class UserController {
 //    public ResponseEntity<?> getUser(String ){
 //
 //    }
+
+    @PostMapping("/register")
+    public UserEntity register(@RequestBody UserEntity user){
+        return userService.save(user);
+    }
 
 
 }

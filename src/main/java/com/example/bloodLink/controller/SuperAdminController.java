@@ -1,5 +1,6 @@
 package com.example.bloodLink.controller;
 
+import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
 import com.example.bloodLink.dto.SubAdminCreateDTO;
 import com.example.bloodLink.dto.SubAdminResponseDTO;
 import com.example.bloodLink.modals.DonationCamp;
@@ -84,22 +85,32 @@ public class SuperAdminController {
     @GetMapping("/get-requested-camps")
     public ResponseEntity<?> getAllRequestedCamps()
     {
-        List<DonationCamp> allNonApprovedListOfDonationCamps = commonDataService.getAllNonApprovedListOfDonationCamps();
+        List<DonationCampResponseToSuperAdmin> allNonApprovedListOfDonationCamps = commonDataService.getAllNonApprovedListOfDonationCamps()
+                .stream()
+                .map(DonationCampResponseToSuperAdmin::new)
+                .toList();
         // Edge Case 1: No donation camps found
         if (allNonApprovedListOfDonationCamps == null || allNonApprovedListOfDonationCamps.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No requested donation camps found.");
         }
+
         return ResponseEntity.ok(allNonApprovedListOfDonationCamps);
     }
 
     // function for approving the donation camp
-    @PutMapping("/aprove-camp/{campId}")
+    @PutMapping("/approve-camp/{campId}")
     public ResponseEntity<?> approveDonationCamp(@PathVariable Long campId){
 
         if (campId == null ){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE RECHECK campId");
         }
-       return ResponseEntity.ok(commonDataService.approveDonationCamp(campId));
+        try {
+            return ResponseEntity.ok(new DonationCampResponseToSuperAdmin(commonDataService.approveDonationCamp(campId)));
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
+        }
 
     }
 
