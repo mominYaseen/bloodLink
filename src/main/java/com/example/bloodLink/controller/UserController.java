@@ -5,6 +5,7 @@ import com.example.bloodLink.dto.EligibilityFormDTO;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,11 +50,16 @@ public class UserController {
     public ResponseEntity<?> donationHistory(){
         // get from security context holder
         String email = "momin@email.com";
-        List<DonationCampResponseToUser> donationList = userService.donationCampHistory(email)
-                .stream()
-                .map(DonationCampResponseToUser::new)
-                .toList();
-        return  ResponseEntity.ok(donationList);
+        try{
+            List<DonationCampResponseToUser> donationList = userService.donationCampHistory(email)
+                    .stream()
+                    .map(DonationCampResponseToUser::new)
+                    .toList();
+            return  ResponseEntity.ok(donationList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
 
 
     }

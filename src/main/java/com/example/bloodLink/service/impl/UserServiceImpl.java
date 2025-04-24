@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<DonationCamp> donationCampHistory(String email) {
-        List<DonationCamp> registeredCamps = getUserByEmail(email).getRegisteredCamps();
-        return registeredCamps;
+        return userRepo.findUserByEmail(email).getRegisteredCamps();
+
     }
 
 

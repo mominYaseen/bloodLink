@@ -50,7 +50,12 @@ public class SuperAdminController {
             subAdmin.setPassword(subAdminCreateDTO.getPassword());
             subAdmin.setCreatedAt(LocalDateTime.now());
             subAdmin.setBloodBankCenter(null);
-            return ResponseEntity.ok(new SubAdminResponseDTO(superAdminService.registerSubAdmin(subAdmin)));
+            try{
+                return ResponseEntity.ok(new SubAdminResponseDTO(superAdminService.registerSubAdmin(subAdmin)));
+
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            }
         }
 
 

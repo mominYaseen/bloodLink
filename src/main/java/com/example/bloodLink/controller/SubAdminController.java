@@ -165,7 +165,7 @@ public class SubAdminController {
         String email = "musa@hospital.com";
 
         try{
-            return ResponseEntity.ok(commonDataService.registerBloodCenterToDb(dto,email));
+            return ResponseEntity.ok(new BloodBankCenterResponseDTO(commonDataService.registerBloodCenterToDb(dto,email)));
         }catch (IllegalStateException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
