@@ -617,3 +617,51 @@ Response:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+USER ENTITY SQL QUERIES FOR TESTING PURPOSES
+
+INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+address, city, state, country, latitude, longitude, account_created_date,
+eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+VALUES ('Julie', 'Wood', 'shelly80@yahoo.com', 'I+3LEgli!2', '5872631379', 'FEMALE', 44, 'A+',
+'6983 Anita Trace', 'Foxtown', 'Hawaii', 'Tunisia', -14.602331, 29.509902, '2025-04-25 15:09:31',
+FALSE, '2024-06-16', NULL, TRUE);
+
+INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+address, city, state, country, latitude, longitude, account_created_date,
+eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+VALUES ('Elizabeth', 'Taylor', 'johnsonjessica@yahoo.com', 'D6cAsoS)%2', '8916198263', 'FEMALE', 25, 'O+',
+'978 Cortez Parkway', 'South Joshuaside', 'Georgia', 'Ethiopia', -45.631229, 139.591871, '2025-04-25 15:09:31',
+FALSE, '2024-08-18', NULL, TRUE);
+
+INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+address, city, state, country, latitude, longitude, account_created_date,
+eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+VALUES ('Karen', 'Price', 'iduncan@reed-coleman.com', '3GWj5OXp!4', '7699984341', 'MALE', 34, 'A+',
+'24044 Carlos River Apt. 630', 'Lake Rebecca', 'Kentucky', 'Costa Rica', -0.0517605, 72.297130, '2025-04-25 15:09:31',
+FALSE, '2024-06-30', NULL, TRUE);
+

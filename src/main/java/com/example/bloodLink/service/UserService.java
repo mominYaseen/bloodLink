@@ -13,4 +13,6 @@ public interface UserService {
     UserEntity save(UserEntity user);
     List<UserEntity> getAllUser();
     List<DonationCamp> donationCampHistory(String email);
+    List<UserEntity> findByBloodGroupAndEligibleToDonateTrue(String bloodGroup);
+
 }
