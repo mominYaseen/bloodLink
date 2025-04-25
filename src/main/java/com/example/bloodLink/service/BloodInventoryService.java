@@ -8,5 +8,6 @@ import java.util.List;
 public interface BloodInventoryService {
     BloodInventory saveBloodInventory(BloodInventory bloodInventory);
     BloodInventory findByBloodBankCenterAndBloodGroup(BloodBankCenter bloodBankCenter, String bloodGroup);
+    List<BloodInventory> findLowInventoryByBloodBankCenter();
 //    List<BloodInventory> findAllByBloodBankCenter(BloodBankCenter bloodBankCenter);
 }

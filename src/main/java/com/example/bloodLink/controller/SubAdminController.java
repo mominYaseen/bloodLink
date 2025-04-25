@@ -267,9 +267,16 @@ public class SubAdminController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
-
     }
 
+    @GetMapping("/get-low-blood")
+    public ResponseEntity<?> getLowBloodInventory(){
+        try{
+           return ResponseEntity.ok(commonDataService.findLowInventoryByBloodBankCenter());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+        }
 
+    }
 
 }

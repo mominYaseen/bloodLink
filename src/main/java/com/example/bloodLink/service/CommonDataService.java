@@ -37,6 +37,7 @@ public interface CommonDataService {
 
     List<DonationCamp> findByIsActiveTrueAndBloodBankCenter(BloodBankCenter bloodBankCenter);
     String registerDonorToDonationCamp(String donorEmail, Long campId);
+    List<BloodInventory> findLowInventoryByBloodBankCenter();
 
 
 

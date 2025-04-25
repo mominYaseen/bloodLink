@@ -98,6 +98,11 @@ public class CommonDataServiceImpl implements CommonDataService {
         return donationCampService.registerForDonationCamp(donorEmail,campId);
     }
 
+    @Override
+    public List<BloodInventory> findLowInventoryByBloodBankCenter() {
+        return bloodInventoryService.findLowInventoryByBloodBankCenter();
+    }
+
 //    @Override
 //    public List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter) {
 //        return bloodInventoryService.findAllByBloodBankCenter(bloodBankCenter);
