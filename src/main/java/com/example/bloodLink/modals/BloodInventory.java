@@ -27,6 +27,7 @@ public class BloodInventory {
 
     private LocalDateTime lastUpdated;
 
+    private LocalDateTime lastNotifiedAt;
 
 
 
@@ -97,5 +98,13 @@ public class BloodInventory {
 
     public void setBloodBankCenter(BloodBankCenter bloodBankCenter) {
         this.bloodBankCenter = bloodBankCenter;
+    }
+
+    public LocalDateTime getLastNotifiedAt() {
+        return lastNotifiedAt;
+    }
+
+    public void setLastNotifiedAt(LocalDateTime lastNotifiedAt) {
+        this.lastNotifiedAt = lastNotifiedAt;
     }
 }
