@@ -3,6 +3,7 @@ package com.example.bloodLink.controller;
 import com.example.bloodLink.dto.DonationCampResponseToUser;
 import com.example.bloodLink.dto.EligibilityFormDTO;
 import com.example.bloodLink.modals.UserEntity;
+import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    private CommonDataService commonDataService;
 
 
     @PostMapping("/check-eligibility")
@@ -60,7 +64,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
-
+    }
+    @GetMapping("/get-low-blood")
+    public ResponseEntity<?> getLowBloodInventory(){
+        String email = "momin@email.com";
+        String bloodGroup = userService.getUserByEmail(email).getBloodGroup();
+        try{
+            return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+        }
 
     }
 

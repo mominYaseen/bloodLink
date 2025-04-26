@@ -99,14 +99,11 @@ public class CommonDataServiceImpl implements CommonDataService {
     }
 
     @Override
-    public List<BloodInventory> findLowInventoryByBloodBankCenter() {
-        return bloodInventoryService.findLowInventoryByBloodBankCenter();
+    public List<BloodInventory> lowBloodInventoryByBloodGroup(String bloodGroup) {
+        return bloodInventoryService.lowBloodInventoryByBloodGroup(bloodGroup);
     }
 
-//    @Override
-//    public List<BloodInventory> getBloodInventory(BloodBankCenter bloodBankCenter) {
-//        return bloodInventoryService.findAllByBloodBankCenter(bloodBankCenter);
-//    }
+
 
 
 }

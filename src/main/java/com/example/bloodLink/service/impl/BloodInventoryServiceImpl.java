@@ -33,35 +33,24 @@ public class BloodInventoryServiceImpl implements BloodInventoryService {
                 orElseThrow(()->new RuntimeException("Inventory not found for group " + bloodGroup));
     }
 
-    @Override
-    public List<BloodInventory> findLowInventoryByBloodBankCenter() {
-
-        // get the subAdmin-Email from  security context holder and then get the blood bank center and send it in the repo's method
-        //currently using custom email
-
-        String email  = "musa@hospital.com";
-        SubAdmin admin = subAdminService.findByEmail(email);
-        if (admin == null){
-            throw new EntityNotFoundException("ADMIN DOES NOT EXIST");
-        }
-        BloodBankCenter bloodBankCenter = admin.getBloodBankCenter();
-        if (bloodBankCenter == null){
-            throw new EntityNotFoundException("PLEASE REGISTER BLOOD BANK CENTER ");
-        }
-
-        List<BloodInventory> lowInventoryByBloodBankCenter = bloodInventoryRepo.
-                findLowInventoryByBloodBankCenter(bloodBankCenter)
-                .orElseThrow(()->new RuntimeException("NO MINIMUM BLOOD QUANTIY"));
-
-
-        return lowInventoryByBloodBankCenter;
+    public List<BloodInventory> getLowBloodInventory()
+    {
+        return bloodInventoryRepo.findAll()
+                .stream()
+                .filter(inventory->inventory.getAvailableUnits()<=inventory.getMinimumUnits())
+                .toList();
     }
 
-//    @Override
-//    public List<BloodInventory> findAllByBloodBankCenter(BloodBankCenter bloodBankCenter) {
-//        return bloodInventoryRepo.findAllByBloodBankCenter(bloodBankCenter)
-//                .orElseThrow(()->new RuntimeException("NO INVENTORY FOUND"));
-//    }
+
+    @Override
+    public List<BloodInventory> lowBloodInventoryByBloodGroup(String bloodGroup) {
+        return getLowBloodInventory()
+                .stream()
+                .filter(inventory->inventory.getBloodGroup().equalsIgnoreCase(bloodGroup))
+                .toList();
+    }
+
+
 }
 
 
