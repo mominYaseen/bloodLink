@@ -615,9 +615,26 @@ Response:
 
 
 
-
-
-
+|-------------------------------------------------|
+|3. GET: localhost:8080/user/get-all              |
+--------------------------------------------------|
+    request : none
+    response :
+        [
+            {
+                "centerName": "City Blood Bank",
+                "city": "Srinagar",
+                "bloodGroup": "O+",
+                "availableUnits": 8
+            },
+            {
+                "centerName": "SMHS",
+                "city": "Srinagar",
+                "bloodGroup": "O+",
+                "availableUnits": 8
+            },{},{}
+        ]
+note: complete this method at the end because it needs websockets to have latest and realtime data from  the db.
 
 
 

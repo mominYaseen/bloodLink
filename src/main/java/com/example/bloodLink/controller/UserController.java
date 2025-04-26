@@ -1,5 +1,6 @@
 package com.example.bloodLink.controller;
 
+import com.example.bloodLink.dto.BloodShortageResponse;
 import com.example.bloodLink.dto.DonationCampResponseToUser;
 import com.example.bloodLink.dto.EligibilityFormDTO;
 import com.example.bloodLink.modals.UserEntity;
@@ -70,7 +71,11 @@ public class UserController {
         String email = "momin@email.com";
         String bloodGroup = userService.getUserByEmail(email).getBloodGroup();
         try{
-            return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup));
+            return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
+                    .stream()
+                    .map(BloodShortageResponse::new)
+                    .toList()
+            );
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
