@@ -58,7 +58,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> findByBloodGroupAndEligibleToDonateTrue(String bloodGroup) {
+    public List<UserEntity>
+    findByBloodGroupAndEligibleToDonateTrue(String bloodGroup) {
         return userRepo.findByBloodGroupAndEligibleToDonateTrue(bloodGroup);
     }
 
