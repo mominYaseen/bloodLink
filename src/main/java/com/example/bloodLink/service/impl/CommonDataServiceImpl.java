@@ -61,6 +61,11 @@ public class CommonDataServiceImpl implements CommonDataService {
         return donationCampService.findByIsActiveTrue();
     }
 
+    @Override
+    public List<BloodBankCenter> getAllBloodBankCenters() {
+        return bloodBankCenterService.getAllBloodCenters();
+    }
+
 
     // SUB-ADMIN RELATED SERVICES(FUNCTIONALITES)
 
@@ -104,6 +109,16 @@ public class CommonDataServiceImpl implements CommonDataService {
     }
 
 
+    // GETTING IT FOR SUB-ADMIN && SUPER-ADMIN BOTH
+    @Override
+    public List<BloodInventoryLog> findInventoryLogAllByBloodBankCenter(BloodBankCenter bloodBankCenter) {
+        return bloodInventoryLogService.findAllByBloodBankCenter(bloodBankCenter);
+    }
+
+    @Override
+    public BloodBankCenter getCenter(Long id) {
+        return bloodBankCenterService.getCenter(id);
+    }
 
 
 }

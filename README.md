@@ -10,31 +10,31 @@ VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPE
 
 |---------------------------------------------------|
 1.  POST: localhost:8080/super-admin/register-admin |
-----------------------------------------------------|
-Request:                                                             
-{
-    "firstName": "musa",
-    "lastName": "yaseen",
-    "email": "musa@hospital.com",
-    "password": "123",
-    "phoneNumber": "123456789",
-    "assignedBloodBankCenterName": "City Blood Bank",
-    "role": "ROLE_SUB_ADMIN"
-}
+----------------------------------------------------| 
+    Request:                                                             
+        {
+            "firstName": "musa",
+            "lastName": "yaseen",
+            "email": "musa@hospital.com",
+            "password": "123",
+            "phoneNumber": "123456789",
+            "assignedBloodBankCenterName": "City Blood Bank",
+            "role": "ROLE_SUB_ADMIN"
+        }
 
-Response:
-{
-    "firstName": "musa",
-    "lastName": "yaseen",
-    "email": "musa@hospital.com",
-    "phoneNumber": "123456789",
-    "assignedBloodBankCenterName": "123456789",
-    "role": "ROLE_SUB_ADMIN",
-    "createdAt": "2025-04-18T10:32:43.7650225"
-}
+    Response:
+        {
+            "firstName": "musa",
+            "lastName": "yaseen",
+            "email": "musa@hospital.com",
+            "phoneNumber": "123456789",
+            "assignedBloodBankCenterName": "123456789",
+            "role": "ROLE_SUB_ADMIN",
+            "createdAt": "2025-04-18T10:32:43.7650225"
+        }
 
 
-|----------------------------------------------------------|
+----------------------------------------------------------|
 2.  GET: localhost:8080/super-admin/get-registered-admins |
 ----------------------------------------------------------|
 Request: None
@@ -221,6 +221,119 @@ Response: List of requested camps or "No requested donation camps found."
     }
 ]
 
+----------------------------------------------------------|
+7. GET: localhost:8080/super-admin/get-registered-admins  |
+----------------------------------------------------------|
+    request: none
+    response :
+       [
+           {
+               "id": 1,
+               "name": "City Blood Bank",
+               "address": "123 Main Street, Downtown",
+               "contactNumber": "+911234567890",
+               "email": "contact@citybloodbank.org",
+               "city": "Srinagar",
+               "state": "Jammu & Kashmir",
+               "country": "India",
+               "subAdminEmail": "musa@hospital.com"
+               },
+               {
+               "id": 2,
+               "name": "SMHS",
+               "address": "123 Main Street, Downtown",
+               "contactNumber": "+91123F4567890",
+               "email": "contact@smhs.org",
+               "city": "Srinagar",
+               "state": "Jammu & Kashmir",
+               "country": "India",
+               "subAdminEmail": "momin@hospital.com"
+           }
+       ]
+
+|------------------------------------------------------------|
+|8. GET: localhost:8080/super-admin/get-logs/{centerId}      | (e.g : localhost:8080/super-admin/get-logs/1) , here 1 represents centerId
+-------------------------------------------------------------|
+    request:nothing
+    response : THIS RESPONSE(inventory log) IS ACCORDING TO BLOOD BANK CENTER WITH ID=1 
+        [
+            {
+                "id": 1,
+                "bloodGroup": "A+",
+                "quantityChanged": 10,
+                "actionType": "donation",
+                "remarks": "Issued 3 units for emergency transfusion",
+                "performedBy": "musa@hospital.com",
+                "availableQuantity": 0,
+                "actionTime": "2025-04-25T18:50:04.667186"
+            },
+            {
+                "id": 2,
+                "bloodGroup": "A+",
+                "quantityChanged": -7,
+                "actionType": "request",
+                "remarks": "Issued 3 units for emergency transfusion",
+                "performedBy": "musa@hospital.com",
+                "availableQuantity": 0,
+                "actionTime": "2025-04-25T18:53:40.456019"
+            },
+            {
+                "id": 3,
+                "bloodGroup": "A+",
+                "quantityChanged": 17,
+                "actionType": "donation",
+                "remarks": "Issued 3 units for emergency transfusion",
+                "performedBy": "musa@hospital.com",
+                "availableQuantity": 0,
+                "actionTime": "2025-04-25T20:32:01.461524"
+            },
+        ]
+
+
+----------------------------------------------------------|
+7. GET: localhost:8080/super-admin/get-centers            |
+----------------------------------------------------------|
+    request : none
+    response : list of blood bank centers . each center will be clickable and 
+                 then will have the option to check the logs of it using above(8th ⬆️) api call internally.
+       [
+           {
+               "id": 1,
+               "name": "City Blood Bank",
+               "address": "123 Main Street, Downtown",
+               "contactNumber": "+911234567890",
+               "email": "contact@citybloodbank.org",
+               "city": "Srinagar",
+               "state": "Jammu & Kashmir",
+               "country": "India",
+               "subAdminEmail": "musa@hospital.com"
+           },
+           {
+               "id": 2,
+               "name": "SMHS",
+               "address": "123 Main Street, Downtown",
+               "contactNumber": "+91123F4567890",
+               "email": "contact@smhs.org",
+               "city": "Srinagar",
+               "state": "Jammu & Kashmir",
+               "country": "India",
+               "subAdminEmail": "momin@hospital.com"
+           }
+       ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---------------------------------------------oooooooooooooo----------------------------------------
 
@@ -392,7 +505,7 @@ Response:
 
 
 |-------------------------------------------------|
-|4. POST: localhost:8080/admin/get-blood-inventory|
+|4. GET: localhost:8080/admin/get-blood-inventory|
 --------------------------------------------------|
     request:- nothing
     response:-
@@ -420,7 +533,7 @@ Response:
         ]
 
 |-------------------------------------------------|
-|5. POST: localhost:8080/admin/get-requested-camps|
+|5. GET: localhost:8080/admin/get-requested-camps|
 --------------------------------------------------|
     request : none
     response:
@@ -464,7 +577,7 @@ Response:
         ]
 
 |-------------------------------------------------|
-|6. POST: localhost:8080/admin/get-requested-camps|
+|6. GET: localhost:8080/admin/get-requested-camps|
 --------------------------------------------------|
     request: nothing
     response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here
@@ -523,7 +636,44 @@ Response:
          4.   Donor successfully registered for the donation camp! (when donor registers successfully)
 
 
-
+|-------------------------------------------------|
+|7. GET: localhost:8080/admin/get-logs            |
+--------------------------------------------------|
+    REQUEST : NONE
+    RESPONSE :
+        [
+            {
+            "id": 1,
+            "bloodGroup": "A+",
+            "quantityChanged": 10,
+            "actionType": "donation",
+            "remarks": "Issued 3 units for emergency transfusion",
+            "performedBy": "musa@hospital.com",
+            "availableQuantity": 0,
+            "actionTime": "2025-04-25T18:50:04.667186"
+            },
+            {
+            "id": 2,
+            "bloodGroup": "A+",
+            "quantityChanged": -7,
+            "actionType": "request",
+            "remarks": "Issued 3 units for emergency transfusion",
+            "performedBy": "musa@hospital.com",
+            "availableQuantity": 0,
+            "actionTime": "2025-04-25T18:53:40.456019"
+            },
+            {
+            "id": 3,
+            "bloodGroup": "A+",
+            "quantityChanged": 17,
+            "actionType": "donation",
+            "remarks": "Issued 3 units for emergency transfusion",
+            "performedBy": "musa@hospital.com",
+            "availableQuantity": 0,
+            "actionTime": "2025-04-25T20:32:01.461524"
+            },{},{}
+        ]
+            
 
 
 
@@ -634,7 +784,7 @@ Response:
                 "availableUnits": 8
             },{},{}
         ]
-note: complete this method at the end because it needs websockets to have latest and realtime data from  the db.
+**note**: complete this method at the end because it needs websockets to have latest and realtime data from  the db.
 
 
 

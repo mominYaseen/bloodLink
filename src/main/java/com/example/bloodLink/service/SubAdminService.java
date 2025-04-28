@@ -11,6 +11,9 @@ public interface SubAdminService {
     // request for opening blood donation camp
     DonationCamp reqDonationCamp(DonationCamp camp);
     SubAdmin findByEmail(String email);
+    SubAdmin registerSubAdmin(SubAdmin admin);
+
+
 //    Class<?> registerForDonationCamp(String email , DonationCamp donationCamp);
 
 }

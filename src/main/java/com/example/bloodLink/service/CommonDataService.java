@@ -22,6 +22,13 @@ public interface CommonDataService {
     //contains Donation camp data that is  currently active (for super admin)
     List<DonationCamp> getAllActiveListOfDonationCamps();
 
+    // all blood center
+    List<BloodBankCenter> getAllBloodBankCenters();
+
+
+
+
+
 
 
 
@@ -39,6 +46,30 @@ public interface CommonDataService {
     String registerDonorToDonationCamp(String donorEmail, Long campId);
 
     List<BloodInventory> lowBloodInventoryByBloodGroup(String bloodGroup);
+
+
+
+
+
+
+
+
+
+
+
+
+    // COMMON SERVICES B/W SUPER-ADMIN AND SUB-ADMIN
+    BloodBankCenter getCenter(Long id);
+
+    // all log details according to bloodbank center
+    List<BloodInventoryLog> findInventoryLogAllByBloodBankCenter(BloodBankCenter bloodBankCenter);
+
+
+
+
+
+
+
 
 
 

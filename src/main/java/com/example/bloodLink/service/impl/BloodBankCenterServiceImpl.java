@@ -68,37 +68,16 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
         return center;
     }
 
+    @Override
+    public List<BloodBankCenter> getAllBloodCenters() {
+        return bloodBankCenterRepo.findAll();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public BloodBankCenter getCenter(Long id) {
+        return bloodBankCenterRepo.findById(id)
+                .orElseThrow(()->new RuntimeException("NO BLOOD BANK FOUND"));
+    }
 
 
 }

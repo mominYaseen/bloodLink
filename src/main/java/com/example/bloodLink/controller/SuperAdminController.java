@@ -1,8 +1,10 @@
 package com.example.bloodLink.controller;
 
+import com.example.bloodLink.dto.BloodBankCenterResponseDTO;
 import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
 import com.example.bloodLink.dto.SubAdminCreateDTO;
 import com.example.bloodLink.dto.SubAdminResponseDTO;
+import com.example.bloodLink.modals.BloodBankCenter;
 import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.SubAdmin;
 import com.example.bloodLink.modals.SuperAdmin;
@@ -141,5 +143,28 @@ public class SuperAdminController {
         }
         return ResponseEntity.ok(activeListOfDonationCamps);
     }
+
+
+
+    // getting all registered blood bank centers
+    @GetMapping("/get-centers")
+    public  ResponseEntity<?> getAllBloodBankCenters()
+    {
+        List<BloodBankCenterResponseDTO> listOfBloodCenters = commonDataService.getAllBloodBankCenters()
+                .stream()
+                .map(BloodBankCenterResponseDTO::new)
+                .toList();
+
+        return ResponseEntity.ok(listOfBloodCenters);
+
+    }
+
+    @GetMapping("/get-logs/{centerId}")
+    public ResponseEntity<?> getAllLogs(@PathVariable Long centerId){
+        BloodBankCenter bloodBankCenter = commonDataService.getCenter(centerId);
+
+        return ResponseEntity.ok(  commonDataService.findInventoryLogAllByBloodBankCenter(bloodBankCenter));
+    }
+
 
 }

@@ -33,6 +33,11 @@ public class SubAdminServiceImpl implements SubAdminService  {
       return   subAdminRepo.findByEmail(email);
     }
 
+    @Override
+    public SubAdmin registerSubAdmin(SubAdmin admin) {
+        return subAdminRepo.save(admin);
+    }
+
 //    @Override
 //    public List<?> registerForDonationCamp(String email,DonationCamp donationCamp) {
 //

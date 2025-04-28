@@ -17,6 +17,7 @@ public class BloodInventoryLog
     private String actionType;   // e.g., "DONATION", "REQUEST", "MANUAL_ADJUSTMENT"
     private String remarks;
     private String performedBy;
+    private int availableQuantity;
 
     private LocalDateTime actionTime;
 
@@ -38,6 +39,15 @@ public class BloodInventoryLog
 
 
     //getter and setters
+
+
+    public int getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
+    }
 
     public Long getId() {
         return id;

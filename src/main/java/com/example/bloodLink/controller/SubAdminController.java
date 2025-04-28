@@ -9,12 +9,10 @@ import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
@@ -48,7 +46,7 @@ public class SubAdminController {
             return ResponseEntity.badRequest().body("Request body cannot be null.");
         }
         if (bloodBankCenter==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("BLOOD BANK NOT FOUND");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE ASSIGN BLOOD BANK FIRST");
 
         }
         if (camp.getCampName() == null || camp.getCampName().isEmpty()) {
@@ -190,7 +188,7 @@ public class SubAdminController {
         //  Edge Case 2: SubAdmin has no BloodBankCenter assigned
         BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
         if (bloodBankCenter == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("SubAdmin is not assigned to any BloodBankCenter.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE ASSIGN BLOOD BANK FIRST.");
         }
 
         //  Edge Case 3: Missing or invalid blood group
@@ -238,12 +236,12 @@ public class SubAdminController {
 
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         if (subAdmin == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SubAdmin not found for email: " + email);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource Not Found");
         }
 
         BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
         if (bloodBankCenter == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No blood bank center assigned to this sub-admin.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE ASSIGN BLOOD BANK FIRST.");
         }
 
         if (bloodBankCenter.getBloodInventories() == null || bloodBankCenter.getBloodInventories().isEmpty()) {
@@ -270,4 +268,38 @@ public class SubAdminController {
     }
 
 
+    @GetMapping("/get-logs")
+    public ResponseEntity<?> getAllLogs(){
+
+        String email = "musa@hospital.com";
+
+        SubAdmin subAdmin = subAdminService.findByEmail(email);
+        if (subAdmin == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource Not Found");
+        }
+
+        BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
+        if (bloodBankCenter == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PLEASE ASSIGN BLOOD BANK FIRST.");
+        }
+
+        return ResponseEntity.ok(  commonDataService.findInventoryLogAllByBloodBankCenter(bloodBankCenter));
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
