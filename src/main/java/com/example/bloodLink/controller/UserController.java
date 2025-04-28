@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/check-eligibility")
     public ResponseEntity<?> checkIfEligible(@RequestBody EligibilityFormDTO form){
         //get the email of user from security context
-        String email = "shelly80@yahoo.com";
+        String email = "momin@email.com";
         UserEntity user = userService.getUserByEmail(email);
         if (userService.checkIfEligible(form)){
             // get the email from jwt token and get curr user using the email and set

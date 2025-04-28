@@ -19,7 +19,7 @@ public class DonationCampResponseToUser {
         this.campName = camp.getCampName();
         this.organizerName = camp.getOrganizerName();
         this.address = camp.getAddress();
-        this.city = camp.getAddress();
+        this.city = camp.getCity();
         this.state = camp.getState();
         this.country = camp.getCountry();
         this.campDate = camp.getCampDate();

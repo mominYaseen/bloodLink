@@ -829,7 +829,7 @@ Response:
 
 
 |-----------------------------------------------------|
-|5. Get: localhost:8080/user/check--if-eligibility   |
+|5. Get: localhost:8080/user/check--if-eligibility    |
 ------------------------------------------------------|
     request : nothing
     response : true ( if eligibility-check is done)
@@ -840,7 +840,48 @@ Response:
 
 
 
+|-----------------------------------------------------|
+|6. Get: localhost:8080/user/active-camps             |
+------------------------------------------------------|
 
+    request : none
+    response : list of active camps
+        [
+            {
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "citymall",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "campDate": "2025-04-25",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com"
+            },
+            {
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "barzullah",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "campDate": "2025-05-15",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com"
+            },
+            {
+            "campName": "Downtown Blood Donation Drive",
+            "organizerName": "City Blood Bank",
+            "address": "hkjhklhl",
+            "city": "srinagar",
+            "state": "Jammu & Kashmir",
+            "country": "India",
+            "campDate": "2025-05-15",
+            "contactNumber": "+91-9876543210",
+            "email": "musa@hospital.com"
+            }
+        ]
+    
 
 
 
