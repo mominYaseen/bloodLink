@@ -99,47 +99,60 @@ Response: below json , if camp is already approved then response = "400 Bad Requ
 ----------------------------------------------------  
 4.  GET: localhost:8080/super-admin/active-camps
 -----------------------------------------------------
-Request: None
-
-Response: List of active-camps or "NO ACTIVE LIST OF DONATION CAMPS"
-[
-    {
-        "id": 1,
-        "campName": "Downtown Blood Donation Drive",
-        "organizerName": null,
-        "address": "45 Red Cross Avenue",
-        "city": "Baramulla",
-        "state": "Jammu & Kashmir",
-        "country": "India",
-        "latitude": 34.209,
-        "longitude": 74.3481,
-        "campDate": "2025-04-25",
-        "startTime": "10:00:00",
-        "endTime": "16:00:00",
-        "totalSlots": 80,
-        "slotsBooked": 0,
-        "slotsLeft": 0,
-        "createdAt": "2025-04-18T10:43:22.72774",
-        "contactNumber": "+91-9876543210",
-        "email": "musa@hospital.com",
-        "subAdmin": {
-            "id": 1,
-            "firstName": "musa",
-            "lastName": "yaseen",
-            "email": "musa@hospital.com",
-            "phoneNumber": "123456789",
-            "assignedBloodBankCenterName": "123456789",
-            "role": "ROLE_SUB_ADMIN",
-            "createdAt": "2025-04-18T10:43:18.437716"
-        },
-        "active": true,
-        "approved": true
-    }
-]
-
+    Request: None
+    
+    Response: List of active-camps or "NO ACTIVE LIST OF DONATION CAMPS"
+        [
+            {
+                "id": 1,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "citymall",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "slotsBooked": 1,
+                "slotsLeft": 79,
+                "createdAt": "2025-04-23T16:46:44.681233",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com",
+                "bloodBankCenterName": "City Blood Bank",
+                "active": true,
+                "approved": true
+            },
+            {
+                "id": 3,
+                "campName": "Downtown Blood Donation Drive",
+                "organizerName": "City Blood Bank",
+                "address": "lalchowk",
+                "city": "srinagar",
+                "state": "Jammu & Kashmir",
+                "country": "India",
+                "latitude": 34.209,
+                "longitude": 74.3481,
+                "campDate": "2025-04-25",
+                "startTime": "10:00:00",
+                "endTime": "16:00:00",
+                "totalSlots": 80,
+                "slotsBooked": 0,
+                "slotsLeft": 80,
+                "createdAt": "2025-04-23T16:47:09.934748",
+                "contactNumber": "+91-9876543210",
+                "email": "musa@hospital.com",
+                "bloodBankCenterName": "City Blood Bank",
+                "active": true,
+                "approved": true
+            }
+        ]
 
 -------------------------------------------------------------|   
-5. GET: localhost:8080/super-admin/approved-donation-camps  |
+5. GET: localhost:8080/super-admin/approved-donation-camps   |
 -------------------------------------------------------------|
 Request: None
 
@@ -577,7 +590,7 @@ Response:
         ]
 
 |-------------------------------------------------|
-|6. GET: localhost:8080/admin/get-requested-camps|
+|6. GET: localhost:8080/admin/get-active-camps    |
 --------------------------------------------------|
     request: nothing
     response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here
@@ -766,7 +779,7 @@ Response:
 
 
 |-------------------------------------------------|
-|3. GET: localhost:8080/user/get-all              |
+|3. GET: localhost:8080/user/get-low-blood        |
 --------------------------------------------------|
     request : none
     response :
@@ -787,6 +800,41 @@ Response:
 **note**: complete this method at the end because it needs websockets to have latest and realtime data from  the db.
 
 
+
+
+
+
+
+|-------------------------------------------------|
+|4. POST: localhost:8080/user/check-eligibility   |
+--------------------------------------------------|
+    request:
+        {
+            "feelingWell": ,
+            "recentDonation": ,
+            "takingMedication": ,
+            "hasChronicIllness": ,
+            "hasInfection": ,
+            "covidRecently": ,
+            "malariaTravel": ,
+            "hasTattoo": ,
+            "testedPositiveHIV": ,
+            "pregnant": ,
+            "weight":
+        }
+    response :
+        1. user eligible to donate(200)
+                or
+        2. user not-eligible to donate(200)
+
+
+|-----------------------------------------------------|
+|5. Get: localhost:8080/user/check--if-eligibility   |
+------------------------------------------------------|
+    request : nothing
+    response : true ( if eligibility-check is done)
+                else
+                false (if eligibility-check is not done)
 
 
 

@@ -1,6 +1,7 @@
 package com.example.bloodLink.controller;
 
 import com.example.bloodLink.dto.BloodShortageResponse;
+import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
 import com.example.bloodLink.dto.DonationCampResponseToUser;
 import com.example.bloodLink.dto.EligibilityFormDTO;
 import com.example.bloodLink.modals.UserEntity;
@@ -27,15 +28,19 @@ public class UserController {
 
     @PostMapping("/check-eligibility")
     public ResponseEntity<?> checkIfEligible(@RequestBody EligibilityFormDTO form){
-
+        //get the email of user from security context
+        String email = "shelly80@yahoo.com";
+        UserEntity user = userService.getUserByEmail(email);
         if (userService.checkIfEligible(form)){
             // get the email from jwt token and get curr user using the email and set
-            // UserEntity.setEligibleToDonate()---> true
-            // UserEntity.setEligibilityCheckDone()---> true
+             user.setEligibleToDonate(true);
+             user.setEligibilityCheckDone(true);
 
-            return ResponseEntity.ok("user eligible to donate");
+            return ResponseEntity.ok(" eligible to donate");
         }else {
-             return ResponseEntity.ok("user not-eligible to donate");
+            user.setEligibleToDonate(false);
+            user.setEligibilityCheckDone(true);
+             return ResponseEntity.ok(" not-eligible to donate");
 
         }
 
@@ -82,6 +87,39 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/check-if-eligibility")
+    public ResponseEntity<?> checkIfEligible() {
+
+        // Replace this with SecurityContextHolder logic in production
+        String email = "shelly80@yahoo.com";
+
+        UserEntity user = userService.getUserByEmail(email);
+
+        if (user.isEligibilityCheckDone()) {
+            if (user.isEligibleToDonate()) {
+                return ResponseEntity.ok("eligible");
+            } else {
+                return ResponseEntity.ok("not eligible");
+            }
+        } else {
+            return ResponseEntity.ok("eligibility check not done");
+        }
+    }
+
+    @GetMapping("/active-camps")
+    public ResponseEntity<?> allActiveDonationCamps(){
+        List<DonationCampResponseToUser> activeListOfDonationCamps = commonDataService.getAllActiveListOfDonationCamps()
+                .stream()
+                .map(DonationCampResponseToUser::new)
+                .toList();
+
+        // Edge Case 1: No donation camps found
+        if (activeListOfDonationCamps.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO ACTIVE LIST OF DONATION CAMPS");
+        }
+        return ResponseEntity.ok(activeListOfDonationCamps);
+    }
 
 }
 

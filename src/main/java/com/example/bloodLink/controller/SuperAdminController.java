@@ -136,9 +136,13 @@ public class SuperAdminController {
     // get list of all active donation camps
     @GetMapping("/active-camps")
     public ResponseEntity<?> allActiveDonationCamps(){
-        List<DonationCamp> activeListOfDonationCamps = commonDataService.getAllActiveListOfDonationCamps();
+        List<DonationCampResponseToSuperAdmin> activeListOfDonationCamps = commonDataService.getAllActiveListOfDonationCamps()
+                .stream()
+                .map(DonationCampResponseToSuperAdmin::new)
+                .toList();
+
         // Edge Case 1: No donation camps found
-        if (activeListOfDonationCamps == null || activeListOfDonationCamps.isEmpty()) {
+        if (activeListOfDonationCamps.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO ACTIVE LIST OF DONATION CAMPS");
         }
         return ResponseEntity.ok(activeListOfDonationCamps);

@@ -15,4 +15,5 @@ public interface UserService {
     List<DonationCamp> donationCampHistory(String email);
     List<UserEntity> findByBloodGroupAndEligibleToDonateTrue(String bloodGroup);
 
+
 }
