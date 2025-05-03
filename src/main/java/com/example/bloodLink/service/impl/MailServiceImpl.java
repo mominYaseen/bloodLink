@@ -64,7 +64,7 @@ public class MailServiceImpl implements MailService {
 
             helper.setTo(user.getEmail());
             helper.setSubject("🩸 Thank You for Donating Blood at Our Camp!");
-            helper.setFrom("noreply@bloodlink.org");
+            helper.setFrom("moominyaseen786@gmail.com"); // TODO --  use bloodlink email here , so that this email message wont get into spam folder
 
             String body = String.format(
                     "Dear %s %s,\n\n" +
