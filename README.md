@@ -903,7 +903,7 @@ USER ENTITY SQL QUERIES FOR TESTING PURPOSES
 INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
 address, city, state, country, latitude, longitude, account_created_date,
 eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
-VALUES ('Julie', 'Wood', 'shelly80@yahoo.com', 'I+3LEgli!2', '5872631379', 'FEMALE', 44, 'A+',
+VALUES ('momin', 'yaseen', 'mominyaseeneducation@gmail.com', 'I+3LEgli!2', '5872631379', 'male', 44, 'A+',
 '6983 Anita Trace', 'Foxtown', 'Hawaii', 'Tunisia', -14.602331, 29.509902, '2025-04-25 15:09:31',
 FALSE, '2024-06-16', NULL, TRUE);
 

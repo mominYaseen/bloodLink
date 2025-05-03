@@ -5,6 +5,7 @@ import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.repository.DonationCampRepo;
 import com.example.bloodLink.service.DonationCampService;
+import com.example.bloodLink.service.MailService;
 import com.example.bloodLink.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class DonationCampServiceImpl implements DonationCampService {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    private MailService mailService;
 
     // method for requesting donation camp
     @Override
@@ -89,6 +93,9 @@ public class DonationCampServiceImpl implements DonationCampService {
         // Save the updated camp and donor details to the database
         donationCampRepo.save(donationCamp);
         userService.save(donor);
+
+        // send email notification to user(donor) for donating blood .
+        mailService.sendDonationCampThankYouEmail(donor,donationCamp);
 
         // Return a success message
         return "Donor successfully registered for the donation camp!";
