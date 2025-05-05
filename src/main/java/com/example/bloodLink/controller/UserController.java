@@ -4,6 +4,7 @@ import com.example.bloodLink.dto.BloodShortageResponse;
 import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
 import com.example.bloodLink.dto.DonationCampResponseToUser;
 import com.example.bloodLink.dto.EligibilityFormDTO;
+import com.example.bloodLink.modals.AuthUser;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.UserService;
@@ -52,8 +53,24 @@ public class UserController {
 //    }
 
     @PostMapping("/register")
-    public UserEntity register(@RequestBody UserEntity user){
-        return userService.save(user);
+    public ResponseEntity<?> register(@RequestBody UserEntity user){
+
+
+
+        try{
+            AuthUser authUser = new AuthUser();
+            authUser.setEmail(user.getEmail());
+            authUser.setPassword(user.getPassword());
+            authUser.setRole("ROLE_USER");
+
+            commonDataService.saveAuthUserToDb(authUser);
+
+
+            return ResponseEntity.ok(userService.save(user));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new RuntimeException(e));
+        }
+
     }
 
     @GetMapping("/donation-history")

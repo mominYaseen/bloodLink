@@ -32,6 +32,8 @@ public class CommonDataServiceImpl implements CommonDataService {
     @Autowired
     private BloodInventoryLogService bloodInventoryLogService;
 
+    @Autowired
+    private AuthUserService authUserService;
 
     // SUPER-ADMIN RELATED SERVICES(FUNCTIONALITIES)
 
@@ -115,10 +117,16 @@ public class CommonDataServiceImpl implements CommonDataService {
         return bloodInventoryLogService.findAllByBloodBankCenter(bloodBankCenter);
     }
 
+
+
     @Override
     public BloodBankCenter getCenter(Long id) {
         return bloodBankCenterService.getCenter(id);
     }
 
+    @Override
+    public AuthUser saveAuthUserToDb(AuthUser authUser) {
+        return authUserService.saveToDb(authUser);
+    }
 
 }

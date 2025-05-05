@@ -1,5 +1,4 @@
-package com.example.bloodLink.config;
-
+package com.example.bloodLink.security.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +13,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth->auth
-                    .anyRequest().permitAll()
+                        .anyRequest().permitAll()
                 )
                 .csrf(csrf->csrf.disable());
         return http.build();

@@ -65,6 +65,8 @@ public interface CommonDataService {
     List<BloodInventoryLog> findInventoryLogAllByBloodBankCenter(BloodBankCenter bloodBankCenter);
 
 
+    // for saving user to authUser table
+    AuthUser saveAuthUserToDb(AuthUser authUser);
 
 
 
