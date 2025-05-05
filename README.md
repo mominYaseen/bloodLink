@@ -19,7 +19,7 @@ VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPE
             "password": "123",
             "phoneNumber": "123456789",
             "assignedBloodBankCenterName": "City Blood Bank",
-            "role": "ROLE_SUB_ADMIN"
+            "role": "ROLE_SUB_ADMIN" not in frontend 
         }
 
     Response:
@@ -91,8 +91,8 @@ Response: below json , if camp is already approved then response = "400 Bad Requ
                 "contactNumber": "+91-9876543210",
                 "email": "musa@hospital.com",
                 "bloodBankCenterName": "City Blood Bank",
-                "active": false,
-                "approved": false
+                "active": true,
+                "approved": true
             }
         ]
 
@@ -396,7 +396,7 @@ Response:
 |-------------------------------------------------|
 |2. POST: localhost:8080/admin/add-blood-Bank     |
 --------------------------------------------------|
-    request :- at the time of registering the bloodBankCenter , the subAdmin can send the below response , where the
+    request :- at the time of registering the bloodBankCenter , the subAdmin can send the below req , where the
                 details like BloodInventory is also send at the same time .
         {
             "name": "City Blood Bank",
@@ -519,7 +519,7 @@ Response:
 
 |-------------------------------------------------|
 |4. GET: localhost:8080/admin/get-blood-inventory|
---------------------------------------------------|
+--------------------------------------------------
     request:- nothing
     response:-
         [
@@ -708,7 +708,7 @@ Response:
 |-------------|
 | UserEntity  |
 |-------------------------------------------------|
-|1. POST: localhost:8080/user/register            |
+|1. POST: localhost:8080/user/register             | 
 --------------------------------------------------|
     request:
             {
@@ -754,6 +754,7 @@ Response:
             "lastDonatedDate": null
             }
 
+note
 
 
 
@@ -829,7 +830,7 @@ Response:
 
 
 |-----------------------------------------------------|
-|5. Get: localhost:8080/user/check--if-eligibility    |
+|5. Get: localhost:8080/user/check-if-eligibility    |
 ------------------------------------------------------|
     request : nothing
     response : true ( if eligibility-check is done)
