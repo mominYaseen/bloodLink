@@ -23,13 +23,12 @@ public class UserEntity {
     private String lastName;
     @Column(name = "email",nullable = false,unique = true)
     private String email;
-    private String password;
+//    private String password;
     @Column(name = "phoneNumber",nullable = false,unique = true)
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "gender" , nullable = false)
-    private GenderEnum gender;
+    private String  gender;
 
     @Column(name = "age")
     private int age;
@@ -79,6 +78,7 @@ public class UserEntity {
 
     @PrePersist
     protected  void onCreate(){
+        this.eligibleToDonate=false;
         this.eligibilityCheckDone=true;
         this.registeredCamps=null;
         this.createdAt=LocalDateTime.now();
@@ -137,13 +137,13 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -153,11 +153,11 @@ public class UserEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public GenderEnum getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(GenderEnum gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

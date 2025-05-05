@@ -17,44 +17,6 @@ public class MailServiceImpl implements MailService {
     private JavaMailSender mailSender;
 
 
-    @Override
-//    public void sendDonationCampThankYouEmail(UserEntity user, DonationCamp camp) {
-////        try {
-////            MimeMessage message = mailSender.createMimeMessage();
-////            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-////
-////            helper.setTo(user.getEmail());
-////            helper.setSubject("🩸 Thank You for Donating Blood at Our Camp!");
-////            helper.setFrom("noreply@bloodlink.org");
-////
-////            String body = String.format(
-////                    "Dear " + user.getFirstName() + user.getLastName()+ "," + "\n\n" +
-////                            "Thank you for being a lifesaver!\n\n" +
-////                            "We sincerely appreciate your generous blood donation during the donation camp held at %s on %s. Your contribution is vital in helping those in urgent need of blood and saving lives.\n\n" +
-////                            "Donation Details:\n" +
-////                            "- Donor Name:" + user.getFirstName()+" " + user.getLastName() +"\n" +
-////                            "- Blood Group: " + user.getBloodGroup() + "\n"  +
-////                            "- Camp Name: " + camp.getCampName() + "\n"  +
-////                            "- Camp Location: " + camp.getAddress() + "\n"  +
-////                            "- Date of Donation: " + camp.getCampDate() + "\n"  +
-////                            "Please remember, you will be eligible to donate again after + "+ user.getNextDonationDate()+".\n\n" +
-////                            "If you have any questions or feedback, feel free to contact us.\n\n" +
-////                            "Warm regards,\n" +
-////                            "BloodLink Team\n" +
-////                            "noreply@bloodlink.org\n" +
-////                            "www.bloodlink.org"
-////
-////
-////
-////            );
-////
-////            helper.setText(body, false); // false = plain text
-////
-////            mailSender.send(message);
-////        } catch (MessagingException e) {
-////            throw new RuntimeException("Failed to send email: " + e.getMessage());
-////        }
-////    }
 
 
     public void sendDonationCampThankYouEmail(UserEntity user, DonationCamp camp) {

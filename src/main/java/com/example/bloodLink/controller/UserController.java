@@ -1,9 +1,6 @@
 package com.example.bloodLink.controller;
 
-import com.example.bloodLink.dto.BloodShortageResponse;
-import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
-import com.example.bloodLink.dto.DonationCampResponseToUser;
-import com.example.bloodLink.dto.EligibilityFormDTO;
+import com.example.bloodLink.dto.*;
 import com.example.bloodLink.modals.AuthUser;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.service.CommonDataService;
@@ -11,6 +8,8 @@ import com.example.bloodLink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +25,13 @@ public class UserController {
     @Autowired
     private CommonDataService commonDataService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/check-eligibility")
     public ResponseEntity<?> checkIfEligible(@RequestBody EligibilityFormDTO form){
         //get the email of user from security context
-        String email = "momin@email.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity user = userService.getUserByEmail(email);
         if (userService.checkIfEligible(form)){
             // get the email from jwt token and get curr user using the email and set
@@ -53,30 +54,34 @@ public class UserController {
 //    }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserEntity user){
+    public ResponseEntity<?> register(@RequestBody UserDto user) {
+        try {
+            // Check if user with this email already exists
+            if (userService.getUserByEmail(user.getEmail()) != null) {
+                return ResponseEntity.badRequest().body("Email already registered");
+            }
 
-
-
-        try{
+            // Create and save AuthUser for authentication
             AuthUser authUser = new AuthUser();
             authUser.setEmail(user.getEmail());
-            authUser.setPassword(user.getPassword());
+            authUser.setPassword(passwordEncoder.encode(user.getPassword()));
             authUser.setRole("ROLE_USER");
-
             commonDataService.saveAuthUserToDb(authUser);
 
+            // Save full user data
+            return ResponseEntity.ok(userService.saveUserToDb(user));
 
-            return ResponseEntity.ok(userService.save(user));
         } catch (Exception e) {
-            return ResponseEntity.ok(new RuntimeException(e));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Registration failed: " + e.getMessage());
         }
-
     }
 
     @GetMapping("/donation-history")
     public ResponseEntity<?> donationHistory(){
         // get from security context holder
-        String email = "momin@email.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         try{
             List<DonationCampResponseToUser> donationList = userService.donationCampHistory(email)
                     .stream()
@@ -90,7 +95,9 @@ public class UserController {
     }
     @GetMapping("/get-low-blood")
     public ResponseEntity<?> getLowBloodInventory(){
-        String email = "momin@email.com";
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         String bloodGroup = userService.getUserByEmail(email).getBloodGroup();
         try{
             return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
@@ -108,8 +115,7 @@ public class UserController {
     @GetMapping("/check-if-eligibility")
     public ResponseEntity<?> checkIfEligible() {
 
-        // Replace this with SecurityContextHolder logic in production
-        String email = "shelly80@yahoo.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UserEntity user = userService.getUserByEmail(email);
 

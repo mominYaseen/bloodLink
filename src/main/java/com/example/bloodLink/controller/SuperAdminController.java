@@ -4,15 +4,14 @@ import com.example.bloodLink.dto.BloodBankCenterResponseDTO;
 import com.example.bloodLink.dto.DonationCampResponseToSuperAdmin;
 import com.example.bloodLink.dto.SubAdminCreateDTO;
 import com.example.bloodLink.dto.SubAdminResponseDTO;
-import com.example.bloodLink.modals.BloodBankCenter;
-import com.example.bloodLink.modals.DonationCamp;
-import com.example.bloodLink.modals.SubAdmin;
-import com.example.bloodLink.modals.SuperAdmin;
+import com.example.bloodLink.modals.*;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,6 +29,13 @@ public class SuperAdminController {
     @Autowired
     private CommonDataService commonDataService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+
+//    @PostMapping("")
+
 
     // function for creating subAdmin
 
@@ -46,13 +52,18 @@ public class SuperAdminController {
             subAdmin.setEmail(subAdminCreateDTO.getEmail());
             subAdmin.setPhoneNumber(subAdminCreateDTO.getPhoneNumber());
             subAdmin.setAssignedBloodBankCenter(subAdminCreateDTO.getAssignedBloodBankCenterName());
-            subAdmin.setRole(subAdminCreateDTO.getRole());
+            subAdmin.setRole("ROLE_SUB_ADMIN");
 
-            //hash the password
-            subAdmin.setPassword(subAdminCreateDTO.getPassword());
             subAdmin.setCreatedAt(LocalDateTime.now());
             subAdmin.setBloodBankCenter(null);
             try{
+                AuthUser authUser = new AuthUser();
+                authUser.setEmail(subAdmin.getEmail());
+                authUser.setPassword(passwordEncoder.encode(subAdminCreateDTO.getPassword()));
+                authUser.setRole(subAdmin.getRole());
+
+
+                commonDataService.saveAuthUserToDb(authUser);
                 return ResponseEntity.ok(new SubAdminResponseDTO(superAdminService.registerSubAdmin(subAdmin)));
 
             } catch (Exception e) {
@@ -69,8 +80,8 @@ public class SuperAdminController {
         // get the email from security context and then call the superAdminService.findByEmail() to get the admin
         // and then fetch List<SubAdmin>
 
-        //dummy email
-        String email = "admin@email.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         SuperAdmin superAdmin = superAdminService.findByEmail(email);
         if (superAdmin == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("SUPER_ADMIN NOT FOUND");
@@ -125,7 +136,12 @@ public class SuperAdminController {
     @GetMapping("/approved-donation-camps")
     public ResponseEntity<?> allApprovedDonationCamps()
     {
-        List<DonationCamp> approvedListOfDonationCamps = commonDataService.getAllApprovedListOfDonationCamps();
+//        List<DonationCamp> approvedListOfDonationCamps = commonDataService.getAllApprovedListOfDonationCamps();
+
+       List<DonationCampResponseToSuperAdmin> approvedListOfDonationCamps =  commonDataService.getAllApprovedListOfDonationCamps()
+                .stream()
+                .map(DonationCampResponseToSuperAdmin::new)
+                .toList();
         // Edge Case 1: No donation camps found
         if (approvedListOfDonationCamps == null || approvedListOfDonationCamps.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO DONATION CAMP REQUEST ACCEPTED YET");

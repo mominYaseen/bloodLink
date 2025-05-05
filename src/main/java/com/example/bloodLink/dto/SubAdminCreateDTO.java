@@ -11,7 +11,7 @@ public class SubAdminCreateDTO {
     private String email;
     private String phoneNumber;
     private String assignedBloodBankCenterName;
-    private String role;
+//    private String role;
     private String password;
 
 
@@ -27,7 +27,7 @@ public class SubAdminCreateDTO {
         this.email = admin.getEmail();
         this.phoneNumber = admin.getPhoneNumber();
         this.assignedBloodBankCenterName = admin.getAssignedBloodBankCenter();
-        this.role = admin.getRole();
+//        this.role = admin.getRole();
 //        this.createdAt = admin.getCreatedAt();
     }
 
@@ -90,13 +90,13 @@ public class SubAdminCreateDTO {
         this.createdAt = createdAt;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 
 //    public LocalDateTime getCreatedAt() {
 //        return createdAt;

@@ -19,7 +19,7 @@ import java.util.List;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property ="id"
 )
-public class SubAdmin implements UserDetails {
+public class SubAdmin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +30,8 @@ public class SubAdmin implements UserDetails {
     private String lastName;
     @Column(name = "email",nullable = false,unique = true)
     private String email;
-    @Column(name = "password")
-    private String password;
+//    @Column(name = "password")
+//    private String password;
     @Column(name = "phoneNumber",nullable = false,unique = true)
     private String phoneNumber;
 
@@ -146,43 +146,16 @@ public class SubAdmin implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
-    }
 
-    public String getPassword() {
-        return password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//public void setPassword(String password) {
+//    this.password = password;
+//}
 
-    @Override
-    public String getUsername() {
-        return "";
-    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -209,7 +182,7 @@ public class SubAdmin implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+//                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
 //                ", role='" + role + '\'' +
                 '}';

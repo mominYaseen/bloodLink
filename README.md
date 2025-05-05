@@ -1,5 +1,3 @@
-|------------------|
-| SUPER-ADMIN API's |
 
 manually registering super admin:-
 -------------------------------------------------------------------------------------------|
@@ -8,6 +6,49 @@ INSERT INTO super_admin_table (first_name, last_name, email, password, phone_num
 VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPER_ADMIN'); |
 -------------------------------------------------------------------------------------------|
 
+
+
+when the user/admin/sub_admin login using the api : localhost:8080/login.
+    request:
+        {
+            "email":"email@email.com",
+            "password" : "password"
+        }
+    response:
+        jwt token 
+        e.g :
+            eyJhbGciOiJIUzI1NiJ9.
+            eyJzdWIiOiJtb21pbkBlbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzQ2NDQ0ODM1LCJleHAiOjE3NDY0NDUxMzV9.
+            ca52EZjDnSmNf8KwXWXPGEqUBqeg7jQMnryp1Z22P7Y
+
+    this token contains below details :
+    ----------------------------------------
+        Decoded Header:
+            {
+            "alg": "HS256"
+            }
+        Decoded Payload:
+            {
+            "sub": "momin@email.com",
+            "role": "ROLE_USER", (or) "ROLE_SUB_ADMIN" (or) "ROLE_SUPER_ADMIN"
+            "iat": 1746444835,
+            "exp": 1746445135
+            }
+        JWT Signature Verification
+           { signature}
+        
+get the role from the token and render the required dashboard (ui)
+
+
+
+
+**note**: SET HTTP HEADER TO "Authorizaion" AND SET VALUE TO "BEARER token" TO ALL THE API's EXCEPT ("localhost:8080/user/register).
+        this token is generated after successfull login.
+
+
+|-------------------|
+| SUPER-ADMIN API's |
+|-------------------|
 |---------------------------------------------------|
 1.  POST: localhost:8080/super-admin/register-admin |
 ----------------------------------------------------| 
@@ -18,8 +59,7 @@ VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPE
             "email": "musa@hospital.com",
             "password": "123",
             "phoneNumber": "123456789",
-            "assignedBloodBankCenterName": "City Blood Bank",
-            "role": "ROLE_SUB_ADMIN" not in frontend 
+            "assignedBloodBankCenterName": "City Blood Bank"
         }
 
     Response:
@@ -711,32 +751,11 @@ Response:
 |1. POST: localhost:8080/user/register             | 
 --------------------------------------------------|
     request:
-            {
-                "firstName": "momin",
-                "lastName": "momin",
-                "email": "momin@email.com",
-                "password": "1234",
-                "phoneNumber": "+1234567890",
-                "gender": "male",
-                "age": 30,
-                "bloodGroup": "O+",
-                "address": "123 Street Name",
-                "city": "Srinagar",
-                "state": "Jammu and Kashmir",
-                "country": "India",
-                "latitude": 34.0858,
-                "longitude": 74.7984,
-                "eligibleToDonate": true,
-                "lastDonationDate": "2025-03-15T10:00:00"
-            }
-
-    response:
-            {
-            "id": 1,
+        {
             "firstName": "momin",
             "lastName": "momin",
             "email": "momin@email.com",
-            "password": "1234",
+            "password": "123",
             "phoneNumber": "+1234567890",
             "gender": "male",
             "age": 30,
@@ -747,12 +766,30 @@ Response:
             "country": "India",
             "latitude": 34.0858,
             "longitude": 74.7984,
-            "createdAt": "2025-04-23T16:47:46.745896",
-            "eligibleToDonate": true,
+            "lastDonationDate": "2025-03-15T10:00:00"
+        }
+
+        {
+            "id": 1,
+            "firstName": "momin",
+            "lastName": "momin",
+            "email": "momin@email.com",
+            "phoneNumber": "+1234567890",
+            "gender": "male",
+            "age": 30,
+            "bloodGroup": "O+",
+            "address": "123 Street Name",
+            "city": "Srinagar",
+            "state": "Jammu and Kashmir",
+            "country": "India",
+            "latitude": 34.0858,
+            "longitude": 74.7984,
+            "createdAt": "2025-05-05T15:10:50.422131",
+            "eligibleToDonate": false,
             "nextDonationDate": null,
             "eligibilityCheckDone": true,
             "lastDonatedDate": null
-            }
+        }
 
 note
 

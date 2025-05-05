@@ -1,6 +1,7 @@
 package com.example.bloodLink.service.impl;
 
 import com.example.bloodLink.dto.EligibilityFormDTO;
+import com.example.bloodLink.dto.UserDto;
 import com.example.bloodLink.modals.DonationCamp;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.repository.UserRepo;
@@ -41,6 +42,30 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    // used for saving the userEntity at the time of registering
+    @Override
+    public UserEntity saveUserToDb(UserDto user) {
+
+        UserEntity userEntity= new UserEntity();
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setPhoneNumber(user.getPhoneNumber());
+        userEntity.setGender(user.getGender());
+        userEntity.setAge(user.getAge());
+        userEntity.setBloodGroup(user.getBloodGroup());
+        userEntity.setAddress(user.getAddress());
+        userEntity.setCity(user.getCity());
+        userEntity.setState(user.getState());
+        userEntity.setCountry(user.getCountry());
+        userEntity.setLatitude(user.getLatitude());
+        userEntity.setLongitude(user.getLongitude());
+
+        return userRepo.save(userEntity);
+    }
+
+
+    // used in schedular class
     @Override
     public UserEntity save(UserEntity user) {
         return userRepo.save(user);

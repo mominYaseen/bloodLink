@@ -12,6 +12,7 @@ public interface SuperAdminService {
     SubAdmin registerSubAdmin(SubAdmin admin);
     SuperAdmin findByEmail(String email);
 
+    SuperAdmin saveSuperAdmin(SuperAdmin superAdmin);
 
 
 }

@@ -19,7 +19,6 @@ import java.util.List;
 public class BLoodInventoryLogServiceImpl implements BloodInventoryLogService {
 
 
-    private static final Logger log = LoggerFactory.getLogger(BLoodInventoryLogServiceImpl.class);
     @Autowired
     private BloodInventoryLogRepo bloodInventoryLogRepo;
 

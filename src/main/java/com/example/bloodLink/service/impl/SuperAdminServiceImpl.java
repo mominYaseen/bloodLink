@@ -41,7 +41,10 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         return superAdmin;
     }
 
-
+    @Override
+    public SuperAdmin saveSuperAdmin(SuperAdmin superAdmin) {
+        return superAdminRepo.save(superAdmin);
+    }
 
 
 }

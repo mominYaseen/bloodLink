@@ -9,6 +9,7 @@ import com.example.bloodLink.service.SubAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -37,7 +38,7 @@ public class SubAdminController {
         // get the subAdmin from the security context
         // for now , I am getting it directly from the db using the subAdminService
 
-        String email = "musa@hospital.com";// manually setting email till we get it from security context
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         BloodBankCenter bloodBankCenter = subAdmin.getBloodBankCenter();
 
@@ -109,7 +110,7 @@ public class SubAdminController {
     public ResponseEntity<?> getAllRequestedCamps() {
 
 
-        String email = "musa@hospital.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         BloodBankCenter center = subAdmin.getBloodBankCenter();
 
@@ -136,7 +137,7 @@ public class SubAdminController {
     public ResponseEntity<?> getAllActiveCamps() {
 
 
-        String email = "musa@hospital.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         BloodBankCenter center = subAdmin.getBloodBankCenter();
 
@@ -160,7 +161,7 @@ public class SubAdminController {
     // METHOD FOR ADDING A BLOOD-BANK CENTER
     @PostMapping("/add-blood-Bank")
     public ResponseEntity<?> addBloodCenterToDb(@RequestBody BloodBankCenterRegistrationRequestDTO dto ){
-        String email = "musa@hospital.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         try{
             return ResponseEntity.ok(new BloodBankCenterResponseDTO(commonDataService.registerBloodCenterToDb(dto,email)));
@@ -177,7 +178,7 @@ public class SubAdminController {
     @PostMapping("/add-log")
     public ResponseEntity<?> bloodInventoryLog(@RequestBody BloodInventoryLogDTO dto) {
 
-        String email = "musa@hospital.com"; // To be replaced with SecurityContextHolder
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         //  Edge Case 1: SubAdmin not found
         SubAdmin subAdmin = subAdminService.findByEmail(email);
@@ -232,7 +233,7 @@ public class SubAdminController {
     @GetMapping("/get-blood-inventory")
     public ResponseEntity<?> getBloodInventory() {
         // get from the security context
-        String email = "musa@hospital.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         if (subAdmin == null) {
@@ -271,7 +272,7 @@ public class SubAdminController {
     @GetMapping("/get-logs")
     public ResponseEntity<?> getAllLogs(){
 
-        String email = "musa@hospital.com";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         SubAdmin subAdmin = subAdminService.findByEmail(email);
         if (subAdmin == null) {

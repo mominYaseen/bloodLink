@@ -23,8 +23,8 @@ public class SuperAdmin {
     private String lastName;
     @Column(name = "email",nullable = false,unique = true)
     private String email;
-    @Column(name = "password")
-    private String password;
+//    @Column(name = "password")
+//    private String password;
     @Column(name = "phoneNumber",unique = true,nullable = false)
     private String phoneNumber;
 
@@ -39,11 +39,11 @@ public class SuperAdmin {
     public SuperAdmin() {
     }
 
-    public SuperAdmin(String firstName, String lastName, String email, String password, String phoneNumber, String role) {
+    public SuperAdmin(String firstName, String lastName, String email, String phoneNumber, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+//        this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
     }
@@ -88,13 +88,9 @@ public class SuperAdmin {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
+
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -119,7 +115,7 @@ public class SuperAdmin {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+//                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role='" + role + '\'' +
                 '}';
