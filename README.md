@@ -1,12 +1,5 @@
-
-manually registering super admin:-
--------------------------------------------------------------------------------------------|
-use bloodlink;                                                                             |
-INSERT INTO super_admin_table (first_name, last_name, email, password, phone_number, role) |
-VALUES ('admin', 'admin', 'admin@email.com', '1234', '+919876543210', 'ROLE_SUPER_ADMIN'); |
--------------------------------------------------------------------------------------------|
-
-
+> [!NOTE]
+> Make sure you have a database  named as "bloodLink"
 
 when the user/admin/sub_admin login using the api : localhost:8080/login.
     request:
