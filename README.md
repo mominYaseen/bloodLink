@@ -1,5 +1,6 @@
 > [!NOTE]
 > Make sure you have a database  named as "bloodLink"
+> Project ppt link : [link](https://drive.google.com/drive/folders/1P6JsJqIeJpsBuOduWX2mV0CBj6leqRzJ) 
 
 # when the user/admin/sub_admin login using the api : localhost:8080/login.
     request:
