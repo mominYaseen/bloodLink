@@ -1,7 +1,7 @@
 > [!NOTE]
 > Make sure you have a database  named as "bloodLink"
 
-when the user/admin/sub_admin login using the api : localhost:8080/login.
+# when the user/admin/sub_admin login using the api : localhost:8080/login.
     request:
         {
             "email":"email@email.com",
@@ -14,7 +14,7 @@ when the user/admin/sub_admin login using the api : localhost:8080/login.
             eyJzdWIiOiJtb21pbkBlbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzQ2NDQ0ODM1LCJleHAiOjE3NDY0NDUxMzV9.
             ca52EZjDnSmNf8KwXWXPGEqUBqeg7jQMnryp1Z22P7Y
 
-    this token contains below details :
+## this token contains below details :
     ----------------------------------------
         Decoded Header:
             {
@@ -30,21 +30,21 @@ when the user/admin/sub_admin login using the api : localhost:8080/login.
         JWT Signature Verification
            { signature}
         
-get the role from the token and render the required dashboard (ui)
+> [!NOTE]
+>  the role from the token and render the required dashboard (ui)
 
 
 
 
-**note**: SET HTTP HEADER TO "Authorizaion" AND SET VALUE TO "BEARER token" TO ALL THE API's EXCEPT ("localhost:8080/user/register).
-        this token is generated after successfull login.
+> [!NOTE]
+>  SET HTTP HEADER TO "Authorizaion" AND SET VALUE TO "BEARER token" TO ALL THE API's EXCEPT ("localhost:8080/user/register).
+ token is generated after successfull login.
 
 
-|-------------------|
-| SUPER-ADMIN API's |
-|-------------------|
-|---------------------------------------------------|
-1.  POST: localhost:8080/super-admin/register-admin |
-----------------------------------------------------| 
+# SUPER-ADMIN API's
+
+###  POST: localhost:8080/super-admin/register-admin 
+
     Request:                                                             
         {
             "firstName": "musa",
@@ -67,13 +67,11 @@ get the role from the token and render the required dashboard (ui)
         }
 
 
-----------------------------------------------------------|
-2.  GET: localhost:8080/super-admin/get-registered-admins |
-----------------------------------------------------------|
-Request: None
+###  GET: localhost:8080/super-admin/get-registered-admins 
+    Request: None
 
-Response: List of registered-admins or "NO REGISTERED SUB_ADMINS"
-[
+    Response: List of registered-admins or "NO REGISTERED SUB_ADMINS"
+    [
     {
         "id": 1,
         "firstName": "musa",
@@ -94,15 +92,13 @@ Response: List of registered-admins or "NO REGISTERED SUB_ADMINS"
         "role": "ROLE_SUB_ADMIN",
         "createdAt": "2025-04-18T10:46:47.270021"
     }
-]
+    ]
 
 
--------------------------------------------------------| 
-3.  PUT: localhost:8080/super-admin/approve-camp/{ID}   |
--------------------------------------------------------|
-Request: Path-variable id = (e.g. id = 1)
+###  PUT: localhost:8080/super-admin/approve-camp/{ID}   |
+    Request: Path-variable id = (e.g. id = 1)
 
-Response: below json , if camp is already approved then response = "400 Bad Request , msg = "DONATION CAMP ALREADY APPROVED"
+    Response: below json , if camp is already approved then response = "400 Bad Request , msg = "DONATION CAMP ALREADY APPROVED"
         [
             {
                 "id": 2,
@@ -129,9 +125,7 @@ Response: below json , if camp is already approved then response = "400 Bad Requ
             }
         ]
 
-----------------------------------------------------  
-4.  GET: localhost:8080/super-admin/active-camps
------------------------------------------------------
+### GET: localhost:8080/super-admin/active-camps
     Request: None
     
     Response: List of active-camps or "NO ACTIVE LIST OF DONATION CAMPS"
@@ -184,13 +178,12 @@ Response: below json , if camp is already approved then response = "400 Bad Requ
             }
         ]
 
--------------------------------------------------------------|   
-5. GET: localhost:8080/super-admin/approved-donation-camps   |
--------------------------------------------------------------|
-Request: None
+### GET: localhost:8080/super-admin/approved-donation-camps   |
 
-Response: List of approved donation camps or "NO DONATION CAMP REQUEST ACCEPTED YET"
-[
+    Request: None
+
+    Response: List of approved donation camps or "NO DONATION CAMP REQUEST ACCEPTED YET"
+    [
     {
         "id": 1,
         "campName": "Downtown Blood Donation Drive",
@@ -223,16 +216,14 @@ Response: List of approved donation camps or "NO DONATION CAMP REQUEST ACCEPTED 
         "active": true,
         "approved": true
     }
-]
+    ]
 
 
--------------------------------------------------------| 
-6. GET: localhost:8080/super-admin/get-requested-camps |
--------------------------------------------------------|
-Request: None
+### GET: localhost:8080/super-admin/get-requested-camps |
+    Request: None
 
-Response: List of requested camps or "No requested donation camps found."
-[
+    Response: List of requested camps or "No requested donation camps found."
+    [
     {
         "id": 1,
         "campName": "Downtown Blood Donation Drive",
@@ -265,11 +256,9 @@ Response: List of requested camps or "No requested donation camps found."
         "active": false,
         "approved": false
     }
-]
+    ]
 
-----------------------------------------------------------|
-7. GET: localhost:8080/super-admin/get-registered-admins  |
-----------------------------------------------------------|
+### GET: localhost:8080/super-admin/get-registered-admins  |
     request: none
     response :
        [
@@ -297,9 +286,7 @@ Response: List of requested camps or "No requested donation camps found."
            }
        ]
 
-|------------------------------------------------------------|
-|8. GET: localhost:8080/super-admin/get-logs/{centerId}      | (e.g : localhost:8080/super-admin/get-logs/1) , here 1 represents centerId
--------------------------------------------------------------|
+### GET: localhost:8080/super-admin/get-logs/{centerId}      | (e.g : localhost:8080/super-admin/get-logs/1) , here 1 represents centerId
     request:nothing
     response : THIS RESPONSE(inventory log) IS ACCORDING TO BLOOD BANK CENTER WITH ID=1 
         [
@@ -336,9 +323,7 @@ Response: List of requested camps or "No requested donation camps found."
         ]
 
 
-----------------------------------------------------------|
-7. GET: localhost:8080/super-admin/get-centers            |
-----------------------------------------------------------|
+### GET: localhost:8080/super-admin/get-centers            |
     request : none
     response : list of blood bank centers . each center will be clickable and 
                  then will have the option to check the logs of it using above(8th ⬆️) api call internally.
@@ -383,13 +368,12 @@ Response: List of requested camps or "No requested donation camps found."
 
 ---------------------------------------------oooooooooooooo----------------------------------------
 
-|-------------|
-| SUB-ADMIN   |
-|-------------------------------------------------|
-|1. POST: localhost:8080/admin/req-donation-camp   |
---------------------------------------------------|
-Request:
-{
+# SUB-ADMIN   
+
+
+### POST: localhost:8080/admin/req-donation-camp   
+    Request:
+    {
     "campName": "Downtown Blood Donation Drive",
     "address": "45 Red Cross Avenue",
     "city": "Baramulla",
@@ -403,10 +387,10 @@ Request:
     "totalSlots": 80,
     "contactNumber": "+91-9876543210",
     "email": "lifeline@bloodservices.org"
-}
+    }
 
-Response:
-{
+    Response:
+    {
     "id": 1,
     "campName": "Downtown Blood Donation Drive",
     "organizerName": null,
@@ -423,12 +407,10 @@ Response:
     "createdAt": "2025-04-18T10:43:22.7277396",
     "contactNumber": "+91-9876543210",
     "email": "musa@hospital.com"
-}
+    }
 
 
-|-------------------------------------------------|
-|2. POST: localhost:8080/admin/add-blood-Bank     |
---------------------------------------------------|
+### POST: localhost:8080/admin/add-blood-Bank     
     request :- at the time of registering the bloodBankCenter , the subAdmin can send the below req , where the
                 details like BloodInventory is also send at the same time .
         {
@@ -527,9 +509,7 @@ Response:
 
 
 
-|-------------------------------------------------|
-|3. POST: localhost:8080/admin/add-log            |
---------------------------------------------------|
+### POST: localhost:8080/admin/add-log           
     request:
         {
             "bloodGroup": "O+",
@@ -550,9 +530,7 @@ Response:
 
 
 
-|-------------------------------------------------|
-|4. GET: localhost:8080/admin/get-blood-inventory|
---------------------------------------------------
+### GET: localhost:8080/admin/get-blood-inventory
     request:- nothing
     response:-
         [
@@ -578,9 +556,8 @@ Response:
             }
         ]
 
-|-------------------------------------------------|
-|5. GET: localhost:8080/admin/get-requested-camps|
---------------------------------------------------|
+### GET: localhost:8080/admin/get-requested-camps
+
     request : none
     response:
         [
@@ -622,9 +599,8 @@ Response:
             }
         ]
 
-|-------------------------------------------------|
-|6. GET: localhost:8080/admin/get-active-camps    |
---------------------------------------------------|
+
+### GET: localhost:8080/admin/get-active-camps    
     request: nothing
     response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here
         [
@@ -670,9 +646,7 @@ Response:
             }
         ]
 
-|--------------------------------------------------------------------------|
-|6. POST: localhost:8080/admin/register-donor-to-camp/{campId}/{donorEmail}|
----------------------------------------------------------------------------|
+### POST: localhost:8080/admin/register-donor-to-camp/{campId}/{donorEmail}
     e.g : localhost:8080/admin/register-donor-to-camp/3/momin@email.com
     request : none
     response:
@@ -682,9 +656,7 @@ Response:
          4.   Donor successfully registered for the donation camp! (when donor registers successfully)
 
 
-|-------------------------------------------------|
-|7. GET: localhost:8080/admin/get-logs            |
---------------------------------------------------|
+### GET: localhost:8080/admin/get-logs            
     REQUEST : NONE
     RESPONSE :
         [
@@ -721,28 +693,15 @@ Response:
         ]
             
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ------------------------------------------------oooooooooooooooo------------------------------------------
-|-------------|
-| UserEntity  |
-|-------------------------------------------------|
-|1. POST: localhost:8080/user/register             | 
---------------------------------------------------|
+
+
+# UserEntity 
+
+
+
+
+### POST: localhost:8080/user/register             
     request:
         {
             "firstName": "momin",
@@ -784,13 +743,7 @@ Response:
             "lastDonatedDate": null
         }
 
-note
-
-
-
-|-------------------------------------------------|
-|2. GET: localhost:8080/user/donation-history     |
---------------------------------------------------|
+### GET: localhost:8080/user/donation-history     
     request:- nothing
     response:-
         [
@@ -809,9 +762,7 @@ note
 
 
 
-|-------------------------------------------------|
-|3. GET: localhost:8080/user/get-low-blood        |
---------------------------------------------------|
+### GET: localhost:8080/user/get-low-blood        
     request : none
     response :
         [
@@ -828,7 +779,8 @@ note
                 "availableUnits": 8
             },{},{}
         ]
-**note**: complete this method at the end because it needs websockets to have latest and realtime data from  the db.
+> [!NOTE]
+>  this method at the end because it needs websockets to have latest and realtime data from  the db.
 
 
 
@@ -836,9 +788,7 @@ note
 
 
 
-|-------------------------------------------------|
-|4. POST: localhost:8080/user/check-eligibility   |
---------------------------------------------------|
+### POST: localhost:8080/user/check-eligibility   
     request:
         {
             "feelingWell": ,
@@ -859,9 +809,7 @@ note
         2. user not-eligible to donate(200)
 
 
-|-----------------------------------------------------|
-|5. Get: localhost:8080/user/check-if-eligibility    |
-------------------------------------------------------|
+### Get: localhost:8080/user/check-if-eligibility    
     request : nothing
     response : true ( if eligibility-check is done)
                 else
@@ -871,9 +819,7 @@ note
 
 
 
-|-----------------------------------------------------|
-|6. Get: localhost:8080/user/active-camps             |
-------------------------------------------------------|
+### Get: localhost:8080/user/active-camps             
 
     request : none
     response : list of active camps
@@ -912,43 +858,28 @@ note
             "email": "musa@hospital.com"
             }
         ]
+
+
+#### USER ENTITY SQL QUERIES FOR TESTING PURPOSES
+
+    INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+    address, city, state, country, latitude, longitude, account_created_date,
+    eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+    VALUES ('momin', 'yaseen', 'mominyaseeneducation@gmail.com', 'I+3LEgli!2', '5872631379', 'male', 44, 'A+',
+    '6983 Anita Trace', 'Foxtown', 'Hawaii', 'Tunisia', -14.602331, 29.509902, '2025-04-25 15:09:31',
+    FALSE, '2024-06-16', NULL, TRUE);
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-USER ENTITY SQL QUERIES FOR TESTING PURPOSES
-
-INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
-address, city, state, country, latitude, longitude, account_created_date,
-eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
-VALUES ('momin', 'yaseen', 'mominyaseeneducation@gmail.com', 'I+3LEgli!2', '5872631379', 'male', 44, 'A+',
-'6983 Anita Trace', 'Foxtown', 'Hawaii', 'Tunisia', -14.602331, 29.509902, '2025-04-25 15:09:31',
-FALSE, '2024-06-16', NULL, TRUE);
-
-INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
-address, city, state, country, latitude, longitude, account_created_date,
-eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
-VALUES ('Elizabeth', 'Taylor', 'johnsonjessica@yahoo.com', 'D6cAsoS)%2', '8916198263', 'FEMALE', 25, 'O+',
-'978 Cortez Parkway', 'South Joshuaside', 'Georgia', 'Ethiopia', -45.631229, 139.591871, '2025-04-25 15:09:31',
-FALSE, '2024-08-18', NULL, TRUE);
-
-INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
-address, city, state, country, latitude, longitude, account_created_date,
-eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
-VALUES ('Karen', 'Price', 'iduncan@reed-coleman.com', '3GWj5OXp!4', '7699984341', 'MALE', 34, 'A+',
-'24044 Carlos River Apt. 630', 'Lake Rebecca', 'Kentucky', 'Costa Rica', -0.0517605, 72.297130, '2025-04-25 15:09:31',
-FALSE, '2024-06-30', NULL, TRUE);
+    INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+    address, city, state, country, latitude, longitude, account_created_date,
+    eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+    VALUES ('Elizabeth', 'Taylor', 'johnsonjessica@yahoo.com', 'D6cAsoS)%2', '8916198263', 'FEMALE', 25, 'O+',
+    '978 Cortez Parkway', 'South Joshuaside', 'Georgia', 'Ethiopia', -45.631229, 139.591871, '2025-04-25 15:09:31',
+    FALSE, '2024-08-18', NULL, TRUE);
+    
+    INSERT INTO user_table (first_name, last_name, email, password, phone_number, gender, age, blood_group,
+    address, city, state, country, latitude, longitude, account_created_date,
+    eligible_to_donate, last_donation_date, next_donation_date, eligibility_check_done)
+    VALUES ('Karen', 'Price', 'iduncan@reed-coleman.com', '3GWj5OXp!4', '7699984341', 'MALE', 34, 'A+',
+    '24044 Carlos River Apt. 630', 'Lake Rebecca', 'Kentucky', 'Costa Rica', -0.0517605, 72.297130, '2025-04-25 15:09:31',
+    FALSE, '2024-06-30', NULL, TRUE);
 
