@@ -8,6 +8,33 @@
             "email":"email@email.com",
             "password" : "password"
         }
+
+        e.g: login as superAdmin
+            {
+            "email":"admin@admin.com",
+            "password" : "1234"
+            }
+-------------------------------------------
+        e.g: login as subAdmin
+        {
+        "email":"musa@hospital.com", or "yaseen@hospital.com"
+        "password" : "1234"
+        }
+
+        or
+        {
+            "email":"yaseen@hospital.com",
+            "password" : "1234"
+        }
+------------------------------------------------------------
+
+        e.g: login as user
+        {
+        "email":"momin@email.com",
+        "password" : "123"
+        }
+
+
     response:
         jwt token 
         e.g :
@@ -23,7 +50,7 @@
             }
         Decoded Payload:
             {
-            "sub": "momin@email.com",
+            "sub": "email@email.com",
             "role": "ROLE_USER", (or) "ROLE_SUB_ADMIN" (or) "ROLE_SUPER_ADMIN"
             "iat": 1746444835,
             "exp": 1746445135
@@ -51,7 +78,7 @@
             "firstName": "musa",
             "lastName": "yaseen",
             "email": "musa@hospital.com",
-            "password": "123",
+            "password": "1234",
             "phoneNumber": "123456789",
             "assignedBloodBankCenterName": "City Blood Bank"
         }
@@ -62,10 +89,32 @@
             "lastName": "yaseen",
             "email": "musa@hospital.com",
             "phoneNumber": "123456789",
-            "assignedBloodBankCenterName": "123456789",
+            "assignedBloodBankCenterName": "City Blood Bank",
             "role": "ROLE_SUB_ADMIN",
             "createdAt": "2025-04-18T10:32:43.7650225"
         }
+    
+    e.g 2:
+    request:
+        {
+        "firstName": "yaseen",
+        "lastName": "dar",
+        "email": "yaseen@hospital.com",
+        "password": "1234",
+        "phoneNumber": "4563287",
+        "assignedBloodBankCenterName": "smhs"
+        }
+    response:
+        {
+        "id": 2,
+        "firstName": "yaseen",
+        "lastName": "dar",
+        "email": "yaseen@hospital.com",
+        "phoneNumber": "4563287",
+        "assignedBloodBankCenterName": "smhs",
+        "role": "ROLE_SUB_ADMIN",
+        "createdAt": "2025-06-10T22:00:56.0273294"
+    }
 
 
 ###  GET: localhost:8080/super-admin/get-registered-admins 
@@ -73,58 +122,56 @@
 
     Response: List of registered-admins or "NO REGISTERED SUB_ADMINS"
     [
-    {
-        "id": 1,
-        "firstName": "musa",
-        "lastName": "yaseen",
-        "email": "musa@hospital.com",
-        "phoneNumber": "123456789",
-        "assignedBloodBankCenterName": "123456789",
-        "role": "ROLE_SUB_ADMIN",
-        "createdAt": "2025-04-18T10:43:18.437716"
-    },
-    {
-        "id": 2,
-        "firstName": "momin",
-        "lastName": "yaseen",
-        "email": "momin@hospital.com",
-        "phoneNumber": "9897886381",
-        "assignedBloodBankCenterName": "smhs",
-        "role": "ROLE_SUB_ADMIN",
-        "createdAt": "2025-04-18T10:46:47.270021"
-    }
-    ]
+       {
+           "id": 1,
+           "firstName": "musa",
+           "lastName": "yaseen",
+           "email": "musa@hospital.com",
+           "phoneNumber": "123456789",
+           "assignedBloodBankCenterName": "123456789",
+           "role": "ROLE_SUB_ADMIN",
+           "createdAt": "2025-06-10T21:49:51.59436"
+       },
+       {
+           "id": 2,
+           "firstName": "yaseen",
+           "lastName": "dar",
+           "email": "yaseen@hospital.com",
+           "phoneNumber": "4563287",
+           "assignedBloodBankCenterName": "4563287",
+           "role": "ROLE_SUB_ADMIN",
+           "createdAt": "2025-06-10T22:00:56.027329"
+       }
+   ]
 
 
-###  PUT: localhost:8080/super-admin/approve-camp/{ID}   |
+###  PUT: localhost:8080/super-admin/approve-camp/{ID}
     Request: Path-variable id = (e.g. id = 1)
 
     Response: below json , if camp is already approved then response = "400 Bad Request , msg = "DONATION CAMP ALREADY APPROVED"
-        [
-            {
-                "id": 2,
-                "campName": "Downtown Blood Donation Drive",
-                "organizerName": "City Blood Bank",
-                "address": "lal chowk",
-                "city": "Baramulla",
-                "state": "Jammu & Kashmir",
-                "country": "India",
-                "latitude": 34.209,
-                "longitude": 74.3481,
-                "campDate": "2025-04-25",
-                "startTime": "10:00:00",
-                "endTime": "16:00:00",
-                "totalSlots": 80,
-                "slotsBooked": 0,
-                "slotsLeft": 0,
-                "createdAt": "2025-04-23T14:51:53.196171",
-                "contactNumber": "+91-9876543210",
-                "email": "musa@hospital.com",
-                "bloodBankCenterName": "City Blood Bank",
-                "active": true,
-                "approved": true
-            }
-        ]
+        {
+         "id": 1,
+         "campName": "Downtown Blood Donation Drive",
+         "organizerName": "City Blood Bank",
+         "address": "45 Red Cross Avenue",
+         "city": "Baramulla",
+         "state": "Jammu & Kashmir",
+         "country": "India",
+         "latitude": 34.209,
+         "longitude": 74.3481,
+         "campDate": "2026-04-25",
+         "startTime": "10:00:00",
+         "endTime": "16:00:00",
+         "totalSlots": 80,
+         "slotsBooked": 0,
+         "slotsLeft": 80,
+         "createdAt": "2025-06-10T21:52:33.271302",
+         "contactNumber": "+91-9876543210",
+         "email": "musa@hospital.com",
+         "bloodBankCenterName": "City Blood Bank",
+         "active": true,
+         "approved": true
+     }
 
 ### GET: localhost:8080/super-admin/active-camps
     Request: None
@@ -179,7 +226,7 @@
             }
         ]
 
-### GET: localhost:8080/super-admin/approved-donation-camps   |
+### GET: localhost:8080/super-admin/approved-donation-camps
 
     Request: None
 
@@ -220,138 +267,140 @@
     ]
 
 
-### GET: localhost:8080/super-admin/get-requested-camps |
+### GET: localhost:8080/super-admin/get-requested-camps
     Request: None
 
     Response: List of requested camps or "No requested donation camps found."
     [
-    {
-        "id": 1,
-        "campName": "Downtown Blood Donation Drive",
-        "organizerName": null,
-        "address": "45 Red Cross Avenue",
-        "city": "Baramulla",
-        "state": "Jammu & Kashmir",
-        "country": "India",
-        "latitude": 34.209,
-        "longitude": 74.3481,
-        "campDate": "2025-04-25",
-        "startTime": "10:00:00",
-        "endTime": "16:00:00",
-        "totalSlots": 80,
-        "slotsBooked": 0,
-        "slotsLeft": 0,
-        "createdAt": "2025-04-18T11:02:37.376168",
-        "contactNumber": "+91-9876543210",
-        "email": "musa@hospital.com",
-        "subAdmin": {
-            "id": 1,
-            "firstName": "musa",
-            "lastName": "yaseen",
-            "email": "musa@hospital.com",
-            "phoneNumber": "123456789",
-            "assignedBloodBankCenterName": "123456789",
-            "role": "ROLE_SUB_ADMIN",
-            "createdAt": "2025-04-18T10:43:18.437716"
-        },
-        "active": false,
-        "approved": false
-    }
-    ]
+       {
+           "id": 1,
+           "campName": "Downtown Blood Donation Drive",
+           "organizerName": "City Blood Bank",
+           "address": "45 Red Cross Avenue",
+           "city": "Baramulla",
+           "state": "Jammu & Kashmir",
+           "country": "India",
+           "latitude": 34.209,
+           "longitude": 74.3481,
+           "campDate": "2026-04-25",
+           "startTime": "10:00:00",
+           "endTime": "16:00:00",
+           "totalSlots": 80,
+           "slotsBooked": 0,
+           "slotsLeft": 80,
+           "createdAt": "2025-06-10T21:52:33.271302",
+           "contactNumber": "+91-9876543210",
+           "email": "musa@hospital.com",
+           "bloodBankCenterName": "City Blood Bank",
+           "active": false,
+           "approved": false
+       },
+       {
+           "id": 4,
+           "campName": "Downtown Blood Donation Drive",
+           "organizerName": "City Blood Bank",
+           "address": "xyz add",
+           "city": "lalchow",
+           "state": "Jammu & Kashmir",
+           "country": "India",
+           "latitude": 34.209,
+           "longitude": 74.3481,
+           "campDate": "2026-04-25",
+           "startTime": "10:00:00",
+           "endTime": "16:00:00",
+           "totalSlots": 80,
+           "slotsBooked": 0,
+           "slotsLeft": 80,
+           "createdAt": "2025-06-10T22:15:43.962976",
+           "contactNumber": "+91-9876543210",
+           "email": "musa@hospital.com",
+           "bloodBankCenterName": "City Blood Bank",
+           "active": false,
+           "approved": false
+       }
+   ]
 
-### GET: localhost:8080/super-admin/get-registered-admins  |
+### GET: localhost:8080/super-admin/get-registered-admins
     request: none
     response :
        [
-           {
-               "id": 1,
-               "name": "City Blood Bank",
-               "address": "123 Main Street, Downtown",
-               "contactNumber": "+911234567890",
-               "email": "contact@citybloodbank.org",
-               "city": "Srinagar",
-               "state": "Jammu & Kashmir",
-               "country": "India",
-               "subAdminEmail": "musa@hospital.com"
-               },
-               {
-               "id": 2,
-               "name": "SMHS",
-               "address": "123 Main Street, Downtown",
-               "contactNumber": "+91123F4567890",
-               "email": "contact@smhs.org",
-               "city": "Srinagar",
-               "state": "Jammu & Kashmir",
-               "country": "India",
-               "subAdminEmail": "momin@hospital.com"
-           }
-       ]
+          {
+              "id": 1,
+              "firstName": "musa",
+              "lastName": "yaseen",
+              "email": "musa@hospital.com",
+              "phoneNumber": "123456789",
+              "assignedBloodBankCenterName": "123456789",
+              "role": "ROLE_SUB_ADMIN",
+              "createdAt": "2025-06-10T21:49:51.59436"
+          },
+          {
+              "id": 2,
+              "firstName": "yaseen",
+              "lastName": "dar",
+              "email": "yaseen@hospital.com",
+              "phoneNumber": "4563287",
+              "assignedBloodBankCenterName": "4563287",
+              "role": "ROLE_SUB_ADMIN",
+              "createdAt": "2025-06-10T22:00:56.027329"
+          }
+      ]
 
 ### GET: localhost:8080/super-admin/get-logs/{centerId}      | (e.g : localhost:8080/super-admin/get-logs/1) , here 1 represents centerId
     request:nothing
     response : THIS RESPONSE(inventory log) IS ACCORDING TO BLOOD BANK CENTER WITH ID=1 
         [
-            {
-                "id": 1,
-                "bloodGroup": "A+",
-                "quantityChanged": 10,
-                "actionType": "donation",
-                "remarks": "Issued 3 units for emergency transfusion",
-                "performedBy": "musa@hospital.com",
-                "availableQuantity": 0,
-                "actionTime": "2025-04-25T18:50:04.667186"
-            },
-            {
-                "id": 2,
-                "bloodGroup": "A+",
-                "quantityChanged": -7,
-                "actionType": "request",
-                "remarks": "Issued 3 units for emergency transfusion",
-                "performedBy": "musa@hospital.com",
-                "availableQuantity": 0,
-                "actionTime": "2025-04-25T18:53:40.456019"
-            },
-            {
-                "id": 3,
-                "bloodGroup": "A+",
-                "quantityChanged": 17,
-                "actionType": "donation",
-                "remarks": "Issued 3 units for emergency transfusion",
-                "performedBy": "musa@hospital.com",
-                "availableQuantity": 0,
-                "actionTime": "2025-04-25T20:32:01.461524"
-            },
-        ]
+           {
+               "id": 1,
+               "bloodGroup": "O+",
+               "quantityChanged": -3,
+               "actionType": "REQUEST",
+               "remarks": "Issued 3 units for emergency transfusion",
+               "performedBy": "musa@hospital.com",
+               "availableQuantity": 5,
+               "actionTime": "2025-06-10T21:55:43.593605"
+           },
+           {
+               "id": 2,
+               "bloodGroup": "O+",
+               "quantityChanged": 3,
+               "actionType": "DONATION",
+               "remarks": "Donation at xxx camp",
+               "performedBy": "musa@hospital.com",
+               "availableQuantity": 8,
+               "actionTime": "2025-06-10T21:56:24.328764"
+           }
+       ]
 
 
-### GET: localhost:8080/super-admin/get-centers            |
+### GET: localhost:8080/super-admin/get-centers
     request : none
     response : list of blood bank centers . each center will be clickable and 
                  then will have the option to check the logs of it using above(8th ⬆️) api call internally.
        [
-           {
-               "id": 1,
-               "name": "City Blood Bank",
-               "address": "123 Main Street, Downtown",
-               "contactNumber": "+911234567890",
-               "email": "contact@citybloodbank.org",
-               "city": "Srinagar",
-               "state": "Jammu & Kashmir",
-               "country": "India",
-               "subAdminEmail": "musa@hospital.com"
-           },
-           {
-               "id": 2,
-               "name": "SMHS",
-               "address": "123 Main Street, Downtown",
-               "contactNumber": "+91123F4567890",
-               "email": "contact@smhs.org",
-               "city": "Srinagar",
-               "state": "Jammu & Kashmir",
-               "country": "India",
-               "subAdminEmail": "momin@hospital.com"
-           }
-       ]
+          {
+              "id": 1,
+              "name": "City Blood Bank",
+              "address": "123 Main Street, Downtown",
+              "contactNumber": "+911234567890",
+              "email": "contact@citybloodbank.org",
+              "city": "Srinagar",
+              "state": "Jammu & Kashmir",
+              "country": "India",
+              "subAdminEmail": "musa@hospital.com"
+          },
+          {
+              "id": 4,
+              "name": "smhs",
+              "address": "123 Main Street, Downtown",
+              "contactNumber": "+9156316813168",
+              "email": "contact@smhs.org",
+              "city": "Srinagar",
+              "state": "Jammu & Kashmir",
+              "country": "India",
+              "subAdminEmail": "yaseen@hospital.com"
+          }
+      ]
 
 
 
@@ -372,7 +421,7 @@
 # SUB-ADMIN   
 
 
-### POST: localhost:8080/admin/req-donation-camp   
+### POST: localhost:8080/admin/req-donation-camp
     Request:
     {
     "campName": "Downtown Blood Donation Drive",
@@ -382,7 +431,7 @@
     "country": "India",
     "latitude": 34.2090,
     "longitude": 74.3481,
-    "campDate": "2025-04-25",
+    "campDate": "2026-04-25",
     "startTime": "10:00:00",
     "endTime": "16:00:00",
     "totalSlots": 80,
@@ -507,7 +556,54 @@
                     }
             ]
         }
-
+    e.g 2.
+     request:
+       {
+       "name": "smhs",
+       "address": "123 Main Street, Downtown",
+       "contactNumber": "+9156316813168",
+       "email": "contact@smhs.org",
+       "city": "Srinagar",
+       "state": "Jammu & Kashmir",
+       "country": "India",
+       "latitude": 34.0836,
+       "longitude": 74.7973,
+       "centerEstablishedTime": "2020-04-01T09:00:00",
+       "bloodInventories": [
+       {
+       "bloodGroup": "A+",
+       "availableUnits": 12,
+       "bloodBankCenter": 1
+       },
+       {
+       "bloodGroup": "B+",
+       "availableUnits": 10,
+       "bloodBankCenter": 1
+       },
+       {
+       "bloodGroup": "O+",
+       "availableUnits": 8,
+       "bloodBankCenter": 1
+       },
+       {
+       "bloodGroup": "AB+",
+       "availableUnits": 6,
+       "bloodBankCenter": 1
+       }
+       ]
+       }
+    response:
+      {
+      "id": 2,
+      "name": "smhs",
+      "address": "123 Main Street, Downtown",
+      "contactNumber": "+9156316813168",
+      "email": "contact@smhs.org",
+      "city": "Srinagar",
+      "state": "Jammu & Kashmir",
+      "country": "India",
+      "subAdminEmail": "yaseen@hospital.com"
+      }
 
 
 ### POST: localhost:8080/admin/add-log           
@@ -535,75 +631,79 @@
     request:- nothing
     response:-
         [
-            {
-                "bloodGroup": "A+",
-                "availableUnits": 61,
-                "lastUpdated": "2025-04-22T17:38:17.47556"
-            },
-            {
-                "bloodGroup": "B+",
-                "availableUnits": 10,
-                "lastUpdated": "2025-04-22T17:15:24.702722"
-            },
-            {
-                "bloodGroup": "O+",
-                "availableUnits": 8,
-                "lastUpdated": "2025-04-22T17:15:24.702722"
-            },
-            {
-                "bloodGroup": "AB+",
-                "availableUnits": 6,
-                "lastUpdated": "2025-04-22T17:15:24.702722"
-            }
-        ]
+          {
+              "bloodGroup": "A+",
+              "availableUnits": 12,
+              "lastUpdated": "2025-06-10T21:51:43.059894"
+          },
+          {
+              "bloodGroup": "B+",
+              "availableUnits": 10,
+              "lastUpdated": "2025-06-10T21:51:43.059894"
+          },
+          {
+              "bloodGroup": "O+",
+              "availableUnits": 8,
+              "lastUpdated": "2025-06-10T21:56:24.310901"
+          },
+          {
+              "bloodGroup": "AB+",
+              "availableUnits": 6,
+              "lastUpdated": "2025-06-10T21:51:43.059894"
+          }
+      ]
 
 ### GET: localhost:8080/admin/get-requested-camps
 
     request : none
     response:
         [
-            {
-                "id": 1,
-                "campName": "Downtown Blood Donation Drive",
-                "organizerName": "City Blood Bank",
-                "address": "45 Red Cross Avenue",
-                "city": "Baramulla",
-                "state": "Jammu & Kashmir",
-                "country": "India",
-                "latitude": 34.209,
-                "longitude": 74.3481,
-                "campDate": "2025-04-25",
-                "startTime": "10:00:00",
-                "endTime": "16:00:00",
-                "totalSlots": 80,
-                "createdAt": "2025-04-23T14:51:37.31501",
-                "contactNumber": "+91-9876543210",
-                "email": "musa@hospital.com"
-            },
-            {
-                "id": 2,
-                "campName": "Downtown Blood Donation Drive",
-                "organizerName": "City Blood Bank",
-                "address": "lal chowk",
-                "city": "Baramulla",
-                "state": "Jammu & Kashmir",
-                "country": "India",
-                "latitude": 34.209,
-                "longitude": 74.3481,
-                "campDate": "2025-04-25",
-                "startTime": "10:00:00",
-                "endTime": "16:00:00",
-                "totalSlots": 80,
-                "createdAt": "2025-04-23T14:51:53.196171",
-                "contactNumber": "+91-9876543210",
-                "email": "musa@hospital.com"
-            }
-        ]
+             {
+                 "id": 1,
+                 "campName": "Downtown Blood Donation Drive",
+                 "organizerName": "City Blood Bank",
+                 "address": "45 Red Cross Avenue",
+                 "city": "Baramulla",
+                 "state": "Jammu & Kashmir",
+                 "country": "India",
+                 "latitude": 34.209,
+                 "longitude": 74.3481,
+                 "campDate": "2026-04-25",
+                 "startTime": "10:00:00",
+                 "endTime": "16:00:00",
+                 "totalSlots": 80,
+                 "createdAt": "2025-06-10T21:52:33.271302",
+                 "contactNumber": "+91-9876543210",
+                 "email": "musa@hospital.com",
+                 "active": false,
+                 "approved": false
+             },
+             {
+                 "id": 4,
+                 "campName": "Downtown Blood Donation Drive",
+                 "organizerName": "City Blood Bank",
+                 "address": "xyz add",
+                 "city": "lalchow",
+                 "state": "Jammu & Kashmir",
+                 "country": "India",
+                 "latitude": 34.209,
+                 "longitude": 74.3481,
+                 "campDate": "2026-04-25",
+                 "startTime": "10:00:00",
+                 "endTime": "16:00:00",
+                 "totalSlots": 80,
+                 "createdAt": "2025-06-10T22:15:43.962976",
+                 "contactNumber": "+91-9876543210",
+                 "email": "musa@hospital.com",
+                 "active": false,
+                 "approved": false
+             }
+         ]
 
 
 ### GET: localhost:8080/admin/get-active-camps    
     request: nothing
-    response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here
+    response: the camps that are activated by the super-admin according to the subAdmin's bloodBank center will appear here , if it returns empty array then there are no active camps for this subadmins blood center
         [
             {
                 "id": 1,
@@ -661,37 +761,27 @@
     REQUEST : NONE
     RESPONSE :
         [
-            {
-            "id": 1,
-            "bloodGroup": "A+",
-            "quantityChanged": 10,
-            "actionType": "donation",
-            "remarks": "Issued 3 units for emergency transfusion",
-            "performedBy": "musa@hospital.com",
-            "availableQuantity": 0,
-            "actionTime": "2025-04-25T18:50:04.667186"
-            },
-            {
-            "id": 2,
-            "bloodGroup": "A+",
-            "quantityChanged": -7,
-            "actionType": "request",
-            "remarks": "Issued 3 units for emergency transfusion",
-            "performedBy": "musa@hospital.com",
-            "availableQuantity": 0,
-            "actionTime": "2025-04-25T18:53:40.456019"
-            },
-            {
-            "id": 3,
-            "bloodGroup": "A+",
-            "quantityChanged": 17,
-            "actionType": "donation",
-            "remarks": "Issued 3 units for emergency transfusion",
-            "performedBy": "musa@hospital.com",
-            "availableQuantity": 0,
-            "actionTime": "2025-04-25T20:32:01.461524"
-            },{},{}
-        ]
+    {
+        "id": 1,
+        "bloodGroup": "O+",
+        "quantityChanged": -3,
+        "actionType": "REQUEST",
+        "remarks": "Issued 3 units for emergency transfusion",
+        "performedBy": "musa@hospital.com",
+        "availableQuantity": 5,
+        "actionTime": "2025-06-10T21:55:43.593605"
+    },
+    {
+        "id": 2,
+        "bloodGroup": "O+",
+        "quantityChanged": 3,
+        "actionType": "DONATION",
+        "remarks": "Donation at xxx camp",
+        "performedBy": "musa@hospital.com",
+        "availableQuantity": 8,
+        "actionTime": "2025-06-10T21:56:24.328764"
+    },{},{}
+]
             
 
 ------------------------------------------------oooooooooooooooo------------------------------------------
@@ -702,7 +792,7 @@
 
 
 
-### POST: localhost:8080/user/register             
+### POST: localhost:8080/user/register
     request:
         {
             "firstName": "momin",
@@ -721,7 +811,7 @@
             "longitude": 74.7984,
             "lastDonationDate": "2025-03-15T10:00:00"
         }
-
+    response:
         {
             "id": 1,
             "firstName": "momin",
@@ -744,7 +834,7 @@
             "lastDonatedDate": null
         }
 
-### GET: localhost:8080/user/donation-history     
+### GET: localhost:8080/user/donation-history
     request:- nothing
     response:-
         [
@@ -789,7 +879,7 @@
 
 
 
-### POST: localhost:8080/user/check-eligibility   
+### POST: localhost:8080/user/check-eligibility
     request:
         {
             "feelingWell": ,

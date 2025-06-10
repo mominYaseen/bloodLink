@@ -20,7 +20,7 @@ public class SubAdminResponseDTO {
         this.lastName = subAdmin.getLastName();
         this.email = subAdmin.getEmail();
         this.phoneNumber = subAdmin.getPhoneNumber();
-        this.assignedBloodBankCenterName = subAdmin.getPhoneNumber();
+        this.assignedBloodBankCenterName = subAdmin.getAssignedBloodBankCenter();
         this.role = subAdmin.getRole();
         this.createdAt = subAdmin.getCreatedAt();
     }
