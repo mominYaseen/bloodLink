@@ -123,12 +123,13 @@ public class UserController {
 
         if (user.isEligibilityCheckDone()) {
             if (user.isEligibleToDonate()) {
-                return ResponseEntity.ok("eligible");
+        System.out.println("EligibilityCheckResponse :"+user.isEligibleToDonate());
+                return ResponseEntity.ok(new EligibilityCheckResponse(true,true));
             } else {
-                return ResponseEntity.ok("not eligible");
+                return ResponseEntity.ok(new EligibilityCheckResponse(true, false));
             }
         } else {
-            return ResponseEntity.ok("eligibility check not done");
+            return ResponseEntity.ok(new EligibilityCheckResponse(true, false));
         }
     }
 

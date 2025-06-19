@@ -79,7 +79,7 @@ public class UserEntity {
     @PrePersist
     protected  void onCreate(){
         this.eligibleToDonate=false;
-        this.eligibilityCheckDone=true;
+        this.eligibilityCheckDone=false;
         this.registeredCamps=null;
         this.createdAt=LocalDateTime.now();
         this.nextDonationDate=null;
