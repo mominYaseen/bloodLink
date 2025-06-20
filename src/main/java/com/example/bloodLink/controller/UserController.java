@@ -40,11 +40,11 @@ public class UserController {
              user.setEligibleToDonate(true);
              user.setEligibilityCheckDone(true);
 
-            return ResponseEntity.ok(" eligible to donate");
+            return ResponseEntity.ok(new EligibleToDonate(true));
         }else {
             user.setEligibleToDonate(false);
             user.setEligibilityCheckDone(true);
-             return ResponseEntity.ok(" not-eligible to donate");
+             return ResponseEntity.ok(new EligibleToDonate(false));
 
         }
 

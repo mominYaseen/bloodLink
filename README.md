@@ -896,9 +896,16 @@
         }
     response :
         1. user eligible to donate(200)
+             {
+                "isEligibleToDonate": true
+            }
+
                 or
         2. user not-eligible to donate(200)
 
+             {
+                "isEligibleToDonate": false
+            }
 
 ### Get: localhost:8080/user/check-if-eligibility    
     request : nothing
