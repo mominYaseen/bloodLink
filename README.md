@@ -902,13 +902,26 @@
 
 ### Get: localhost:8080/user/check-if-eligibility    
     request : nothing
-    response : true ( if eligibility-check is done)
-                else
-                false (if eligibility-check is not done)
+    1. if user has already consumed api(localhost:8080/user/check-eligibility) and is eligible to donate, then
+        response : 
+            {
+                "checkDone": true,
+                "eligibleToDonate": false
+             }
 
+    2. if user has already consumed api(localhost:8080/user/check-eligibility) and is not  eligible to donate, then
+        response : 
+            {
+                "checkDone": true,
+                "eligibleToDonate":false 
+             }
 
-
-
+    3. if user has not consumed api  (localhost:8080/user/check-eligibility) yet , then
+        response : 
+            {
+                "checkDone": false,
+                "eligibleToDonate": false
+             }
 
 ### Get: localhost:8080/user/active-camps             
 
