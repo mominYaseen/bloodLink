@@ -882,30 +882,28 @@
 ### POST: localhost:8080/user/check-eligibility
     request:
         {
-            "feelingWell": ,
-            "recentDonation": ,
-            "takingMedication": ,
-            "hasChronicIllness": ,
-            "hasInfection": ,
-            "covidRecently": ,
-            "malariaTravel": ,
-            "hasTattoo": ,
-            "testedPositiveHIV": ,
-            "pregnant": ,
-            "weight":
+            "feelingWell": true,
+            "recentDonation": false,
+            "takingMedication": false,
+            "hasChronicIllness": false,
+            "hasInfection": false,
+            "covidRecently": false,
+            "malariaTravel": false,
+            "hasTattoo": true,
+            "testedPositiveHIV": false,
+            "pregnant": false,
+            "weight": 70
         }
     response :
         1. user eligible to donate(200)
-             {
-                "isEligibleToDonate": true
-            }
-
+         {
+            "isEligible": false
+         }
                 or
         2. user not-eligible to donate(200)
-
-             {
-                "isEligibleToDonate": false
-            }
+         {
+            "isEligible": false
+         }
 
 ### Get: localhost:8080/user/check-if-eligibility    
     request : nothing
