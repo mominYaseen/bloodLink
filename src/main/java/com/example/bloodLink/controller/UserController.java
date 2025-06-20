@@ -121,15 +121,15 @@ public class UserController {
 
         UserEntity user = userService.getUserByEmail(email);
 
-        if (user.isEligibilityCheckDone()) {
-            if (user.isEligibleToDonate()) {
-        System.out.println("EligibilityCheckResponse :"+user.isEligibleToDonate());
-                return ResponseEntity.ok(new EligibilityCheckResponse(true,true));
+        if (user.isEligibilityCheckDone()==true) {
+            if (user.isEligibleToDonate()== true) {
+//        System.out.println("EligibilityCheckResponse :"+user.isEligibleToDonate());
+                return ResponseEntity.ok(new EligibilityCheckResponse( true,true)); //   checkDone  , eligibleToDonate
             } else {
                 return ResponseEntity.ok(new EligibilityCheckResponse(true, false));
             }
         } else {
-            return ResponseEntity.ok(new EligibilityCheckResponse(true, false));
+            return ResponseEntity.ok(new EligibilityCheckResponse(false, false));
         }
     }
 
