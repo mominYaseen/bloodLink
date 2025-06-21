@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -39,12 +40,14 @@ public class UserController {
             // get the email from jwt token and get curr user using the email and set
              user.setEligibleToDonate(true);
              user.setEligibilityCheckDone(true);
+            userService.save(user);
 
-            return ResponseEntity.ok(" eligible to donate");
+            return ResponseEntity.ok(Map.of("isEligible", true)    );
         }else {
             user.setEligibleToDonate(false);
             user.setEligibilityCheckDone(true);
-             return ResponseEntity.ok(" not-eligible to donate");
+            userService.save(user);
+             return ResponseEntity.ok(Map.of("isEligible", false)    );
 
         }
 
