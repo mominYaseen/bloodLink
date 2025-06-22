@@ -38,7 +38,7 @@ public class BloodBankCenter {
     private double latitude;
     private double longitude;
 
-    private LocalDateTime centerEstablishedTime;
+    private int centerEstablishedTime;
 
     @CreationTimestamp
     private LocalDateTime accountCreatedAt;
@@ -187,11 +187,11 @@ public class BloodBankCenter {
         return accountCreatedAt;
     }
 
-    public LocalDateTime getCenterEstablishedTime() {
+    public int getCenterEstablishedTime() {
         return centerEstablishedTime;
     }
 
-    public void setCenterEstablishedTime(LocalDateTime centerEstablishedTime) {
+    public void setCenterEstablishedTime(int centerEstablishedTime) {
         this.centerEstablishedTime = centerEstablishedTime;
     }
 
