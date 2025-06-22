@@ -105,11 +105,13 @@ public class UserController {
 
         String bloodGroup = userService.getUserByEmail(email).getBloodGroup();
         try{
-            return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
+            List<BloodShortageResponse> result = commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
                     .stream()
                     .map(BloodShortageResponse::new)
                     .toList()
-            );
+                  ;
+      System.out.println(result.toString());
+      return ResponseEntity.ok(result);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }

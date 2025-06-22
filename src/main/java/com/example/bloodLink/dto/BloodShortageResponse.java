@@ -48,4 +48,13 @@ public class BloodShortageResponse {
     public void setAvailableUnits(int availableUnits) {
         this.availableUnits = availableUnits;
     }
+
+
+    @Override
+    public String toString() {
+      return "BloodShortageResponse{centerName=" + centerName + ", city=" + city + ", bloodGroup=" + bloodGroup
+          + ", availableUnits=" + availableUnits + ", getCenterName()=" + getCenterName() + ", getCity()=" + getCity()
+          + ", getBloodGroup()=" + getBloodGroup() + ", getAvailableUnits()=" + getAvailableUnits() + ", getClass()="
+          + getClass() + "}";
+    }
 }
