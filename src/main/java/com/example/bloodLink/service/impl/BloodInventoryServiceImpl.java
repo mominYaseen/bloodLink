@@ -35,21 +35,39 @@ public class BloodInventoryServiceImpl implements BloodInventoryService {
   }
 
   public List<BloodInventory> getLowBloodInventory() {
-   
-    return bloodInventoryRepo.findAll()
-        .stream()
+
+    System.out.println("In BloodInventoryServiceImpl.getLowBloodInventory()");
+    List<BloodInventory> result = bloodInventoryRepo.findAll().stream()
         .filter(inventory -> inventory.getAvailableUnits() <= inventory.getMinimumUnits())
         .toList();
 
+    System.out.println("IN BLOOD Inventory Service ");
+    for (BloodInventory bloodInventory : result) {
+
+        System.out.println(bloodInventory.toString());
+    }
+
+    return result;
 
   }
 
   @Override
   public List<BloodInventory> lowBloodInventoryByBloodGroup(String bloodGroup) {
-    return getLowBloodInventory()
-        .stream()
-        .filter(inventory -> inventory.getBloodGroup().equalsIgnoreCase(bloodGroup))
-        .toList();
+
+ //   System.out.println("In BloodInventoryServiceImpl.lowBloodInventoryByBloodGroup()");
+    List<BloodInventory> result = getLowBloodInventory().stream()
+    .filter(inventory -> inventory.getBloodGroup().equalsIgnoreCase(bloodGroup)).toList();
+//    System.out.println("--------------------------------------------------");
+//    for (BloodInventory bloodInventory : result) {
+//      System.out.println(bloodInventory.getBloodGroup().toString());
+//    }
+
+
+    return result;
+    // getLowBloodInventory()
+    // .stream()
+    // .filter(inventory -> inventory.getBloodGroup().equalsIgnoreCase(bloodGroup))
+    // .toList();
   }
 
 }

@@ -70,7 +70,9 @@ public class BloodBankCenterServiceImpl implements BloodBankCenterService {
 
     @Override
     public List<BloodBankCenter> getAllBloodCenters() {
-        return bloodBankCenterRepo.findAll();
+    
+    List<BloodBankCenter> result = bloodBankCenterRepo.findAll();
+        return result;
     }
 
     @Override

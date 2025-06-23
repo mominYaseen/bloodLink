@@ -16,16 +16,6 @@ public class BloodInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Override
-    public String toString() {
-      return "BloodInventory{id=" + id + ", bloodGroup=" + bloodGroup + ", availableUnits=" + availableUnits
-          + ", minimumUnits=" + minimumUnits + ", bloodBankCenter=" + bloodBankCenter + ", lastUpdated=" + lastUpdated
-          + ", lastNotifiedAt=" + lastNotifiedAt + ", getId()=" + getId() + ", getLastUpdated()=" + getLastUpdated()
-          + ", getBloodGroup()=" + getBloodGroup() + ", getAvailableUnits()=" + getAvailableUnits()
-          + ", getMinimumUnits()=" + getMinimumUnits() + ", getBloodBankCenter()=" + getBloodBankCenter()
-          + ", getLastNotifiedAt()=" + getLastNotifiedAt() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-          + ", toString()=" + super.toString() + "}";
-    }
 
     private String bloodGroup;
     private int availableUnits;
@@ -117,5 +107,16 @@ public class BloodInventory {
 
     public void setLastNotifiedAt(LocalDateTime lastNotifiedAt) {
         this.lastNotifiedAt = lastNotifiedAt;
+    }
+
+    @Override
+    public String toString() {
+      return "BloodInventory{id=" + id + ", bloodGroup=" + bloodGroup + ", availableUnits=" + availableUnits
+          + ", minimumUnits=" + minimumUnits + ", bloodBankCenter=" + bloodBankCenter + ", lastUpdated=" + lastUpdated
+          + ", lastNotifiedAt=" + lastNotifiedAt + ", getId()=" + getId() + ", getLastUpdated()=" + getLastUpdated()
+          + ", getBloodGroup()=" + getBloodGroup() + ", getAvailableUnits()=" + getAvailableUnits()
+          + ", getMinimumUnits()=" + getMinimumUnits() + ", getBloodBankCenter()=" + getBloodBankCenter()
+          + ", getLastNotifiedAt()=" + getLastNotifiedAt() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+          + ", toString()=" + super.toString() + "}";
     }
 }

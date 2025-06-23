@@ -107,6 +107,7 @@ public class CommonDataServiceImpl implements CommonDataService {
 
     @Override
     public List<BloodInventory> lowBloodInventoryByBloodGroup(String bloodGroup) {
+    System.out.println("In CommonDataServiceImpl.lowBloodInventoryByBloodGroup()");
         return bloodInventoryService.lowBloodInventoryByBloodGroup(bloodGroup);
     }
 
