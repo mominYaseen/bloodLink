@@ -13,7 +13,7 @@ public class BloodBankCenterRegistrationRequestDTO {
     private String country;
     private double latitude;
     private double longitude;
-    private LocalDateTime centerEstablishedTime;
+    private int centerEstablishedTime;
 
     private List<BloodInventoryDTO> bloodInventories;
 
@@ -92,11 +92,11 @@ public class BloodBankCenterRegistrationRequestDTO {
         this.longitude = longitude;
     }
 
-    public LocalDateTime getCenterEstablishedTime() {
+    public int getCenterEstablishedTime() {
         return centerEstablishedTime;
     }
 
-    public void setCenterEstablishedTime(LocalDateTime centerEstablishedTime) {
+    public void setCenterEstablishedTime(int centerEstablishedTime) {
         this.centerEstablishedTime = centerEstablishedTime;
     }
 

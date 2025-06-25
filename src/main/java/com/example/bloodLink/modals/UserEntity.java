@@ -82,7 +82,6 @@ public class UserEntity {
         this.eligibilityCheckDone=false;
         this.registeredCamps=null;
         this.createdAt=LocalDateTime.now();
-        this.nextDonationDate=null;
     }
 
 
@@ -256,4 +255,15 @@ public class UserEntity {
     public void setNextDonationDate(LocalDate nextDonationDate) {
         this.nextDonationDate = nextDonationDate;
     }
+
+
+    @Override
+    public String toString() {
+      return "UserEntity{id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+          + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", age=" + age + ", bloodGroup=" + bloodGroup
+          + ", address=" + address + ", city=" + city + ", state=" + state + "}";
+    }
+
+
+
 }

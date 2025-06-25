@@ -60,6 +60,8 @@ public class DonationCampServiceImpl implements DonationCampService {
         // Fetch the UserEntity (Donor) by email
         UserEntity donor = userService.getUserByEmail(donorEmail);
 
+    System.out.println("-----------------------------------------");
+    System.out.println(donor.toString());
         // Check if the donor is eligible to donate
         if (!(donor.isEligibleToDonate())) {
             throw new RuntimeException("DONOR IS NOT ELIGIBLE TO DONATE ." );

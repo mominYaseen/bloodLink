@@ -15,7 +15,10 @@
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/DonationCampResponseToUser.java
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/EligibilityCheckResponse.java
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/EligibilityFormDTO.java
+<<<<<<< HEAD
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/EligibleToDonate.java
+=======
+>>>>>>> additional
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/LoginRequest.java
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/SubAdminCreateDTO.java
 /home/momin/projects/springBootPro/bloodLink/src/main/java/com/example/bloodLink/dto/SubAdminResponseDTO.java

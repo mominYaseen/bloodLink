@@ -4,6 +4,7 @@ import com.example.bloodLink.enums.GenderEnum;
 import com.example.bloodLink.modals.UserEntity;
 import org.apache.catalina.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class UserDto {
     private String country;
     private double latitude;
     private double longitude;
-    private LocalDateTime lastDonationDate;
+    private LocalDate lastDonationDate;
 
 
 
@@ -39,6 +40,7 @@ public class UserDto {
     public String getLastName() {
         return lastName;
     }
+    
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -120,10 +122,18 @@ public class UserDto {
 //    public void setEligibleToDonate(boolean eligibleToDonate) {
 //        this.eligibleToDonate = eligibleToDonate;
 //    }
-    public LocalDateTime getLastDonationDate() {
+    public LocalDate getLastDonationDate() {
         return lastDonationDate;
     }
-    public void setLastDonationDate(LocalDateTime lastDonationDate) {
+    public void setLastDonationDate(LocalDate lastDonationDate) {
         this.lastDonationDate = lastDonationDate;
     }
+    @Override
+    public String toString() {
+      return "UserDto{firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
+          + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", age=" + age + ", bloodGroup=" + bloodGroup
+          + ", address=" + address + ", city=" + city + ", state=" + state + ", country=" + country + ", latitude="
+          + latitude + ", longitude=" + longitude + ", lastDonationDate=" + lastDonationDate + "}";
+    }
+
 }

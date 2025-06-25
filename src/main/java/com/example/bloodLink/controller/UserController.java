@@ -2,6 +2,7 @@ package com.example.bloodLink.controller;
 
 import com.example.bloodLink.dto.*;
 import com.example.bloodLink.modals.AuthUser;
+import com.example.bloodLink.modals.BloodInventory;
 import com.example.bloodLink.modals.UserEntity;
 import com.example.bloodLink.service.CommonDataService;
 import com.example.bloodLink.service.UserService;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -59,15 +62,41 @@ public class UserController {
       // get the email from jwt token and get curr user using the email and set
       user.setEligibleToDonate(true);
       user.setEligibilityCheckDone(true);
+      userService.save(user);
 
       return ResponseEntity.ok(Map.of("isEligible", true));
     } else {
       user.setEligibleToDonate(false);
       user.setEligibilityCheckDone(true);
+      userService.save(user);
       return ResponseEntity.ok(Map.of("isEligible", false));
     }
 
   }
+  // @GetMapping("get-user")
+  // public ResponseEntity<?> getUser(String ){
+  //
+  // }
+
+  // @PostMapping("/register")
+  // public ResponseEntity<?> register(@RequestBody UserDto user) {
+  // try {
+  // // Check if user with this email already exists
+  // if (userService.getUserByEmail(user.getEmail()) != null) {
+  // return ResponseEntity.badRequest().body("Email already registered");
+  // }
+  //
+  // // Create and save AuthUser for authentication
+  // AuthUser authUser = new AuthUser();
+  // authUser.setEmail(user.getEmail());
+  // authUser.setPassword(passwordEncoder.encode(user.getPassword()));
+  // authUser.setRole("ROLE_USER");
+  // commonDataService.saveAuthUserToDb(authUser);
+  //
+  // // Save full user data
+  // return ResponseEntity.ok(userService.saveUserToDb(user));
+  // }
+  //
   // @GetMapping("get-user")
   // public ResponseEntity<?> getUser(String ){
   //
@@ -121,12 +150,16 @@ public class UserController {
 
     String bloodGroup = userService.getUserByEmail(email).getBloodGroup();
     try {
-      return ResponseEntity.ok(commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
-          .stream()
-          .map(BloodShortageResponse::new)
-          .toList());
+      System.out.println("In UserController.getLowBloodInventory().try ");
+      return ResponseEntity.ok(
+          commonDataService.lowBloodInventoryByBloodGroup(bloodGroup)
+              .stream()
+              .map(BloodShortageResponse::new)
+              .toList());
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+
+      System.out.println("In UserController.getLowBloodInventory().catch ");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
   }
@@ -138,7 +171,7 @@ public class UserController {
 
     UserEntity user = userService.getUserByEmail(email);
 
-    if (user.isEligibilityCheckDone() == true) {
+    if ( user.isEligibilityCheckDone() == true) {
       if (user.isEligibleToDonate() == true) {
         // System.out.println("EligibilityCheckResponse :"+user.isEligibleToDonate());
         return ResponseEntity.ok(new EligibilityCheckResponse(true, true)); // checkDone , eligibleToDonate

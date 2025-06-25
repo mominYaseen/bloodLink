@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication authResult = authenticationManager.authenticate(authToken);
             if (authResult.isAuthenticated()){
                 String role = authResult.getAuthorities().iterator().next().getAuthority(); // Get the role
-                String token = jwtUtils.generateToken(authResult.getName() ,role, 5);
+                String token = jwtUtils.generateToken(authResult.getName() ,role, 15);
                 response.setHeader("Authorization" , "Bearer " + token);
             }
         }
